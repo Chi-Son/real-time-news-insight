@@ -1,0 +1,16 @@
+{
+  "vnexpress": {
+    "technology": "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss",
+    "business": "https://vnexpress.net/rss/kinh-doanh.rss",
+    "education": "https://vnexpress.net/rss/giao-duc.rss",
+    "travel":"https://vnexpress.net/rss/du-lich.rss",
+    "news":"https://vnexpress.net/rss/thoi-su.rss"
+  },
+    "tuoitre":{
+    "business":"https://tuoitre.vn/rss/kinh-doanh.rss",
+    "education":"https://tuoitre.vn/rss/giao-duc.rss",
+    "technology":"https://tuoitre.vn/rss/nhip-song-so.rss",
+    "travel":"https://tuoitre.vn/rss/du-lich.rss",
+    "news":"https://tuoitre.vn/rss/thoi-su.rss"
+  }
+}
