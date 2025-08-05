@@ -1,7 +1,7 @@
 {
   "name": "Real-time News Insight",
   "dockerComposeFile": "../docker-compose.yml",
-  "service": "rss_crawler",   
+  "service": "crawler_service",   
   "workspaceFolder": "/workspace/real-time-news-insight",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
@@ -13,5 +13,5 @@
     "ms-python.python",
     "ms-azuretools.vscode-docker"
   ],
-  "postCreateCommand": "pip install -r rss_crawler_service/requirements.txt"
+  "postCreateCommand": "pip install -r crawler_service/requirements.txt"
 }
