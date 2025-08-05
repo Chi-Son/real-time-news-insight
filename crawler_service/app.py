@@ -1,15 +1,9 @@
-import requests
-from bs4 import BeautifulSoup
-url ='https://vnexpress.net/noi-hinh-thanh-dong-dat-du-doi-nhat-the-gioi-4921099.html'
-response = requests.get(url)
-html = response.text
-soup = BeautifulSoup(html, "html.parser")
+import feedparser
 
-#lay noi dung bat dau tu day
-title = soup.find("h1", class_="title-detail").get_text(strip=True)
-content_div = soup.find("article", class_="fck_detail")
-paragraphs = content_div.find_all("p")
+rss_url = "https://vnexpress.net/rss/kinh-doanh.rss"
+feed = feedparser.parse(rss_url)
 
-content = "\n".join(p.get_text(strip=True) for p in paragraphs)
-
-print(content)
+for entry in feed.entries:
+    print(entry.title)
+    print(entry.link)
+    print(entry.published)

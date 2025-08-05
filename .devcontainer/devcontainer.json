@@ -1,0 +1,17 @@
+{
+  "name": "Real-time News Insight",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "rss_crawler",   
+  "workspaceFolder": "/workspace/real-time-news-insight",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace/real-time-news-insight,type=bind"
+  ],
+  "extensions": [
+    "ms-python.python",
+    "ms-azuretools.vscode-docker"
+  ],
+  "postCreateCommand": "pip install -r rss_crawler_service/requirements.txt"
+}
