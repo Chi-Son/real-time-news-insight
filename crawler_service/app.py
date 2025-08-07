@@ -1,30 +1,17 @@
-import json
-import feedparser
-import redis
-import hashlib
-import time
-import os
-import re
-
+import json ,feedparser,redis,hashlib, time, os,re
+from shared.utils import url_to_hash
+from shared.kafka_config import get_kafka_producer
 # Kết nối đến Redis
-redis_host = os.getenv("REDIS_HOST", "localhost")  # dùng biến môi trường
+redis_host = os.getenv("REDIS_HOST", "localhost")  
 r = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
-
-# Set name dùng để chứa URL đã crawl
+#key của crawl trên redis
 REDIS_KEY = "crawled_urls"
 
-# Hàm tạo khóa hash để tránh URL dài và lộn xộn
-def url_to_hash(url):
-    # Lấy ID bài báo ở cuối URL
-    match = re.search(r'-(\d+)\.html', url)
-    if match:
-        article_id = match.group(1)
-    else:
-        # Nếu không match được thì fallback lại dùng URL đầy đủ
-        article_id = url
-    return hashlib.sha256(article_id.encode()).hexdigest()
+# đặt topic để gửi vào
+producer=get_kafka_producer()
+KAFKA_TOPIC="news.raw_links"
 
-# Load danh sách nguồn từ file JSON
+# Load json
 def load_sources(path="rss_sources.json"):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -37,25 +24,29 @@ def crawl_rss():
         for url in urls:
             print(f"🔗 Crawling: {url}", flush=True)
             feed = feedparser.parse(url)
-            for entry in feed.entries[:3]:  # Lấy 3 tin mới nhất
+            for entry in feed.entries[:3]:  
                 link_hash = url_to_hash(entry.link)
-
-                # Kiểm tra nếu đã tồn tại trong Redis thì bỏ qua
+                
                 if r.sismember(REDIS_KEY, link_hash):
                     print(f"⛔️ Trùng: {entry.title}", flush=True)
                     continue
-
-                # Nếu chưa có thì xử lý bài viết
+                #đoạn này xử lý trùng gửi vào kafka
                 print(f"✅ Mới: {entry.title}", flush=True)
                 print(f"   {entry.link}", flush=True)
-
-                # Lưu vào Redis và đặt thời gian sống (TTL)
                 r.sadd(REDIS_KEY, link_hash)
-                r.expire(REDIS_KEY, 43200)  # TTL: 86400 giây = 1 ngày
+                r.expire(REDIS_KEY, 43200)
+                data = {
+                    "url": entry.link,
+                    "title": entry.title,
+                    "category": category,
+                    "published": entry.published if "published" in entry else None
+                }  
+                producer.send(KAFKA_TOPIC,value=data)
+                print("Đã gửi")
 
 if __name__ == "__main__":
     while True:
         print("⏰ Bắt đầu crawl RSS", flush=True)
         crawl_rss()
         print("🛌 Ngủ 2 phút 30...\n", flush=True)
-        time.sleep(300)  # 5 phút
+        time.sleep(300)  
