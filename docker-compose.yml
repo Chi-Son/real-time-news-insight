@@ -23,6 +23,13 @@ services:
       context: ./crawler_service
     volumes:
       - ./crawler_service:/app
+    environment:
+      REDIS_HOST: redis  
     depends_on:
-      - kafka
-    restart: always
+      - redis
+    restart: no
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
