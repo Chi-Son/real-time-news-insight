@@ -14,8 +14,6 @@ WORKDIR /app
 
 # Copy file requirements trước để tận dụng cache
 COPY requirements.txt .
-
-# Cài thư viện Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy toàn bộ project

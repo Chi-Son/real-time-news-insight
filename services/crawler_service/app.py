@@ -1,11 +1,10 @@
-import json ,feedparser,redis,hashlib, time, os,re
-from shared.utils import url_to_hash
+import json ,feedparser, time
+from shared.utils import url_to_hash, is_duplicate
 from shared.kafka_config import get_kafka_producer
-# Kết nối đến Redis
-redis_host = os.getenv("REDIS_HOST", "localhost")  
-r = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
+from shared.redis_connect import redis_connection
 #key của crawl trên redis
 REDIS_KEY = "crawled_urls"
+r= redis_connection()
 
 # đặt topic để gửi vào
 producer=get_kafka_producer()
@@ -26,15 +25,12 @@ def crawl_rss():
             feed = feedparser.parse(url)
             for entry in feed.entries[:3]:  
                 link_hash = url_to_hash(entry.link)
-                
-                if r.sismember(REDIS_KEY, link_hash):
+                if is_duplicate (r,REDIS_KEY,link_hash):
                     print(f"⛔️ Trùng: {entry.title}", flush=True)
                     continue
-                #đoạn này xử lý trùng gửi vào kafka
+                # gửi vào kafka
                 print(f"✅ Mới: {entry.title}", flush=True)
                 print(f"   {entry.link}", flush=True)
-                r.sadd(REDIS_KEY, link_hash)
-                r.expire(REDIS_KEY, 43200)
                 data = {
                     "url": entry.link,
                     "title": entry.title,
