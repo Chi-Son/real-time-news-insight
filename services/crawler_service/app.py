@@ -1,4 +1,4 @@
-import json ,feedparser, time
+import json ,feedparser, time ,os
 from shared.utils import url_to_hash, is_duplicate
 from shared.kafka_config import get_kafka_producer
 from shared.redis_connect import redis_connection
@@ -8,12 +8,14 @@ r= redis_connection()
 
 # đặt topic để gửi vào
 producer=get_kafka_producer()
-KAFKA_TOPIC="news.raw_links"
+KAFKA_TOPIC="raw_links"
 
 # Load json
-def load_sources(path="rss_sources.json"):
+def load_sources():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "rss_sources.json")
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        content = f.read()
+        return json.loads(content)
 
 # Crawl và lọc trùng
 def crawl_rss():

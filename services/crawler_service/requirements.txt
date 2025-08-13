@@ -3,3 +3,4 @@ beautifulsoup4
 feedparser
 kafka-python
 redis
+lz4
