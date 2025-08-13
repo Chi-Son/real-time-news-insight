@@ -1,6 +1,6 @@
 import json ,feedparser, time ,os
 from shared.utils import url_to_hash, is_duplicate
-from shared.kafka_config import get_kafka_producer
+from shared.kafka_config import get_kafka_producer,on_success, on_error
 from shared.redis_connect import redis_connection
 #key của crawl trên redis
 REDIS_KEY = "crawled_urls"
@@ -17,7 +17,7 @@ def load_sources():
         content = f.read()
         return json.loads(content)
 
-# Crawl và lọc trùng
+# Crawl 
 def crawl_rss():
     sources = load_sources()
     for category, urls in sources.items():
@@ -39,12 +39,12 @@ def crawl_rss():
                     "category": category,
                     "published": entry.published if "published" in entry else None
                 }  
-                producer.send(KAFKA_TOPIC,value=data)
+                producer.send(KAFKA_TOPIC,value=data).add_callback(on_success).add_errback(on_error)
+                producer.flush()
                 print("Đã gửi")
 
 if __name__ == "__main__":
     while True:
         print("⏰ Bắt đầu crawl RSS", flush=True)
         crawl_rss()
-        print("🛌 Ngủ 2 phút 30...\n", flush=True)
         time.sleep(300)  

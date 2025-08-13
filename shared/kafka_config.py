@@ -23,3 +23,9 @@ def get_kafka_producer(retries=5, delay=5):
             print(f"Kafka broker not available, retrying in {delay}s... ({i+1}/{retries})")
             time.sleep(delay)
     raise RuntimeError("Failed to connect to Kafka broker after retries.")
+def on_success(record_metadata):
+    print(f"✅ Sent to {record_metadata.topic} "
+          f"[partition {record_metadata.partition}] "
+          f"offset {record_metadata.offset}")
+def on_error(excp):
+    print(f"❌ Failed to send message: {excp}")
