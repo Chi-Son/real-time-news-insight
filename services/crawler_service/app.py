@@ -47,4 +47,4 @@ if __name__ == "__main__":
     while True:
         print("⏰ Bắt đầu crawl RSS", flush=True)
         crawl_rss()
-        time.sleep(300)  
+        time.sleep(300)

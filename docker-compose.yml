@@ -23,8 +23,8 @@ services:
     build:
       context: ./services/crawler_service
     volumes:
-      - ./services/crawler_service/app.py:/app/app.py
-      - ./services/crawler_service/rss_sources.json:/app/rss_sources.json
+      - ./services/crawler_service/app.py:/app/app.py # đang là dev thì vẫn cần để vì mỗi khi chỉnh sửa ko cần build lại docker nữa
+      - ./services/crawler_service/rss_sources.json:/app/rss_sources.json # cái này nữa
       - ./shared:/app/shared 
     environment:
       REDIS_HOST: redis  
@@ -33,6 +33,25 @@ services:
       - redis
       - kafka
     restart: no
+  url_extractor_service_1:
+    build: ./services/url_extractor_service
+    volumes:
+      - ./services/url_extractor_service:/app
+      - ./shared:/app/shared
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+
+  url_extractor_service_2:
+    build: ./services/url_extractor_service
+    volumes:
+      - ./services/url_extractor_service:/app
+      - ./shared:/app/shared
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
   redis:
     image: redis:7
     container_name: redis
