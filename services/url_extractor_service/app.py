@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from shared.kafka_config import get_kafka_consumer, get_kafka_producer
 from time import sleep, time
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger("kafka").setLevel(logging.DEBUG)
 
 INPUT_TOPIC = "raw_links"
 OUTPUT_TOPIC = "extracted_html"
