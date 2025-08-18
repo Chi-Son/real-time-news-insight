@@ -1,55 +1,58 @@
 import json ,logging
-from kafka import KafkaProducer,KafkaConsumer
 import os
 import time
-from kafka.errors import NoBrokersAvailable
+from confluent_kafka import Producer,Consumer, KafkaException
 
-def get_kafka_producer(retries=5, delay=5):
+logging.basicConfig(level=logging.INFO)
+logger =logging.getLogger(__name__)
+KAFKA_BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
+
+def retry_connection(func,retries=5, delay=5):
     for i in range(retries):
         try:
-            producer = KafkaProducer(
-                bootstrap_servers=os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092"),
-                acks='all',
-                retries=5,
-                batch_size=32768,
-                linger_ms=50,
-                buffer_memory=67108864,
-                compression_type='lz4',
-                value_serializer=lambda v: json.dumps(v).encode('utf-8')
-            )
-            print("Kafka producer connected.")
-            return producer
-        except NoBrokersAvailable:
-            print(f"Kafka broker not available, retrying in {delay}s... ({i+1}/{retries})")
-            time.sleep(delay)
+            return func()
+        except KafkaException as e:
+            logger.warning(f"Kafka broker not available, retrying in {delay}s... ({i+1}/{retries}) | {e}")
+            time.sleep(delay) 
     raise RuntimeError("Failed to connect to Kafka broker after retries.")
 
 
-BASE_CONSUMER_CONFIG = {
-    "bootstrap_servers": os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092"),
-    "auto_offset_reset": "latest",  
-    "enable_auto_commit": True,
-    "auto_commit_interval_ms": 5000,
-    "key_deserializer": lambda k: k.decode('utf-8') if k else None,
-    "value_deserializer": lambda v: json.loads(v.decode('utf-8')),
-    "fetch_max_bytes": 5_242_880,  
-    "session_timeout_ms": 45000,
-    "heartbeat_interval_ms": 10000
-}
+def get_kafka_producer():
+    def connect():
+        conf={
+            "bootstrap.servers":KAFKA_BOOTSTRAP,
+            "compression.type":"lz4",
+            "retries":5,
+            "acks":"all",
+            "batch.num.messages": 10000, 
+            "linger.ms": 50, 
+            "message.max.bytes": 67108864,
+        }
+        return Producer(conf)
+    producer = retry_connection(connect)
+    logger.info("Kafka producer connected.")
+    return  producer
 
-def get_kafka_consumer(topic, group_id, max_poll_records=20, max_poll_interval_ms=300000, retries=5, delay=5):
-    for i in range(retries):
-        try:
-            config = {**BASE_CONSUMER_CONFIG}
-            config["group_id"] = group_id
-            config["max_poll_records"] = max_poll_records
-            config["max_poll_interval_ms"] = max_poll_interval_ms
 
-            consumer = KafkaConsumer(topic, **config)
-            print(f"Kafka consumer connected to topic '{topic}' with group_id '{group_id}'.")
-            return consumer
-        except NoBrokersAvailable:
-            print(f"Kafka broker not available, retrying in {delay}s... ({i+1}/{retries})")
-            time.sleep(delay)
-    raise RuntimeError("Failed to connect to Kafka broker after retries.")
+def get_kafka_consumer(topic, group_id, **kwargs):
+    BASE_CONSUMER_CONFIG = {
+        "bootstrap.servers": KAFKA_BOOTSTRAP,
+        "auto.offset.reset": "latest",
+        "enable.auto.commit": True,
+        "auto.commit.interval.ms": 5000,
+        "session.timeout.ms": 45000,
+        "heartbeat.interval.ms": 10000,
+        "fetch.max.bytes": 5_242_880,
+    }
+    def connect():
+        conf = {**BASE_CONSUMER_CONFIG, "group.id": group_id, **kwargs}
+        consumer = Consumer(conf)
+        consumer.subscribe([topic])
+        return consumer
+
+    consumer = retry_connection(connect)
+    logger.info(
+        f"Kafka consumer connected to topic '{topic}' with group_id '{group_id}'."
+    )
+    return consumer
 

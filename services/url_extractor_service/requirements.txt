@@ -1,4 +1,4 @@
 requests
 beautifulsoup4
-kafka-python
+confluent-kafka
 lz4

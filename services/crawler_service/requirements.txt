@@ -1,6 +1,6 @@
 requests
 beautifulsoup4
 feedparser
-kafka-python
+confluent-kafka
 redis
 lz4

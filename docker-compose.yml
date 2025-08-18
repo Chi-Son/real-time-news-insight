@@ -34,7 +34,7 @@ services:
   url_extractor_service_1:
     build: ./services/url_extractor_service
     volumes:
-      - ./services/url_extractor_service:/app
+      - ./services/url_extractor_service/app.py:/app/app.py
       - ./shared:/app/shared
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -44,7 +44,7 @@ services:
   url_extractor_service_2:
     build: ./services/url_extractor_service
     volumes:
-      - ./services/url_extractor_service:/app
+      - ./services/url_extractor_service/app.py:/app/app.py
       - ./shared:/app/shared
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
