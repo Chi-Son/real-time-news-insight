@@ -16,7 +16,7 @@ def send_json(producer: Producer, topic: str, data: dict, key: str = None):
         logger.error(f"Failed to send message to topic {topic}: {e}")
 
 def delivery_report(err, msg):
-    """Delivery callback for Kafka producer."""
+    #call back để trả về lỗi Asynchronous send để kiểm tra được gửi đi chưa
     if err:
         logger.error(f"❌ Delivery failed: {err}")
     else:
