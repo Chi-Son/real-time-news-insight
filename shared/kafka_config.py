@@ -37,7 +37,7 @@ def get_kafka_producer():
 def get_kafka_consumer(topic, group_id, **kwargs):
     BASE_CONSUMER_CONFIG = {
         "bootstrap.servers": KAFKA_BOOTSTRAP,
-        "auto.offset.reset": "latest",
+        "auto.offset.reset": "earliest",
         "enable.auto.commit": True,
         "auto.commit.interval.ms": 5000,
         "session.timeout.ms": 45000,

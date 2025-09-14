@@ -26,11 +26,10 @@ services:
       - ./shared:/app/shared 
     environment:
       REDIS_HOST: redis  
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - redis
-      - kafka
     restart: no
+    #command: ["tail", "-f", "/dev/null"] 
   url_extractor_service_1:
     build: ./services/url_extractor_service
     volumes:

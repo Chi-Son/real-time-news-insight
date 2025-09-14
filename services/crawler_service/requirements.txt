@@ -4,3 +4,6 @@ feedparser
 confluent-kafka
 redis
 lz4
+psycopg2-binary
+
+

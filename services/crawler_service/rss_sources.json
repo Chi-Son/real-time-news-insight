@@ -1,14 +1,44 @@
 {
   "business": [
     "https://vnexpress.net/rss/kinh-doanh.rss",
-    "https://tuoitre.vn/rss/kinh-doanh.rss"
+    "https://tuoitre.vn/rss/kinh-doanh.rss",
+    "https://vtv.vn/rss/kinh-te.rss",
+    "https://dantri.com.vn/rss/kinh-doanh.rss",
+    "https://thanhnien.vn/rss/kinh-te.rss",
+    "https://nhandan.vn/rss/chungkhoan-1191.rss",
+    "https://nhandan.vn/rss/kinhte-1185.rss"
   ],
   "education": [
     "https://vnexpress.net/rss/giao-duc.rss",
-    "https://tuoitre.vn/rss/giao-duc.rss"
+    "https://tuoitre.vn/rss/giao-duc.rss",
+    "https://vtv.vn/rss/giao-duc.rss",
+    "https://dantri.com.vn/rss/giao-duc.rss",
+    "https://thanhnien.vn/rss/giao-duc.rss",
+    "https://nhandan.vn/rss/giaoduc-1303.rss"
   ],
   "technology": [
     "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss",
-    "https://tuoitre.vn/rss/nhip-song-so.rss"
+    "https://tuoitre.vn/rss/nhip-song-so.rss",
+    "https://vtv.vn/rss/cong-nghe.rss",
+    "https://nld.com.vn/rss/ai-365.rss",
+    "https://dantri.com.vn/rss/cong-nghe.rss",
+    "https://thanhnien.vn/rss/cong-nghe.rss",
+    "https://nhandan.vn/rss/khoahoc-congnghe-1292.rss"
+  ],
+  "news":[
+    "https://vnexpress.net/rss/thoi-su.rss",
+    "https://tuoitre.vn/rss/thoi-su.rss",
+    "https://nld.com.vn/rss/thoi-su.rss",
+    "https://dantri.com.vn/rss/thoi-su.rss",
+    "https://thanhnien.vn/rss/thoi-su.rss"
+  ],
+  "foreign":[
+    "https://vnexpress.net/rss/the-gioi.rss",
+    "https://tuoitre.vn/rss/the-gioi.rss",
+    "https://vtv.vn/rss/the-gioi.rss",
+    "https://nld.com.vn/rss/quoc-te.rss",
+    "https://thanhnien.vn/rss.html",
+    "https://nhandan.vn/rss.html",
+    "https://dantri.com.vn/rss/the-gioi.rss"
   ]
 }
