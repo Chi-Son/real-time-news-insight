@@ -31,7 +31,6 @@ services:
     depends_on:
       - redis
     restart: no
-    #command: ["tail", "-f", "/dev/null"] 
   filter_service:
     build:
       context: ./services/filter_service
@@ -45,7 +44,19 @@ services:
       kafka:
         condition: service_healthy
     restart: no
-
+  extractor_service:
+    build:
+      context: ./services/extractor_service
+    volumes:
+      - ./services/extractor_service/app.py:/app/app.py
+      - ./shared:/app/shared
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_CONSUMER_GROUP: extractor_group
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: no
   redis:
     image: redis:7
     container_name: redis
