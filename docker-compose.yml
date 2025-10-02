@@ -3,6 +3,7 @@ services:
   kafka:
     image: bitnami/kafka:3.9.0
     container_name: realtimenews_kafka
+    hostname: kafka
     ports:
       - "9092:9092"
     environment:
@@ -15,6 +16,7 @@ services:
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
     volumes:
       - kafka-data:/bitnami/kafka
   crawler_service:
@@ -30,25 +32,20 @@ services:
       - redis
     restart: no
     #command: ["tail", "-f", "/dev/null"] 
-  url_extractor_service_1:
-    build: ./services/url_extractor_service
+  filter_service:
+    build:
+      context: ./services/filter_service
     volumes:
-      - ./services/url_extractor_service/app.py:/app/app.py
-      - ./shared:/app/shared
+      - ./services/filter_service/app.py:/app/app.py # đang là dev thì vẫn cần để vì mỗi khi chỉnh sửa ko cần build lại docker nữa
+      - ./shared:/app/shared 
+      - ./models/model_news_filter.bin:/app/models/model_news_filter.bin
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092  
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
+    restart: no
 
-  url_extractor_service_2:
-    build: ./services/url_extractor_service
-    volumes:
-      - ./services/url_extractor_service/app.py:/app/app.py
-      - ./shared:/app/shared
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    depends_on:
-      - kafka
   redis:
     image: redis:7
     container_name: redis

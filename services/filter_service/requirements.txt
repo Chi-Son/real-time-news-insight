@@ -1,3 +1,7 @@
 fasttext
 confluent-kafka
 psycopg2-binary
+numpy==1.26.4
+fasttext==0.9.2
+beautifulsoup4
+requests

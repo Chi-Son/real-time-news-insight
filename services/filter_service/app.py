@@ -1,91 +1,141 @@
 import psycopg2
-from confluent_kafka import Producer
 import fasttext
+import os
+import requests
+import time
+from bs4 import BeautifulSoup
 from shared.postgresql_config import DB_CONFIG
-# -------------------------------
-# Kết nối DB
-# -------------------------------
-conn = psycopg2.connect(**DB_CONFIG)
-conn.autocommit = True
-cur = conn.cursor()
+from shared.kafka_config import get_kafka_producer
 
 # -------------------------------
-# Kafka producer config
+# Hàm lấy cursor DB
 # -------------------------------
-#producer = Producer({'bootstrap.servers': 'localhost:9092'})
-#topic_name = "raw_news"
+def get_db_cursor():
+    conn = psycopg2.connect(**DB_CONFIG)
+    conn.autocommit = True
+    return conn, conn.cursor()
+
+# -------------------------------
+# Kafka producer với retry
+# -------------------------------
+producer = None
+while producer is None:
+    try:
+        producer = get_kafka_producer()
+    except Exception as e:
+        print(f"Kafka chưa sẵn sàng: {e}, retry sau 5s...")
+        time.sleep(5)
+
+topic_name = "raw_links"
 
 # -------------------------------
 # Load FastText model
 # -------------------------------
-model = fasttext.load_model("model_category.bin")
+MODEL_PATH = "/app/models/model_news_filter.bin"
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+
+print(f"Loading FastText model from {MODEL_PATH} ...")
+model = fasttext.load_model(MODEL_PATH)
 
 # -------------------------------
-# Lấy last_processed_id
+# Hàm lấy title từ URL
 # -------------------------------
-cur.execute("""
-    SELECT last_processed_id 
-    FROM filter_state 
-    WHERE service_name='news_filter'
-""")
-row = cur.fetchone()
-last_processed_id = row[0] if row else 0
-
-print(f"Last processed ID: {last_processed_id}")
-
-# -------------------------------
-# Query các bản ghi mới từ news_links
-# -------------------------------
-cur.execute("""
-    SELECT id, url, title 
-    FROM news_links 
-    WHERE id > %s
-    ORDER BY id ASC
-""", (last_processed_id,))
-rows = cur.fetchall()
-
-if not rows:
-    print("Không có tin mới.")
-    exit(0)
+def extract_title(url):
+    try:
+        resp = requests.get(url, timeout=5)
+        if resp.status_code != 200:
+            return None
+        soup = BeautifulSoup(resp.text, "html.parser")
+        if soup.title:
+            return soup.title.string.strip()
+        og_title = soup.find("meta", property="og:title")
+        if og_title and og_title.get("content"):
+            return og_title["content"].strip()
+        return None
+    except Exception as e:
+        print(f"Lỗi extract title {url}: {e}")
+        return None
 
 # -------------------------------
-# Lọc + gửi vào Kafka
+# Vòng lặp chính
 # -------------------------------
-processed_ids = []
-for r in rows:
-    news_id, url, title = r
+while True:
+    conn, cur = get_db_cursor()
 
-    # Predict với fastText
-    label, prob = model.predict(title)
-    label = label[0].replace("__label__", "")  # fastText trả về "__label__news"
-
-    if label == "news" and prob > 0.7:  # Ngưỡng tin cậy
-        msg = {
-            "id": news_id,
-            "url": url,
-            "title": title,
-            "category": label,
-            "confidence": float(prob)
-        }
-        # Gửi Kafka
-        producer.produce(topic_name, str(msg).encode("utf-8"))
-        print(f"Sent to Kafka: {msg}")
-
-    processed_ids.append(news_id)
-
-producer.flush()
-
-# -------------------------------
-# Update last_processed_id
-# -------------------------------
-if processed_ids:
-    max_id = max(processed_ids)
+    # Lấy last_processed_id
     cur.execute("""
-        UPDATE filter_state
-        SET last_processed_id = %s
+        SELECT last_processed_id 
+        FROM filter_state 
         WHERE service_name='news_filter'
-    """, (max_id,))
-    print(f"Updated last_processed_id = {max_id}")
+    """)
+    row = cur.fetchone()
+    last_processed_id = row[0] if row else 0
+    print(f"Last processed ID: {last_processed_id}")
 
-cur.close()
-conn.close()
+    # Lấy các bản ghi mới
+    cur.execute("""
+        SELECT id, url, category
+        FROM news_links
+        WHERE id > %s
+        ORDER BY id ASC
+    """, (last_processed_id,))
+
+    rows = cur.fetchall()
+
+    processed_ids = []
+
+    for news_id, url, category in rows:
+        print(f"Processing ID={news_id}, URL={url}, category={category}")
+
+        title = None
+        if category == "news":
+            title = extract_title(url)
+            if title:
+                # Predict với model FastText
+                labels, probs = model.predict(title)
+                label = labels[0].replace("__label__", "")
+                confidence = float(probs[0])
+
+                # Chỉ lấy tin relevant > 0.3
+                if label == "relevent" and confidence > 0.3:
+                    msg = {
+                        "id": news_id,
+                        "url": url,
+                        "category": category,
+                    }
+                    try:
+                        producer.produce(topic_name, str(msg).encode("utf-8"))
+                        print(f"Sent to Kafka: {msg}")
+                    except Exception as e:
+                        print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
+        else:
+            # Category khác news thì gửi thẳng
+            msg = {
+                "id": news_id,
+                "url": url,
+                "category": category
+            }
+            try:
+                producer.produce(topic_name, str(msg).encode("utf-8"))
+                print(f"Sent (non-news) to Kafka: {msg}")
+            except Exception as e:
+                print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
+        # Luôn đánh dấu ID đã xử lý, bất kể có gửi Kafka hay không
+        processed_ids.append(news_id)
+
+    producer.flush()
+
+    if processed_ids:
+        max_id = max(processed_ids)
+        cur.execute("""
+            INSERT INTO filter_state(service_name, last_processed_id)
+            VALUES('news_filter', %s)
+            ON CONFLICT (service_name) DO UPDATE
+            SET last_processed_id = EXCLUDED.last_processed_id
+        """, (max_id,))
+        print(f"Updated last_processed_id = {max_id}")
+
+    cur.close()
+    conn.close()
+    time.sleep(5)
