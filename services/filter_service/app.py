@@ -6,7 +6,7 @@ import time
 from bs4 import BeautifulSoup
 from shared.postgresql_config import DB_CONFIG
 from shared.kafka_config import get_kafka_producer
-
+import json
 # -------------------------------
 # Hàm lấy cursor DB
 # -------------------------------
@@ -105,7 +105,7 @@ while True:
                         "category": category,
                     }
                     try:
-                        producer.produce(topic_name, str(msg).encode("utf-8"))
+                        producer.produce(topic_name, json.dumps(msg).encode("utf-8"))
                         print(f"Sent to Kafka: {msg}")
                     except Exception as e:
                         print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
@@ -117,7 +117,7 @@ while True:
                 "category": category
             }
             try:
-                producer.produce(topic_name, str(msg).encode("utf-8"))
+                producer.produce(topic_name, json.dumps(msg).encode("utf-8"))
                 print(f"Sent (non-news) to Kafka: {msg}")
             except Exception as e:
                 print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
