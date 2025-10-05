@@ -74,24 +74,37 @@ def detect_source(url):
 # -------------------------------
 def extract_article(url, source_name, driver=None):
     try:
-        if source_name == "Tuổi Trẻ" and driver:
+        # 🟩 NHÓM CẦN SELENIUM (JS-rendered)
+        if source_name in ["Tuổi trẻ", "VTV", "Thanh niên", "Người lao động"] and driver:
             driver.get(url)
             driver.implicitly_wait(3)
-            article_tag = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body")
-            content = article_tag.text
 
-            title_elem = driver.find_element(By.TAG_NAME, "title")
-            title = title_elem.text.split(" - ")[0] if title_elem else None
+            # Lấy nội dung chính
+            content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
 
+            # Lấy title
+            title = None
+            try:
+                title = driver.find_element(By.CSS_SELECTOR, "meta[property='og:title']").get_attribute("content")
+            except:
+                try:
+                    title_elem = driver.find_element(By.TAG_NAME, "title")
+                    title = title_elem.text.split(" - ")[0] if title_elem else None
+                except:
+                    pass
+
+            # Lấy ngày đăng
             published_at = None
             try:
-                date_elem = driver.find_element(By.CSS_SELECTOR, "meta[property='article:published_time']")
-                published_at = date_elem.get_attribute("content")
+                published_at = driver.find_element(
+                    By.CSS_SELECTOR, "meta[property='article:published_time']"
+                ).get_attribute("content")
             except:
                 pass
 
             return {"title": title, "content": content, "published_at": published_at}
 
+        # 🟦 NHÓM TRANG TĨNH (Requests + BeautifulSoup)
         else:
             resp = requests.get(url, timeout=10)
             if resp.status_code != 200:
@@ -100,43 +113,43 @@ def extract_article(url, source_name, driver=None):
 
             soup = BeautifulSoup(resp.text, "html.parser")
 
-            title = None
-            og_title = soup.find("meta", property="og:title")
-            if og_title and og_title.get("content"):
-                title = og_title["content"].strip()
-            elif soup.title:
-                title = soup.title.string.strip().rsplit(" - ", 1)[0]
+            # Map từng trang vào class riêng
+            content_classes = {
+                "Nhân dân": "article__body zce-content-body cms-body",
+                "Dân trí": "singular-content",
+                "VN Express": "fck_detail",
+            }
 
-            article_tag = (
-                soup.find("article")
-                or soup.find("div", class_="fck_detail")
-                or soup.find("div", class_="content-detail")
-                or soup.find("div", class_="content-body")
-                or soup.find("div", class_="fon35 mt2")
-                or soup.find("div", class_="content")
-            )
+            # Xác định class container
+            container_class = content_classes.get(source_name)
+
+            if not container_class:
+                article_tag = soup.find("article")
+            else:
+                article_tag = (
+                    soup.find("div", class_=container_class)
+                    or soup.find("article", class_=container_class)
+                )
 
             if not article_tag:
-                logger.warning(f"Không tìm thấy container chính của bài: {url}")
+                logger.warning(f"Không tìm thấy nội dung {source_name}: {url}")
                 return None
 
-            paragraphs = article_tag.find_all("p")
-            clean_paragraphs = []
-            for p in paragraphs:
-                text = p.get_text(strip=True)
-                if not text or len(text) < 30:
-                    continue
-                if text.startswith(("Ảnh:", "Hình:", "Photo:")):
-                    continue
-                if re.search(r"\S+@\S+", text):
-                    continue
-                if re.search(r"0\d{9,10}", text):
-                    continue
-                if "bình luận" in text.lower():
-                    continue
-                if any(text.startswith(x) for x in ("©", "Đăng bởi", "By", "Phóng viên")):
-                    continue
-                clean_paragraphs.append(text)
+            # Clean paragraphs
+            paragraphs = [
+                p.get_text(strip=True)
+                for p in article_tag.find_all("p")
+                if len(p.get_text(strip=True)) > 30
+            ]
+            clean_paragraphs = [
+                text
+                for text in paragraphs
+                if not text.startswith(("Ảnh:", "Hình:", "Photo:"))
+                and not re.search(r"\S+@\S+", text)
+                and not re.search(r"0\d{9,10}", text)
+                and "bình luận" not in text.lower()
+                and not any(text.startswith(x) for x in ("©", "Đăng bởi", "By", "Phóng viên"))
+            ]
 
             if clean_paragraphs:
                 last_line = clean_paragraphs[-1].strip()
@@ -145,6 +158,15 @@ def extract_article(url, source_name, driver=None):
 
             content = " ".join(clean_paragraphs)
 
+            # Title
+            title = None
+            og_title = soup.find("meta", property="og:title")
+            if og_title and og_title.get("content"):
+                title = og_title["content"].strip()
+            elif soup.title:
+                title = soup.title.string.strip().rsplit(" - ", 1)[0]
+
+            # Date
             published_at = None
             meta_date = soup.find("meta", property="article:published_time")
             if meta_date and meta_date.get("content"):
@@ -159,6 +181,7 @@ def extract_article(url, source_name, driver=None):
     except Exception as e:
         logger.error(f"Lỗi extract {url}: {e}")
         return None
+
 
 # -------------------------------
 # Main loop
