@@ -34,7 +34,7 @@ services:
       REDIS_HOST: redis
     depends_on:
       - redis
-    restart: "no"
+    restart: "always"
 
   filter_service:
     build:
@@ -48,7 +48,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    restart: "no"
+    restart: "always"
 
   extractor_service:
     build:
@@ -62,7 +62,7 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    restart: "no"
+    restart: "always"
 
 volumes:
   kafka-data:

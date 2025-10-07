@@ -74,15 +74,15 @@ def detect_source(url):
 # -------------------------------
 def extract_article(url, source_name, driver=None):
     try:
-        # 🟩 NHÓM CẦN SELENIUM (JS-rendered)
+        # 🟩 Nhóm cần Selenium (JS-rendered)
         if source_name in ["Tuổi trẻ", "VTV", "Thanh niên", "Người lao động"] and driver:
             driver.get(url)
             driver.implicitly_wait(3)
 
-            # Lấy nội dung chính
+            # Nội dung
             content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
 
-            # Lấy title
+            # Title
             title = None
             try:
                 title = driver.find_element(By.CSS_SELECTOR, "meta[property='og:title']").get_attribute("content")
@@ -93,18 +93,44 @@ def extract_article(url, source_name, driver=None):
                 except:
                     pass
 
-            # Lấy ngày đăng
+            # Date
             published_at = None
+
+            # 1️⃣ meta tag
             try:
-                published_at = driver.find_element(
-                    By.CSS_SELECTOR, "meta[property='article:published_time']"
-                ).get_attribute("content")
+                meta_date = driver.find_elements(By.CSS_SELECTOR, "meta[property='article:published_time']")
+                if meta_date:
+                    published_at = meta_date[0].get_attribute("content")
             except:
                 pass
 
+            # 2️⃣ span/div.date
+            if not published_at:
+                try:
+                    date_elem = driver.find_elements(By.CSS_SELECTOR, "span.date, div.date")
+                    if date_elem:
+                        published_at = parse_date(date_elem[0].text.strip())
+                except:
+                    pass
+
+            # 3️⃣ thẻ <time> (author-time, e-magazine_meta-item, time)
+            if not published_at:
+                try:
+                    time_elem = driver.find_elements(
+                        By.CSS_SELECTOR,
+                        "time.author-time, time.e-magazine_meta-item, div.article_meta time.time, time"
+                    )
+                    if time_elem:
+                        datetime_attr = time_elem[0].get_attribute("datetime")
+                        text_attr = time_elem[0].text.strip()
+                        published_at = parse_date(datetime_attr or text_attr)
+                except:
+                    pass
+
+
             return {"title": title, "content": content, "published_at": published_at}
 
-        # 🟦 NHÓM TRANG TĨNH (Requests + BeautifulSoup)
+        # 🟦 Nhóm trang tĩnh (Requests + BeautifulSoup)
         else:
             resp = requests.get(url, timeout=10)
             if resp.status_code != 200:
@@ -113,23 +139,31 @@ def extract_article(url, source_name, driver=None):
 
             soup = BeautifulSoup(resp.text, "html.parser")
 
-            # Map từng trang vào class riêng
+            # Map class nội dung
             content_classes = {
                 "Nhân dân": "article__body zce-content-body cms-body",
-                "Dân trí": "singular-content",
+                "Dân trí": ["singular-content", "e-magazine__body", "dnews__body"],
                 "VN Express": "fck_detail",
             }
 
-            # Xác định class container
             container_class = content_classes.get(source_name)
-
             if not container_class:
                 article_tag = soup.find("article")
             else:
-                article_tag = (
-                    soup.find("div", class_=container_class)
-                    or soup.find("article", class_=container_class)
-                )
+                if isinstance(container_class, list):
+                    article_tag = None
+                    for cls in container_class:
+                        article_tag = (
+                            soup.find("div", class_=cls)
+                            or soup.find("article", class_=cls)
+                        )
+                        if article_tag:
+                            break
+                else:
+                    article_tag = (
+                        soup.find("div", class_=container_class)
+                        or soup.find("article", class_=container_class)
+                    )
 
             if not article_tag:
                 logger.warning(f"Không tìm thấy nội dung {source_name}: {url}")
@@ -137,8 +171,8 @@ def extract_article(url, source_name, driver=None):
 
             # Clean paragraphs
             paragraphs = [
-                p.get_text(strip=True)
-                for p in article_tag.find_all("p")
+                p.get_text(" ", strip=True)
+                for p in article_tag.find_all(["p", "div"])
                 if len(p.get_text(strip=True)) > 30
             ]
             clean_paragraphs = [
@@ -166,15 +200,32 @@ def extract_article(url, source_name, driver=None):
             elif soup.title:
                 title = soup.title.string.strip().rsplit(" - ", 1)[0]
 
-            # Date
+            # 📅 Date (đầy đủ, tương thích nhiều loại báo)
             published_at = None
+
+            # 1️⃣ meta property
             meta_date = soup.find("meta", property="article:published_time")
             if meta_date and meta_date.get("content"):
-                published_at = meta_date["content"]
-            else:
+                published_at = parse_date(meta_date["content"])
+
+            # 2️⃣ div/span có class "date"
+            if not published_at:
                 date_div = soup.find("span", class_="date") or soup.find("div", class_="date")
                 if date_div:
                     published_at = parse_date(date_div.get_text(strip=True))
+
+            # 3️⃣ <time> dạng đặc biệt (VTV, Nhân Dân, Dân Trí e-magazine)
+            if not published_at:
+                time_tag = (
+                    soup.select_one("div.article_meta time.time")
+                    or soup.find("time", class_="author-time")
+                    or soup.find("time", class_="e-magazine_meta-item")
+                    or soup.find("time")
+                )
+                if time_tag:
+                    published_at = parse_date(
+                        time_tag.get("datetime") or time_tag.text.strip()
+                    )
 
             return {"title": title, "content": content, "published_at": published_at}
 
@@ -232,6 +283,8 @@ try:
                     ON CONFLICT (id) DO NOTHING
                 """, (news_id, article["title"], article["content"], source, article["published_at"]))
                 logger.info(f"Đã lưu bài ID={news_id}, source={source}")
+                consumer.commit(asynchronous=False)
+                logger.info(f"✔ Commit offset={message.offset()} partition={message.partition()}")
             finally:
                 cur.close()
                 conn.close()
