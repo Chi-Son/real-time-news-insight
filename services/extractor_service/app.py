@@ -126,7 +126,7 @@ def extract_article(url, source_name, driver=None):
                         published_at = parse_date(datetime_attr or text_attr)
                 except:
                     pass
-
+            
 
             return {"title": title, "content": content, "published_at": published_at}
 
@@ -175,22 +175,28 @@ def extract_article(url, source_name, driver=None):
                 for p in article_tag.find_all(["p", "div"])
                 if len(p.get_text(strip=True)) > 30
             ]
-            clean_paragraphs = [
-                text
-                for text in paragraphs
-                if not text.startswith(("Ảnh:", "Hình:", "Photo:"))
-                and not re.search(r"\S+@\S+", text)
-                and not re.search(r"0\d{9,10}", text)
-                and "bình luận" not in text.lower()
-                and not any(text.startswith(x) for x in ("©", "Đăng bởi", "By", "Phóng viên"))
-            ]
 
+            clean_paragraphs = []
+            for text in paragraphs:
+                text_lower = text.lower()
+                if (
+                    not text.startswith(("Ảnh:", "Hình:", "Photo:"))
+                    and not re.search(r"\S+@\S+", text)
+                    and not re.search(r"0\d{9,10}", text)
+                    and "bình luận" not in text_lower
+                    and not any(text.startswith(x) for x in ("©", "Đăng bởi", "By", "Phóng viên"))
+                    and not any(kw in text_lower for kw in ["dành cho bạn", "có thể bạn quan tâm", "xem thêm"])
+                ):
+                    clean_paragraphs.append(text)
+
+            # Nếu dòng cuối là tên tác giả, bỏ
             if clean_paragraphs:
                 last_line = clean_paragraphs[-1].strip()
                 if re.match(r"^[A-ZÀ-Ỹ][a-zà-ỹ]+(\s[A-ZÀ-Ỹ][a-zà-ỹ]+){0,2}$", last_line):
                     clean_paragraphs = clean_paragraphs[:-1]
 
             content = " ".join(clean_paragraphs)
+
 
             # Title
             title = None
@@ -208,9 +214,13 @@ def extract_article(url, source_name, driver=None):
             if meta_date and meta_date.get("content"):
                 published_at = parse_date(meta_date["content"])
 
-            # 2️⃣ div/span có class "date"
+            # 2️⃣ span/div date (bao gồm VNExpress)
             if not published_at:
-                date_div = soup.find("span", class_="date") or soup.find("div", class_="date")
+                date_div = (
+                    soup.select_one("div.header-content span.date")  # VNExpress
+                    or soup.find("span", class_="date")
+                    or soup.find("div", class_="date")
+                )
                 if date_div:
                     published_at = parse_date(date_div.get_text(strip=True))
 
@@ -228,6 +238,7 @@ def extract_article(url, source_name, driver=None):
                     )
 
             return {"title": title, "content": content, "published_at": published_at}
+
 
     except Exception as e:
         logger.error(f"Lỗi extract {url}: {e}")
