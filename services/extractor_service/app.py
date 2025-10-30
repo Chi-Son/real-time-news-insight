@@ -92,7 +92,10 @@ def extract_article(url, source_name, driver=None):
                     title = title_elem.text.split(" - ")[0] if title_elem else None
                 except:
                     pass
-
+            
+            if title and title.strip().startswith("Tin tức"):
+                logger.info(f"Bỏ qua bài viết {url} vì tiêu đề bắt đầu bằng 'Tin tức'")
+                return None
             # Date
             published_at = None
 

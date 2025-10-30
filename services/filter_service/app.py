@@ -89,7 +89,7 @@ while True:
         print(f"Processing ID={news_id}, URL={url}, category={category}")
 
         title = None
-        if category == "news":
+        if category == "news" or category =="foreign":
             title = extract_title(url)
             if title:
                 # Predict với model FastText
