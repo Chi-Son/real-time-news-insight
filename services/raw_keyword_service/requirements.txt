@@ -1,0 +1,6 @@
+torch
+transformers==4.27.4
+tokenizers==0.13.3
+py_vncorenlp
+underthesea
+confluent-kafka

@@ -7,7 +7,7 @@ import os
 import time
 from urllib.parse import urlparse
 from dateutil import parser
-from shared.kafka_config import get_kafka_consumer
+from shared.kafka_config import get_kafka_consumer, get_kafka_producer
 from shared.postgresql_config import DB_CONFIG
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -27,9 +27,12 @@ logger = logging.getLogger("extractor")
 # -------------------------------
 INPUT_TOPIC = "raw_links"
 GROUP_ID = "extractor_group"
+OUTPUT_TOPIC ="extractor_news"
 
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
+producer = get_kafka_producer()
 logger.info("URL Extractor service started.")
+
 
 def get_db_cursor():
     conn = psycopg2.connect(**DB_CONFIG)
@@ -81,6 +84,9 @@ def extract_article(url, source_name, driver=None):
 
             # Nội dung
             content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
+            if not content or len(content.split()) < 50:
+                logger.info(f"Bỏ bài {url} vì nội dung quá ít")
+                return None
 
             # Title
             title = None
@@ -199,6 +205,9 @@ def extract_article(url, source_name, driver=None):
                     clean_paragraphs = clean_paragraphs[:-1]
 
             content = " ".join(clean_paragraphs)
+            if not content or len(content.split()) < 50:
+                logger.info(f"Bỏ bài {url} vì nội dung quá ít")
+                return None
 
 
             # Title
@@ -242,7 +251,6 @@ def extract_article(url, source_name, driver=None):
 
             return {"title": title, "content": content, "published_at": published_at}
 
-
     except Exception as e:
         logger.error(f"Lỗi extract {url}: {e}")
         return None
@@ -277,6 +285,7 @@ try:
             msg = json.loads(message.value().decode("utf-8"))
             news_id = msg.get("id")
             url = msg.get("url")
+            category =msg.get("category")
 
             if not news_id or not url:
                 logger.warning(f"Bỏ qua message không hợp lệ: {msg}")
@@ -297,6 +306,24 @@ try:
                     ON CONFLICT (id) DO NOTHING
                 """, (news_id, article["title"], article["content"], source, article["published_at"]))
                 logger.info(f"Đã lưu bài ID={news_id}, source={source}")
+                
+                msg_out = {
+                    "id": news_id,
+                    "url": url,
+                    "source": source,
+                    "title": article["title"],
+                    "content": article["content"],
+                    "published_at": article["published_at"],
+                    "category": category  
+                }
+                producer.produce(
+                    OUTPUT_TOPIC,
+                    key=str(news_id),
+                    value=json.dumps(msg_out, ensure_ascii=False).encode("utf-8")
+                )
+                producer.flush()
+                logger.info(f"Đã gửi sang topic '{OUTPUT_TOPIC}' ID={news_id}")
+                
                 consumer.commit(asynchronous=False)
                 logger.info(f"✔ Commit offset={message.offset()} partition={message.partition()}")
             finally:
