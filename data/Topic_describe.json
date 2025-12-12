@@ -1,0 +1,2834 @@
+[
+  {
+    "topic_id": 1,
+    "parent_id": null,
+    "name": "An ninh phòng vệ",
+    "short_description": "Tin tức chung về An ninh quốc phòng, chống tội phạm và các vấn đề an toàn",
+    "long_description": "Thông tin về vụ án hình sự, điều tra của lực lượng cảnh sát, các vấn đề quốc phòng, hoạt động cứu hỏa, và an ninh xã hội.",
+    "examples": [
+      "Công an triệt phá đường dây buôn lậu lớn xuyên quốc gia.",
+      "Bộ Quốc phòng tổ chức diễn tập bảo vệ chủ quyền biển đảo.",
+      "Thông tin về các vụ tai nạn, hỏa hoạn và công tác cứu hộ, cứu nạn."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 2,
+    "parent_id": 1,
+    "name": "Cảnh sát Quốc Tế",
+    "short_description": "Tin tức về hoạt động của các lực lượng an ninh và cảnh sát trên thế giới",
+    "long_description": "Thông tin về các vụ án, chiến dịch điều tra quốc tế, các tổ chức cảnh sát toàn cầu như Interpol, hoặc các thỏa thuận hợp tác an ninh đa phương.",
+    "examples": [
+      "Interpol ra lệnh truy nã đỏ đối với tội phạm kinh tế.",
+      "Cảnh sát Đức và Pháp phối hợp điều tra nhóm hacker quốc tế.",
+      "Hợp tác chống khủng bố giữa các nước Đông Nam Á."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 3,
+    "parent_id": 1,
+    "name": "Cảnh sát giao thông",
+    "short_description": "Tin tức về lực lượng cảnh sát giao thông Việt Nam",
+    "long_description": "Thông tin về việc xử lý vi phạm giao thông, các chiến dịch kiểm tra nồng độ cồn, điều tiết giao thông, và các quy định mới về luật giao thông đường bộ, đường sắt.",
+    "examples": [
+      "Cảnh sát giao thông phạt nguội hàng trăm trường hợp vi phạm tốc độ.",
+      "Lực lượng CSGT ra quân đảm bảo an toàn dịp nghỉ lễ.",
+      "Đề xuất tăng mức phạt đối với hành vi sử dụng điện thoại khi lái xe."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 4,
+    "parent_id": 1,
+    "name": "Hải Quân",
+    "short_description": "Tin tức về lực lượng Hải quân, Cảnh sát biển Việt Nam và an ninh hàng hải",
+    "long_description": "Thông tin liên quan đến các hoạt động huấn luyện, trang bị mới, các cuộc tuần tra bảo vệ lãnh hải và đấu tranh chống tội phạm trên biển của lực lượng Hải quân và Cảnh sát biển.",
+    "examples": [
+      "Tàu Hải quân Việt Nam thực hiện chuyến thăm hữu nghị quốc tế.",
+      "Cảnh sát biển bắt giữ tàu chở dầu lậu trên vùng biển phía Nam.",
+      "Diễn tập sẵn sàng chiến đấu bảo vệ khu vực đảo Trường Sa."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 5,
+    "parent_id": 1,
+    "name": "Quốc Phòng, Phòng Không",
+    "short_description": "Tin tức về lực lượng Quân đội Nhân dân Việt Nam và các vấn đề quân sự",
+    "long_description": "Thông tin liên quan đến các chính sách quốc phòng, hoạt động của Bộ đội Lục quân, Không quân, công tác hậu cần và hiện đại hóa quân đội Việt Nam.",
+    "examples": [
+      "Tuyển sinh quân sự năm 2024 có nhiều điểm mới.",
+      "Quân đội tổ chức huấn luyện chống xâm nhập và phòng thủ.",
+      "Công nghiệp Quốc phòng Việt Nam giới thiệu trang bị mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 6,
+    "parent_id": 1,
+    "name": "Cứu Hỏa",
+    "short_description": "Tin tức về lực lượng Cảnh sát Phòng cháy chữa cháy và Cứu nạn cứu hộ (PCCC-CNCH)",
+    "long_description": "Thông tin liên quan đến lực lượng cứu hỏa, các vụ việc hỏa hoạn, cháy nhà, cháy rừng, công tác cứu nạn cứu hộ và các quy định về PCCC.",
+    "examples": [
+      "Lực lượng Cảnh sát PCCC dập tắt đám cháy lớn tại kho hàng khu công nghiệp.",
+      "Tập huấn kỹ năng thoát hiểm và sử dụng bình chữa cháy cho cư dân.",
+      "Nguyên nhân và thiệt hại ban đầu của vụ cháy nhà dân tại TP.HCM."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 7,
+    "parent_id": null,
+    "name": "Dinh Dưỡng Thực Phẩm",
+    "short_description": "Tin tức về dinh dưỡng, an toàn thực phẩm, thị trường nông sản và mỹ phẩm",
+    "long_description": "Thông tin liên quan đến giá cả, sản xuất, tiêu thụ các loại thực phẩm, đồ ăn, mỹ phẩm, các khuyến nghị về dinh dưỡng và các vấn đề vệ sinh an toàn thực phẩm.",
+    "examples": [
+      "Bộ Y tế khuyến nghị chế độ dinh dưỡng mùa hè cho trẻ em.",
+      "Cảnh báo về thực phẩm bẩn và kiểm tra an toàn tại các chợ truyền thống.",
+      "Xu hướng sử dụng mỹ phẩm thiên nhiên và hữu cơ."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 8,
+    "parent_id": 7,
+    "name": "Yến Sào",
+    "short_description": "Tin tức về sản phẩm yến sào (giá cả, chất lượng, công dụng)",
+    "long_description": "Thông tin về thị trường yến sào, các loại yến sào (yến đảo, yến nhà), giá trị dinh dưỡng, công dụng và cảnh báo hàng giả/kém chất lượng.",
+    "examples": [
+      "Giá yến sào tăng cao do nhu cầu xuất khẩu.",
+      "Phân biệt yến sào thật và giả trên thị trường.",
+      "Các công dụng hỗ trợ sức khỏe của yến sào."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 9,
+    "parent_id": 7,
+    "name": "Phở Bún",
+    "short_description": "Tin tức về ẩm thực truyền thống Việt Nam: phở, bún, miến, hủ tiếu, v.v.",
+    "long_description": "Thông tin về các món ăn chế biến từ gạo như phở, bún, miến, hủ tiếu; các địa điểm ăn uống nổi tiếng, và các biến tấu ẩm thực địa phương.",
+    "examples": [
+      "Quán phở gia truyền hơn 70 năm tuổi tại Hà Nội.",
+      "Phở cuốn, bún chả được khách quốc tế yêu thích.",
+      "Công thức nấu nước dùng phở chuẩn vị truyền thống."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 10,
+    "parent_id": 7,
+    "name": "Rau Quả",
+    "short_description": "Tin tức về thị trường, sản xuất, tiêu thụ rau củ quả Việt Nam",
+    "long_description": "Thông tin về giá cả, mùa vụ, các loại rau quả sạch (VietGAP, GlobalGAP), xuất khẩu rau quả và các chính sách hỗ trợ nông dân.",
+    "examples": [
+      "Thị trường rau quả tăng giá mạnh do thời tiết thất thường.",
+      "Dự báo về sản lượng và giá sầu riêng xuất khẩu năm nay.",
+      "Mô hình trồng rau hữu cơ áp dụng công nghệ cao."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 11,
+    "parent_id": 7,
+    "name": "Thịt Cá",
+    "short_description": "Tin tức về thị trường và chăn nuôi các loại thịt gia súc, gia cầm, thủy hải sản",
+    "long_description": "Thông tin về giá thịt heo, gà, bò, tôm, cá; tình hình dịch bệnh trong chăn nuôi, và các hoạt động đánh bắt, nuôi trồng thủy hải sản.",
+    "examples": [
+      "Giá thịt heo hơi giảm mạnh do nguồn cung dư thừa.",
+      "Phát hiện và xử lý vụ bơm tạp chất vào tôm cá.",
+      "Chăn nuôi bò sữa áp dụng tiêu chuẩn quốc tế."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 12,
+    "parent_id": 7,
+    "name": "Lúa Gạo",
+    "short_description": "Tin tức về thị trường, sản xuất và xuất khẩu lúa gạo Việt Nam",
+    "long_description": "Thông tin về giá lúa gạo, năng suất vụ mùa, các giống lúa mới, các hiệp định thương mại và tình hình xuất khẩu gạo của Việt Nam.",
+    "examples": [
+      "Giá gạo xuất khẩu Việt Nam đạt mức cao nhất trong nhiều năm.",
+      "Nông dân Đồng bằng sông Cửu Long bội thu vụ lúa hè thu.",
+      "Ứng dụng công nghệ tưới tiêu tiết kiệm nước trong sản xuất lúa."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 13,
+    "parent_id": 7,
+    "name": "Sầu riêng",
+    "short_description": "Tin tức chuyên sâu về thị trường, sản xuất, và tiêu thụ sầu riêng",
+    "long_description": "Thông tin tập trung vào sầu riêng: giống, kỹ thuật trồng, giá trị xuất khẩu, tiêu thụ nội địa, và các thị trường tiềm năng.",
+    "examples": [
+      "Sầu riêng Việt Nam chính thức xuất khẩu chính ngạch sang Trung Quốc.",
+      "Kỹ thuật chăm sóc sầu riêng ra hoa trái vụ.",
+      "Cảnh báo về sầu riêng bị làm giả, ngâm tẩm hóa chất."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 14,
+    "parent_id": 7,
+    "name": "Đậu",
+    "short_description": "Tin tức về các loại đậu (tương, nành, đỗ), thị trường và sản phẩm chế biến",
+    "long_description": "Thông tin về đậu tương, đậu nành (soybean), các sản phẩm từ đậu (đậu phụ, sữa đậu nành, dầu đậu nành), và thị trường các loại đậu khác (đậu xanh, đậu đen).",
+    "examples": [
+      "Giá đậu nành nhập khẩu tăng cao ảnh hưởng đến ngành chăn nuôi.",
+      "Lợi ích sức khỏe của sữa đậu nành tự nhiên.",
+      "Phát triển các mô hình trồng đậu hữu cơ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 15,
+    "parent_id": 7,
+    "name": "Cà phê",
+    "short_description": "Tin tức về thị trường, sản xuất, và tiêu thụ cà phê",
+    "long_description": "Thông tin về giá cà phê, giống cà phê (Arabica, Robusta), tình hình xuất khẩu cà phê của Việt Nam, và các chuỗi cà phê trong nước, quốc tế.",
+    "examples": [
+      "Nông dân Tây Nguyên phấn khởi vì giá cà phê đạt đỉnh lịch sử.",
+      "Thị trường cà phê hòa tan và cà phê rang xay cạnh tranh gay gắt.",
+      "Các giải pháp phát triển cà phê bền vững."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 16,
+    "parent_id": null,
+    "name": "Vật Dụng, Đồ Dùng",
+    "short_description": "Tin tức về đồ dùng, thiết bị, vật dụng gia đình và đồ dùng cá nhân",
+    "long_description": "Thông tin liên quan đến các thiết bị điện tử gia dụng (như TV, tủ lạnh, máy giặt), đồ dùng nhà bếp, đồ nội thất và các vật dụng cá nhân khác (như kính mắt).",
+    "examples": [
+      "Thị trường đồ gia dụng điện lạnh bùng nổ khuyến mãi cuối năm.",
+      "Xu hướng thiết kế nội thất thông minh cho căn hộ nhỏ.",
+      "Đánh giá và so sánh các dòng máy hút bụi không dây mới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 17,
+    "parent_id": 16,
+    "name": "Nồi Cơm",
+    "short_description": "Tin tức về nồi cơm điện và các thiết bị nấu cơm",
+    "long_description": "Thông tin về các công nghệ nồi cơm điện mới (như áp suất cao, từ tính), so sánh các thương hiệu và các chương trình khuyến mãi nồi cơm.",
+    "examples": [
+      "Nồi cơm điện cao tần Inverter giúp cơm ngon và tiết kiệm điện.",
+      "Hướng dẫn vệ sinh và bảo quản nồi cơm điện đúng cách.",
+      "Các mẫu nồi cơm được ưa chuộng nhất dịp Tết."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 18,
+    "parent_id": 16,
+    "name": "Kính Mắt",
+    "short_description": "Tin tức về kính mắt (thời trang, y tế, thể thao)",
+    "long_description": "Thông tin liên quan đến các loại kính mắt: kính cận, kính râm, kính thời trang, công nghệ tròng kính mới, và các xu hướng/bộ sưu tập kính mắt.",
+    "examples": [
+      "Xu hướng kính mắt gọng tròn được giới trẻ yêu thích.",
+      "Tác hại của việc đeo kính râm kém chất lượng.",
+      "Khám mắt và đo thị lực miễn phí tại các chuỗi cửa hàng kính."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 19,
+    "parent_id": 16,
+    "name": "Thiết bị Điện Lạnh Gia Dụng",
+    "short_description": "Tin tức thị trường, công nghệ, hướng dẫn sử dụng và bảo dưỡng các thiết bị: **Máy Lạnh (Điều Hòa) và Tủ Lạnh (Tủ Đông)**.",
+    "long_description": "Thông tin chi tiết về các loại **Máy Điều Hòa Không Khí** (Inverter, cục nóng, cục lạnh), **Tủ Lạnh** (Side-by-side, ngăn đông dưới, tủ lạnh thông minh), và **Tủ Đông/Thiết bị Đông Lạnh**; so sánh các thương hiệu (Daikin, Samsung, LG), công nghệ làm lạnh mới, mức tiêu thụ điện năng, hướng dẫn sử dụng, bảo dưỡng, và các chính sách tiết kiệm điện mùa nắng nóng.",
+    "examples": [
+      "Thị trường điều hòa và tủ lạnh cạnh tranh gay gắt trước mùa hè.",
+      "Tủ lạnh thông minh Samsung tích hợp màn hình cảm ứng.",
+      "Công nghệ Inverter giúp tiết kiệm điện năng cho gia đình.",
+      "Hướng dẫn vệ sinh máy lạnh và khử mùi hôi trong tủ lạnh."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 21,
+    "parent_id": 16,
+    "name": "Máy Giặt/Sấy",
+    "short_description": "Tin tức về thị trường, công nghệ và các vấn đề liên quan đến máy giặt, máy sấy quần áo.",
+    "long_description": "Thông tin về các loại máy giặt (cửa ngang, cửa đứng), công nghệ giặt hơi nước, và các giải pháp chăm sóc quần áo cao cấp.",
+    "examples": [
+      "Máy giặt lồng ngang với công nghệ giặt sạch vượt trội.",
+      "Đánh giá các dòng máy sấy bơm nhiệt (Heat Pump).",
+      "Bảo dưỡng máy giặt định kỳ để tăng tuổi thọ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 22,
+    "parent_id": null,
+    "name": "Đồ Nội Thất",
+    "short_description": "Tin tức về thiết kế, sản xuất và thị trường các loại đồ nội thất gia đình, văn phòng.",
+    "long_description": "Thông tin về xu hướng thiết kế nội thất (tối giản, cổ điển), vật liệu (gỗ tự nhiên, công nghiệp), nội thất thông minh, và các sự kiện triển lãm nội thất.",
+    "examples": [
+      "Xu hướng nội thất gỗ óc chó lên ngôi trong năm 2024.",
+      "Mẹo sắp xếp nội thất cho căn hộ chung cư nhỏ.",
+      "Các mẫu bàn ghế sofa thông minh, đa năng."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 23,
+    "parent_id": 22,
+    "name": "Giường, Tủ",
+    "short_description": "Tin tức về các loại giường ngủ, tủ quần áo, tủ đựng đồ.",
+    "long_description": "Thông tin về vật liệu, thiết kế giường tủ, giải pháp lưu trữ thông minh và các bộ sưu tập nội thất phòng ngủ.",
+    "examples": [
+      "Các mẫu tủ quần áo âm tường tối ưu không gian.",
+      "So sánh giường gỗ tự nhiên và giường bọc da hiện đại.",
+      "Giường ngủ thông minh tích hợp chức năng massage."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 24,
+    "parent_id": 22,
+    "name": "Sofa, Bàn Ghế",
+    "short_description": "Tin tức về các loại sofa, bàn ăn, bàn làm việc và ghế.",
+    "long_description": "Thông tin về chất liệu (da, vải, nỉ), kiểu dáng (sofa góc, sofa đơn), xu hướng thiết kế bàn ghế phòng khách và phòng ăn.",
+    "examples": [
+      "Kinh nghiệm chọn sofa phù hợp với phòng khách.",
+      "Thị trường bàn ghế ăn thông minh có thể mở rộng.",
+      "Các mẫu ghế làm việc công thái học (ergonomic) mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 25,
+    "parent_id": null,
+    "name": "Tiêu Dùng Bán Lẻ",
+    "short_description": "Tin tức chung về hoạt động mua sắm, hệ thống phân phối và các dịch vụ thanh toán",
+    "long_description": "Thông tin về xu hướng tiêu dùng, doanh số bán lẻ, hoạt động của các chuỗi bán lẻ, trung tâm thương mại, và các giải pháp thanh toán điện tử.",
+    "examples": [
+      "Mức tiêu thụ hàng hóa tăng mạnh dịp cuối năm.",
+      "Các chuỗi bán lẻ mở rộng quy mô ra các tỉnh thành.",
+      "Phân tích hành vi mua sắm của giới trẻ Việt Nam."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 26,
+    "parent_id": 25,
+    "name": "Thẻ Thanh Toán",
+    "short_description": "Tin tức về thẻ ngân hàng, thẻ tín dụng, thẻ ghi nợ và smart card",
+    "long_description": "Thông tin về các loại thẻ thanh toán (Visa, Mastercard, JCB), chính sách phí, bảo mật thẻ, và các dịch vụ đi kèm như hoàn tiền, ưu đãi.",
+    "examples": [
+      "Ngân hàng X ra mắt thẻ tín dụng tích hợp nhiều ưu đãi du lịch.",
+      "Cảnh báo lừa đảo qua thẻ ngân hàng và cách phòng tránh.",
+      "Xu hướng thanh toán không tiếp xúc (contactless) ngày càng phổ biến."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 27,
+    "parent_id": 25,
+    "name": "Trung tâm thương mại",
+    "short_description": "Tin tức về hoạt động của siêu thị, chuỗi cửa hàng tiện lợi và trung tâm thương mại",
+    "long_description": "Thông tin về khai trương, hoạt động kinh doanh, các chiến dịch marketing, và sự cạnh tranh giữa các chuỗi bán lẻ lớn trong nước và quốc tế.",
+    "examples": [
+      "Trung tâm thương mại mới khai trương thu hút hàng nghìn lượt khách.",
+      "Các chuỗi siêu thị tăng cường bán hàng online và giao hàng tận nơi.",
+      "VinMart/Co.opmart mở thêm chi nhánh tại khu vực ngoại ô."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 28,
+    "parent_id": 25,
+    "name": "Cổng thanh toán",
+    "short_description": "Tin tức về hệ thống thanh toán điện tử, ví điện tử và chuyển khoản ngân hàng",
+    "long_description": "Thông tin về các cổng thanh toán trực tuyến (e-payment gateway), ví điện tử (Momo, ZaloPay), công nghệ thanh toán QR code, và các quy định về giao dịch điện tử.",
+    "examples": [
+      "Ví điện tử Momo đạt kỷ lục về số lượng giao dịch trong dịp Tết.",
+      "Ngân hàng thí điểm chuyển khoản qua định danh khuôn mặt.",
+      "Chính phủ thúc đẩy thanh toán không dùng tiền mặt."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 29,
+    "parent_id": 25,
+    "name": "Thương mại điện tử",
+    "short_description": "Tin tức về các sàn thương mại điện tử (e-commerce) và mua sắm trực tuyến",
+    "long_description": "Thông tin về các sàn TMĐT lớn (Shopee, Lazada, Tiki), chiến lược kinh doanh, các phiên livestream bán hàng, và tình hình cạnh tranh trong ngành.",
+    "examples": [
+      "Shopee, Lazada thiết lập kỷ lục doanh số bán hàng trong ngày 11/11.",
+      "Xu hướng mua sắm qua TikTok Shop và các nền tảng mạng xã hội.",
+      "Chính sách bảo vệ người tiêu dùng khi mua hàng online."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 30,
+    "parent_id": 25,
+    "name": "Khuyến mại, Voucher",
+    "short_description": "Tin tức về các chương trình khuyến mại, giảm giá, mã giảm giá (voucher/coupon) và tích điểm",
+    "long_description": "Thông tin về các chiến dịch giảm giá theo mùa, các chương trình tích điểm thưởng của các chuỗi cửa hàng, và hiệu quả của các hình thức khuyến mại đối với doanh số bán lẻ.",
+    "examples": [
+      "Hệ thống siêu thị đồng loạt giảm giá hàng điện tử, gia dụng.",
+      "Các ứng dụng tung ra voucher hấp dẫn kích thích tiêu dùng.",
+      "Chương trình khuyến mại 'Mua 1 tặng 1' được áp dụng rộng rãi."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 31,
+    "parent_id": 25,
+    "name": "Tiêu dùng nội địa",
+    "short_description": "Các chính sách, chương trình và xu hướng thúc đẩy tiêu dùng trong nước",
+    "long_description": "Thông tin về các chiến dịch 'Người Việt Nam ưu tiên dùng hàng Việt Nam', các chính sách kích cầu tiêu dùng của Chính phủ, và sự thay đổi trong sở thích tiêu dùng của người dân.",
+    "examples": [
+      "Chương trình kích cầu tiêu dùng cuối năm của Bộ Công Thương.",
+      "Các sản phẩm OCOP (Mỗi xã một sản phẩm) được người dân ưa chuộng.",
+      "Phân tích về tốc độ tăng trưởng của chi tiêu cá nhân trong nước."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 32,
+    "parent_id": 25,
+    "name": "Doanh số bán lẻ",
+    "short_description": "Các số liệu thống kê, báo cáo về tổng mức bán lẻ hàng hóa và dịch vụ",
+    "long_description": "Các báo cáo chính thức và phân tích về tổng doanh số bán lẻ, tốc độ tăng trưởng, so sánh doanh số giữa các ngành hàng, và dự báo thị trường.",
+    "examples": [
+      "Tổng mức bán lẻ hàng hóa và dịch vụ 9 tháng đầu năm tăng 10%.",
+      "Doanh số bán lẻ ngành thực phẩm và đồ uống dẫn đầu thị trường.",
+      "Dự báo tăng trưởng doanh số bán lẻ trong quý IV."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 33,
+    "parent_id": 25,
+    "name": "Chuỗi cung ứng",
+    "short_description": "Tin tức về quản lý, vận hành và các vấn đề của chuỗi cung ứng hàng hóa bán lẻ",
+    "long_description": "Thông tin liên quan đến logistics, kho bãi, vận chuyển hàng hóa, các thách thức về nguồn cung ứng (supply chain) và tối ưu hóa quy trình phân phối.",
+    "examples": [
+      "Các công ty bán lẻ áp dụng AI để tối ưu hóa chuỗi cung ứng.",
+      "Thách thức về logistics trong việc giao hàng chặng cuối (last mile delivery).",
+      "Việc gián đoạn nguồn cung ảnh hưởng đến giá cả hàng hóa."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 44,
+    "parent_id": null,
+    "name": "Công Nghiệp",
+    "short_description": "Tin tức chung về các nhóm ngành công nghiệp chế biến, chế tạo, năng lượng và sản xuất",
+    "long_description": "Thông tin về các ngành công nghiệp nặng, công nghiệp nhẹ, các khu công nghiệp, chính sách phát triển công nghiệp và các vấn đề liên quan đến sản xuất, xuất khẩu.",
+    "examples": [
+      "Việt Nam đẩy mạnh phát triển công nghiệp hỗ trợ.",
+      "Tập đoàn Samsung mở rộng nhà máy sản xuất tại Bắc Ninh.",
+      "Phân tích triển vọng ngành công nghiệp sản xuất ô tô."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 45,
+    "parent_id": 44,
+    "name": "Cao Su",
+    "short_description": "Tin tức về ngành cao su (trồng trọt, chế biến, xuất khẩu)",
+    "long_description": "Thông tin về giá cao su tự nhiên, cao su tổng hợp, tình hình trồng trọt, khai thác, và hoạt động xuất khẩu các sản phẩm từ cao su.",
+    "examples": [
+      "Giá cao su xuất khẩu tăng trở lại do nhu cầu thị trường thế giới.",
+      "Các giải pháp phòng chống sâu bệnh cho cây cao su.",
+      "Công ty cao su thiên nhiên công bố kết quả kinh doanh quý 3."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 47,
+    "parent_id": 44,
+    "name": "Tái chế",
+    "short_description": "Tin tức về công nghiệp tái chế, xử lý rác thải, và kinh tế tuần hoàn",
+    "long_description": "Thông tin về các hoạt động tái chế rác thải nhựa, kim loại, giấy, và các chính sách thúc đẩy kinh tế tuần hoàn, bảo vệ môi trường.",
+    "examples": [
+      "Nhà máy tái chế rác thải lớn nhất miền Nam đi vào hoạt động.",
+      "Công nghệ tái chế nhựa thành nhiên liệu mới.",
+      "Chính phủ ban hành quy định về phân loại rác tại nguồn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 48,
+    "parent_id": 44,
+    "name": "Dệt may",
+    "short_description": "Tin tức về ngành may mặc, dệt, sợi, và thời trang",
+    "long_description": "Thông tin về hoạt động sản xuất, xuất khẩu hàng dệt may, thị trường lao động trong ngành, và các xu hướng thời trang bền vững (sustainable fashion).",
+    "examples": [
+      "Xuất khẩu dệt may Việt Nam đạt 40 tỷ USD trong năm.",
+      "Các doanh nghiệp dệt may đầu tư vào công nghệ tự động hóa.",
+      "Thiếu hụt đơn hàng dệt may do suy thoái kinh tế toàn cầu."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 49,
+    "parent_id": 44,
+    "name": "Thủy Hải Sản",
+    "short_description": "Ngành xuất khẩu, chế biến thủy sản, hải sản và nuôi trồng",
+    "long_description": "Thông tin về nuôi trồng, đánh bắt, chế biến và xuất khẩu các loại thủy hải sản (tôm, cá tra, cá ngừ), các rào cản thương mại và thị trường tiêu thụ.",
+    "examples": [
+      "Xuất khẩu tôm sang thị trường Mỹ tăng trưởng mạnh.",
+      "Cảnh báo về thẻ vàng IUU ảnh hưởng đến ngành thủy sản.",
+      "Công nghệ nuôi cá tra ứng dụng tiêu chuẩn quốc tế."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 50,
+    "parent_id": 44,
+    "name": "Điện Lực",
+    "short_description": "Ngành điện lực, các nguồn năng lượng (điện mặt trời, điện gió, thủy điện)",
+    "long_description": "Thông tin về sản xuất, truyền tải và phân phối điện, các dự án năng lượng tái tạo (điện gió, điện mặt trời) và chính sách giá điện.",
+    "examples": [
+      "EVN công bố kế hoạch tăng giá điện sinh hoạt.",
+      "Khánh thành dự án nhà máy điện gió ngoài khơi lớn nhất.",
+      "Thách thức trong việc truyền tải điện mặt trời lên lưới điện quốc gia."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 51,
+    "parent_id": 44,
+    "name": "Thủy Lợi",
+    "short_description": "Ngành thủy lợi, các công trình đập thủy điện, đê điều, và quản lý nước",
+    "long_description": "Thông tin về các công trình thủy lợi, quản lý nguồn nước, xây dựng và vận hành đập thủy điện, và các biện pháp phòng chống hạn hán, lũ lụt.",
+    "examples": [
+      "Các tỉnh miền Trung tăng cường công tác chống hạn hán và xâm nhập mặn.",
+      "Dự án nâng cấp hệ thống đê điều ven biển.",
+      "Vận hành xả lũ hồ thủy điện để đảm bảo an toàn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 52,
+    "parent_id": null,
+    "name": "Đồ dùng Công Nghệ",
+    "short_description": "Tin tức chung về các thiết bị điện tử cá nhân, máy tính và thiết bị ngoại vi",
+    "long_description": "Thông tin về thị trường, xu hướng phát triển của các thiết bị công nghệ như PC, laptop, điện thoại, thiết bị đeo tay và các phụ kiện công nghệ.",
+    "examples": [
+      "Doanh số thị trường thiết bị công nghệ toàn cầu giảm nhẹ.",
+      "Xu hướng tích hợp trí tuệ nhân tạo vào thiết bị cá nhân.",
+      "Các công nghệ kết nối mạng 6G đang được nghiên cứu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 53,
+    "parent_id": 52,
+    "name": "Máy Tính PC",
+    "short_description": "Tin tức về máy tính để bàn (Desktop PC), linh kiện và các thiết bị ngoại vi",
+    "long_description": "Thông tin về các loại CPU, GPU, RAM, mainboard, màn hình máy tính, và xu hướng lắp ráp/nâng cấp PC Gaming hay PC làm việc chuyên nghiệp.",
+    "examples": [
+      "Intel và AMD ra mắt dòng chip xử lý mới cho PC.",
+      "Thị trường GPU (card đồ họa) hạ nhiệt sau thời kỳ tăng trưởng nóng.",
+      "Xu hướng sử dụng PC kích thước nhỏ (Mini PC)."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 54,
+    "parent_id": 52,
+    "name": "Điện Thoại",
+    "short_description": "Tin tức về điện thoại thông minh (smartphone), điện thoại phổ thông và các công nghệ di động",
+    "long_description": "Thông tin về các dòng sản phẩm mới (iPhone, Galaxy, Xiaomi), hệ điều hành (iOS, Android), công nghệ camera, pin, và xu hướng thiết kế màn hình gập.",
+    "examples": [
+      "Apple ra mắt iPhone 17 với nhiều cải tiến về camera.",
+      "Samsung giới thiệu công nghệ màn hình gập mới nhất.",
+      "Thị trường điện thoại tầm trung sôi động tại Việt Nam."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 55,
+    "parent_id": 52,
+    "name": "Laptop",
+    "short_description": "Tin tức về máy tính xách tay, Macbook, và các thiết bị 2-trong-1",
+    "long_description": "Thông tin về các dòng laptop Gaming, Ultrabook, Macbook (MacBook Air, Pro), công nghệ màn hình, thời lượng pin và các tiêu chí lựa chọn laptop cho sinh viên/văn phòng.",
+    "examples": [
+      "Đánh giá chi tiết mẫu laptop gaming mỏng nhẹ mới nhất.",
+      "Apple công bố chip M4 cho dòng Macbook Pro.",
+      "Thị trường laptop giáo dục tăng trưởng mạnh mẽ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 56,
+    "parent_id": 52,
+    "name": "Vô Tuyến - TV",
+    "short_description": "Tin tức về TV, công nghệ màn hình và các thiết bị giải trí gia đình",
+    "long_description": "Thông tin về các loại TV (OLED, QLED, MicroLED), công nghệ độ phân giải (4K, 8K), TV thông minh (Smart TV), và các xu hướng xem nội dung trực tuyến.",
+    "examples": [
+      "TV 8K của Sony/Samsung dẫn đầu thị trường TV cao cấp.",
+      "Các ứng dụng giải trí trực tuyến tích hợp trên Smart TV.",
+      "Hướng dẫn chọn mua TV phù hợp với phòng khách."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 57,
+    "parent_id": 52,
+    "name": "Phụ kiện công nghệ",
+    "short_description": "Tin tức về các phụ kiện cho điện thoại, máy tính, thiết bị đeo tay và thiết bị âm thanh",
+    "long_description": "Thông tin về tai nghe (True Wireless, chống ồn), sạc dự phòng, cáp sạc, ốp lưng, smartwatch, fitness tracker, và các thiết bị ngoại vi khác.",
+    "examples": [
+      "Đánh giá tai nghe không dây chống ồn mới nhất của Sony/Apple.",
+      "Xu hướng sử dụng đồng hồ thông minh thay thế vòng đeo tay.",
+      "Thị trường sạc dự phòng tốc độ cao bùng nổ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 58,
+    "parent_id": null,
+    "name": "Doanh nghiệp Tập đoàn lớn",
+    "short_description": "Tin tức về hoạt động kinh doanh, chiến lược và kết quả tài chính của các tập đoàn hàng đầu",
+    "long_description": "Thông tin về các tập đoàn lớn trong nước và quốc tế thuộc nhiều lĩnh vực (Công nghệ, Sản xuất, Tiêu dùng, Tài chính) có ảnh hưởng lớn đến thị trường.",
+    "examples": [
+      "Các tập đoàn lớn công bố báo cáo tài chính quý 3.",
+      "Chiến lược đầu tư và mở rộng thị trường của các công ty đa quốc gia.",
+      "Phân tích sự cạnh tranh giữa các ông lớn công nghệ."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 65,
+    "parent_id": 58,
+    "name": "Ngành Mì ăn liền",
+    "short_description": "Tin tức về Tập đoàn Acecook và ngành mì ăn liền tại Việt Nam",
+    "long_description": "Thông tin về các sản phẩm mì ăn liền, chiến lược thị trường, và các hoạt động xã hội, môi trường của Tập đoàn Acecook.",
+    "examples": [
+      "Acecook Việt Nam tiếp tục dẫn đầu thị phần mì ăn liền.",
+      "Acecook giới thiệu sản phẩm mì ăn liền hương vị địa phương.",
+      "Các hoạt động kiểm soát chất lượng sản phẩm của Acecook."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 66,
+    "parent_id": 58,
+    "name": "Công ty bia",
+    "short_description": "Tin tức về ngành công nghiệp bia, các hãng lớn như Carlsberg, Heineken, Sabeco",
+    "long_description": "Thông tin về thị trường bia, các chính sách thuế, các chiến dịch quảng cáo và xu hướng tiêu thụ bia tại Việt Nam và quốc tế.",
+    "examples": [
+      "Heineken ra mắt sản phẩm bia không cồn mới.",
+      "Ngành công nghiệp bia đối mặt với thuế tiêu thụ đặc biệt.",
+      "Sabeco công bố kết quả kinh doanh khả quan."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 70,
+    "parent_id": 58,
+    "name": "Công ty xăng dầu",
+    "short_description": "Tin tức về các công ty kinh doanh xăng dầu (Petrolimex, PVOil) và thị trường năng lượng",
+    "long_description": "Thông tin về giá xăng dầu, hoạt động kinh doanh, các quy định về thị trường năng lượng, và chiến lược phát triển trạm xăng thông minh.",
+    "examples": [
+      "Petrolimex công bố điều chỉnh giá xăng dầu theo chu kỳ.",
+      "Thị trường xăng dầu nội địa có những diễn biến phức tạp.",
+      "Các công ty xăng dầu đầu tư vào năng lượng sạch."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 71,
+    "parent_id": 58,
+    "name": "Công ty dược",
+    "short_description": "Tin tức về các công ty dược phẩm, chuỗi nhà thuốc (Long Châu, Pharmacity) và ngành y tế",
+    "long_description": "Thông tin về sản xuất thuốc, phân phối dược phẩm, các chuỗi nhà thuốc lớn, và chính sách quản lý ngành dược phẩm tại Việt Nam.",
+    "examples": [
+      "Long Châu mở rộng quy mô chuỗi nhà thuốc lên 1.000 cửa hàng.",
+      "Các công ty dược phẩm đẩy mạnh sản xuất thuốc generic.",
+      "Bộ Y tế kiểm soát chặt chẽ giá thuốc và dược phẩm."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 67,
+    "parent_id": 58,
+    "name": "Công ty Vàng bạc",
+    "short_description": "Tin tức về các công ty vàng bạc, đá quý như PNJ, Bảo tín Minh Châu, Phú Quý",
+    "long_description": "Thông tin về giá vàng, thị trường vàng, hoạt động kinh doanh, và các bộ sưu tập trang sức của các công ty vàng bạc lớn.",
+    "examples": [
+      "Giá vàng SJC biến động mạnh theo thị trường thế giới.",
+      "PNJ mở thêm chuỗi cửa hàng trang sức cao cấp.",
+      "Các công ty vàng bạc đối phó với hiện tượng buôn lậu vàng."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 79,
+    "parent_id": 58,
+    "name": "Doanh nghiệp viễn thông",
+    "short_description": "Tin tức về các nhà mạng di động (Viettel, VNPT/Vinaphone, MobiFone, Vietnamobile)",
+    "long_description": "Thông tin về thị trường viễn thông, triển khai công nghệ 4G, 5G, giá cước, chiến lược cạnh tranh giữa các nhà mạng, và các dịch vụ Internet băng thông rộng.",
+    "examples": [
+      "MobiFone công bố kế hoạch chuyển đổi thuê bao 2G sang 4G.",
+      "Viettel, Vinaphone cạnh tranh gay gắt về dịch vụ Internet tốc độ cao.",
+      "Các nhà mạng thí điểm dịch vụ chuyển mạng giữ số."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 80,
+    "parent_id": null,
+    "name": "Dịch vụ Lữ hành",
+    "short_description": "Tin tức chung về ngành du lịch, lữ hành, vận tải hành khách và các dịch vụ liên quan",
+    "long_description": "Thông tin về các chính sách du lịch, hoạt động của các công ty lữ hành, các dịch vụ vận tải hàng không, đường sắt, đường bộ, và các vấn đề liên quan đến visa, thị thực.",
+    "examples": [
+      "Việt Nam đặt mục tiêu đón 15 triệu lượt khách quốc tế trong năm.",
+      "Các công ty lữ hành tung ra tour du lịch hè giá rẻ.",
+      "Phục hồi mạnh mẽ của ngành du lịch sau đại dịch."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 81,
+    "parent_id": 80,
+    "name": "Thị Thực",
+    "short_description": "Tin tức về Visa, chính sách thị thực nhập cảnh và xuất cảnh, miễn thị thực",
+    "long_description": "Thông tin về các quy định cấp visa (thị thực) du lịch, công tác, lao động, chính sách miễn thị thực song phương, đơn phương của Việt Nam và các nước khác.",
+    "examples": [
+      "Chính phủ nới lỏng chính sách visa điện tử cho khách du lịch.",
+      "Các quốc gia châu Âu siết chặt quy định cấp visa Schengen.",
+      "Việt Nam và Hàn Quốc ký kết thỏa thuận miễn thị thực mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 82,
+    "parent_id": 80,
+    "name": "Hãng hàng không",
+    "short_description": "Tin tức về các hãng hàng không (Vietnam Airlines, Vietjet Air, Bamboo Airways)",
+    "long_description": "Thông tin về đội bay, đường bay mới, dịch vụ, tài chính, và các vấn đề cạnh tranh giữa các hãng hàng không trong nước và quốc tế.",
+    "examples": [
+      "Vietnam Airlines công bố kế hoạch tái cơ cấu đội bay.",
+      "Vietjet Air mở thêm đường bay thẳng đến Ấn Độ.",
+      "Các hãng hàng không quốc tế tăng cường tần suất bay đến Việt Nam."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 83,
+    "parent_id": 80,
+    "name": "Sân bay, máy bay",
+    "short_description": "Tin tức về cơ sở hạ tầng sân bay, các loại máy bay và vấn đề an ninh hàng không",
+    "long_description": "Thông tin về các dự án xây dựng/nâng cấp sân bay (Long Thành, Tân Sơn Nhất), công nghệ máy bay mới, và các vấn đề an toàn, an ninh tại các cảng hàng không.",
+    "examples": [
+      "Dự án sân bay Long Thành đạt tiến độ xây dựng giai đoạn 1.",
+      "Máy bay Airbus A350/Boeing 787 được đưa vào khai thác thương mại.",
+      "Các giải pháp tăng cường an ninh tại khu vực kiểm soát sân bay."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 84,
+    "parent_id": 80,
+    "name": "Chuyên cơ, phi công",
+    "short_description": "Tin tức về chuyên cơ, máy bay cá nhân, đời sống và các vấn đề liên quan đến phi công, tiếp viên",
+    "long_description": "Thông tin về việc thuê, mua bán chuyên cơ, hoạt động đào tạo phi công, các vấn đề về điều kiện làm việc, và các sự kiện liên quan đến đội ngũ phi hành đoàn.",
+    "examples": [
+      "Việt Nam tăng cường đào tạo nguồn nhân lực phi công trẻ.",
+      "Các quy định mới về giờ bay và nghỉ ngơi của phi công.",
+      "Thông tin về các dòng chuyên cơ hạng sang được giới siêu giàu ưa chuộng."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 85,
+    "parent_id": null,
+    "name": "Giáo dục",
+    "short_description": "Tin tức chung về ngành giáo dục, đào tạo, và các vấn đề liên quan đến trường học, học sinh, sinh viên",
+    "long_description": "Thông tin về các cấp học (mẫu giáo, phổ thông, đại học), chính sách giáo dục, cải cách chương trình, tuyển sinh, và các sự kiện học thuật.",
+    "examples": [
+      "Bộ Giáo dục công bố quy chế thi tốt nghiệp THPT mới.",
+      "Xu hướng học trực tuyến (E-learning) sau đại dịch.",
+      "Trường đại học X đạt chuẩn kiểm định chất lượng quốc tế."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 86,
+    "parent_id": 85,
+    "name": "Học phí",
+    "short_description": "Tin tức về mức học phí các cấp, các chính sách miễn giảm và tín dụng sinh viên",
+    "long_description": "Thông tin về việc tăng/giảm học phí tại các trường công lập và tư thục, chính sách hỗ trợ tài chính cho học sinh, sinh viên nghèo và các vấn đề liên quan đến thu chi trong giáo dục.",
+    "examples": [
+      "Các trường đại học công lập đồng loạt tăng học phí theo lộ trình.",
+      "Chính sách miễn giảm học phí cho học sinh vùng khó khăn.",
+      "Ngân hàng triển khai gói vay tín dụng ưu đãi cho sinh viên."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 87,
+    "parent_id": 85,
+    "name": "Giáo dục vùng cao",
+    "short_description": "Tin tức về giáo dục tại các khu vực miền núi, vùng sâu, vùng xa và dân tộc thiểu số",
+    "long_description": "Thông tin về các thách thức trong việc giảng dạy, xây dựng cơ sở vật chất, tình hình học sinh bỏ học, và các chương trình hỗ trợ giáo dục đặc biệt cho vùng cao.",
+    "examples": [
+      "Tình trạng thiếu giáo viên tại các trường học vùng cao.",
+      "Chương trình 'Mang sách đến vùng cao' được tổ chức.",
+      "Xây dựng trường nội trú cho học sinh dân tộc thiểu số."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 88,
+    "parent_id": 85,
+    "name": "Kỳ thi Olympic",
+    "short_description": "Tin tức về các kỳ thi Olympic Quốc tế và Quốc gia (Toán, Lý, Hóa, Tin học)",
+    "long_description": "Thông tin về thành tích, quá trình chuẩn bị, và các gương mặt học sinh đạt giải cao tại các kỳ thi Olympic học thuật quốc tế và trong nước.",
+    "examples": [
+      "Đội tuyển Việt Nam giành huy chương Vàng Olympic Toán học Quốc tế.",
+      "Công tác tuyển chọn và bồi dưỡng học sinh giỏi tham dự Olympic.",
+      "Kỳ thi Olympic Tin học sinh viên toàn quốc."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 90,
+    "parent_id": 85,
+    "name": "Học bổng",
+    "short_description": "Các chương trình học bổng trong nước và quốc tế, quỹ khuyến học",
+    "long_description": "Thông tin về các suất học bổng toàn phần, bán phần của chính phủ, các tổ chức phi chính phủ, các trường đại học quốc tế và các quỹ khuyến học trong nước.",
+    "examples": [
+      "Chương trình học bổng Chính phủ Australia cho sinh viên Việt Nam.",
+      "Quỹ khuyến học trao tặng 500 suất học bổng cho học sinh nghèo vượt khó.",
+      "Hướng dẫn nộp hồ sơ xin học bổng Erasmus Mundus."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 91,
+    "parent_id": 85,
+    "name": "Môn học",
+    "short_description": "Tin tức về các môn học (Toán, Lý, Hóa, Văn, Lịch sử) và chương trình giảng dạy",
+    "long_description": "Thông tin về sự thay đổi trong chương trình giảng dạy các môn học cụ thể, phương pháp học tập mới, và vai trò của từng môn học trong hệ thống giáo dục.",
+    "examples": [
+      "Tăng cường thời lượng môn Lịch sử trong chương trình phổ thông.",
+      "Đổi mới phương pháp dạy và học môn Tiếng Anh.",
+      "Tranh cãi về độ khó của đề thi môn Toán trong kỳ thi quốc gia."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 92,
+    "parent_id": 85,
+    "name": "Lễ khai giảng",
+    "short_description": "Tin tức về lễ khai giảng, bế giảng và các sự kiện truyền thống tại trường học",
+    "long_description": "Thông tin về không khí, các hoạt động và quy mô tổ chức các buổi lễ khai giảng, bế giảng năm học tại các trường trên cả nước.",
+    "examples": [
+      "Học sinh cả nước náo nức chào đón lễ khai giảng năm học mới.",
+      "Bộ trưởng Bộ GD&ĐT gửi thư chúc mừng nhân dịp khai giảng.",
+      "Tổ chức lễ bế giảng giản dị nhưng ý nghĩa."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 93,
+    "parent_id": 85,
+    "name": "Hướng nghiệp",
+    "short_description": "Thông tin về tư vấn hướng nghiệp, chọn ngành, chọn nghề cho học sinh",
+    "long_description": "Các hoạt động tư vấn, hội thảo giúp học sinh định hướng nghề nghiệp, chọn trường, và các thông tin về thị trường lao động, nhu cầu nhân lực.",
+    "examples": [
+      "Tổ chức ngày hội tư vấn tuyển sinh và hướng nghiệp tại TP.HCM.",
+      "Học sinh THPT cần chuẩn bị gì cho kỳ thi đánh giá năng lực.",
+      "Các ngành nghề 'hot' và tiềm năng trong 5 năm tới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 94,
+    "parent_id": 85,
+    "name": "Quy chế xét tuyển",
+    "short_description": "Các quy định, phương thức xét tuyển đại học, cao đẳng và tuyển sinh đầu cấp",
+    "long_description": "Thông tin chi tiết về các phương thức xét tuyển (dựa vào điểm thi, học bạ, đánh giá năng lực), chỉ tiêu tuyển sinh, và các quy định mới của Bộ GD&ĐT.",
+    "examples": [
+      "Các trường đại học công bố chỉ tiêu và phương thức xét tuyển sớm.",
+      "Phân tích về điểm chuẩn và tỷ lệ chọi vào các ngành hot.",
+      "Quy chế xét tuyển thẳng và ưu tiên khu vực được điều chỉnh."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 95,
+    "parent_id": 85,
+    "name": "Đồng phục",
+    "short_description": "Tin tức về đồng phục học sinh, sinh viên và các vấn đề liên quan đến trang phục học đường",
+    "long_description": "Thông tin về quy định đồng phục, các mẫu đồng phục mới, tranh cãi về chi phí mua đồng phục và văn hóa trang phục học đường.",
+    "examples": [
+      "Trường X công bố mẫu đồng phục mới nhận nhiều ý kiến trái chiều.",
+      "Phụ huynh phản ánh về giá bán đồng phục quá cao.",
+      "Ý nghĩa của việc mặc đồng phục trong môi trường giáo dục."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 96,
+    "parent_id": 85,
+    "name": "Mẫu giáo",
+    "short_description": "Tin tức về giáo dục mầm non, nhà trẻ, và các chính sách liên quan đến trẻ em dưới 6 tuổi",
+    "long_description": "Thông tin về chất lượng giáo dục mầm non, chăm sóc sức khỏe, an toàn cho trẻ, và các chính sách hỗ trợ phát triển trẻ thơ.",
+    "examples": [
+      "Tăng cường giám sát an toàn thực phẩm tại các trường mẫu giáo.",
+      "Chính sách phổ cập giáo dục mầm non 5 tuổi.",
+      "Phương pháp giáo dục sớm Montessori được áp dụng rộng rãi."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 97,
+    "parent_id": 85,
+    "name": "Du học",
+    "short_description": "Thông tin về các chương trình du học, thị trường du học và các dịch vụ tư vấn",
+    "long_description": "Thông tin về các điểm đến du học phổ biến (Mỹ, Úc, Canada, Hàn Quốc), chi phí, điều kiện nhập học, và các vấn đề liên quan đến cuộc sống sinh viên quốc tế.",
+    "examples": [
+      "Du học sinh Việt Nam tại Hàn Quốc tăng đột biến.",
+      "Cảnh báo về các trung tâm tư vấn du học lừa đảo.",
+      "Chính sách định cư sau tốt nghiệp cho du học sinh tại Canada."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 98,
+    "parent_id": 85,
+    "name": "Ngoại ngữ",
+    "short_description": "Tin tức về việc dạy và học ngoại ngữ, các kỳ thi chứng chỉ (IELTS, TOEFL, TOEIC)",
+    "long_description": "Thông tin về vai trò của Tiếng Anh và các ngoại ngữ khác (Trung, Nhật, Hàn) trong chương trình học, các trung tâm đào tạo, và kết quả các kỳ thi chứng chỉ quốc tế.",
+    "examples": [
+      "Học sinh Việt Nam đạt điểm IELTS cao kỷ lục.",
+      "Bộ GD&ĐT công bố đề án phổ cập tiếng Anh cho học sinh cấp 1.",
+      "Xu hướng học tiếng Trung và tiếng Hàn ngày càng phổ biến."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 99,
+    "parent_id": 85,
+    "name": "Bạo lực học đường",
+    "short_description": "Tin tức về các vụ việc bạo lực học đường, bắt nạt và các giải pháp phòng ngừa",
+    "long_description": "Thông tin về các vụ việc bạo lực giữa học sinh, giữa giáo viên và học sinh, nguyên nhân, hậu quả và các biện pháp tâm lý, pháp lý để ngăn chặn bạo lực học đường.",
+    "examples": [
+      "Bộ GD&ĐT tăng cường giáo dục kỹ năng sống để phòng ngừa bạo lực học đường.",
+      "Phân tích nguyên nhân và giải pháp cho vấn đề bắt nạt trực tuyến.",
+      "Các trường học thành lập tổ tư vấn tâm lý học đường."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 100,
+    "parent_id": 85,
+    "name": "Sửa đổi chương trình giáo dục",
+    "short_description": "Tin tức về việc đổi mới, sửa đổi chương trình, sách giáo khoa và phương pháp giáo dục",
+    "long_description": "Thông tin về việc triển khai chương trình giáo dục phổ thông mới, các ý kiến đóng góp cho việc sửa đổi sách giáo khoa, và các thử nghiệm về mô hình dạy học mới.",
+    "examples": [
+      "Chương trình giáo dục phổ thông 2018 chính thức được áp dụng toàn bộ.",
+      "Tranh cãi về chất lượng và nội dung của bộ sách giáo khoa mới.",
+      "Đề xuất thí điểm bỏ thi tốt nghiệp THPT và xét tuyển đại học theo năng lực."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 101,
+    "parent_id": null,
+    "name": "Dự án đô thị",
+    "short_description": "Tin tức về các dự án bất động sản nhà ở, thương mại và các khu đô thị mới",
+    "long_description": "Thông tin về quy hoạch, tiến độ xây dựng, mở bán, và các vấn đề pháp lý, tiện ích liên quan đến các khu đô thị, khu dân cư lớn.",
+    "examples": [
+      "Tập đoàn X công bố mở bán giai đoạn 2 dự án khu đô thị sinh thái.",
+      "Phân tích về giá trị bất động sản tại các khu đô thị vệ tinh.",
+      "Chủ đầu tư cam kết bàn giao dự án đúng tiến độ."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 102,
+    "parent_id": 101,
+    "name": "Chung cư",
+    "short_description": "Tin tức về thị trường căn hộ chung cư, nhà ở xã hội và các vấn đề cư dân",
+    "long_description": "Thông tin về giá bán, cho thuê căn hộ, chính sách nhà ở xã hội, và các tranh chấp, mâu thuẫn giữa cư dân và ban quản lý chung cư.",
+    "examples": [
+      "Giá chung cư tại Hà Nội và TP.HCM tiếp tục tăng mạnh.",
+      "Bộ Xây dựng thúc đẩy phát triển nhà ở xã hội.",
+      "Cư dân chung cư X kiến nghị về chất lượng dịch vụ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 103,
+    "parent_id": 101,
+    "name": "Shophouse",
+    "short_description": "Tin tức về các căn nhà phố thương mại, đầu tư và tiềm năng sinh lời từ shophouse",
+    "long_description": "Thông tin về thị trường shophouse, các dự án nổi bật, tỷ lệ lấp đầy, và các yếu tố ảnh hưởng đến khả năng kinh doanh của loại hình bất động sản này.",
+    "examples": [
+      "Shophouse tại khu vực du lịch biển có giá thuê tăng vọt.",
+      "Phân tích hiệu quả đầu tư vào shophouse tại các khu đô thị mới.",
+      "Chủ đầu tư tung ra chính sách ưu đãi cho nhà đầu tư shophouse."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 104,
+    "parent_id": null,
+    "name": "Quy hoạch, giao thông hạ tầng",
+    "short_description": "Tin tức về các dự án giao thông, quy hoạch vùng, hạ tầng kỹ thuật và phát triển đô thị",
+    "long_description": "Thông tin về các quyết định quy hoạch đô thị, xây dựng cầu, đường, cảng biển, đường sắt, và tác động của hạ tầng đến kinh tế, xã hội.",
+    "examples": [
+      "Quy hoạch tổng thể phát triển kinh tế-xã hội vùng Đồng bằng sông Cửu Long.",
+      "Thủ tướng Chính phủ chỉ đạo đẩy nhanh tiến độ các dự án giao thông trọng điểm.",
+      "Phân tích ảnh hưởng của quy hoạch đến giá đất khu vực."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 105,
+    "parent_id": 104,
+    "name": "Cầu",
+    "short_description": "Tin tức về các dự án xây dựng, nâng cấp cầu đường bộ, cầu vượt và cầu dây văng",
+    "long_description": "Thông tin về tiến độ thi công, vốn đầu tư, và vai trò của các cây cầu lớn (như cầu Vàm Cống, cầu Thủ Thiêm) đối với việc kết nối giao thông.",
+    "examples": [
+      "Khánh thành cầu vượt biển dài nhất Việt Nam, rút ngắn thời gian di chuyển.",
+      "Vấn đề ùn tắc giao thông tại các cây cầu cửa ngõ thành phố.",
+      "Dự án xây dựng cầu mới nhằm giải tỏa áp lực giao thông."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 106,
+    "parent_id": 104,
+    "name": "Đường sắt",
+    "short_description": "Tin tức về các dự án đường sắt đô thị (Metro), đường sắt cao tốc và đường sắt quốc gia",
+    "long_description": "Thông tin về tiến độ xây dựng tuyến Metro (Hà Nội, TP.HCM), dự án đường sắt cao tốc Bắc – Nam, và các vấn đề về hiện đại hóa ngành đường sắt.",
+    "examples": [
+      "Tuyến Metro số 1 TP.HCM chạy thử nghiệm thành công.",
+      "Dự án đường sắt cao tốc Bắc – Nam được trình Quốc hội phê duyệt.",
+      "Ngành đường sắt nâng cấp hệ thống tín hiệu, đảm bảo an toàn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 107,
+    "parent_id": 104,
+    "name": "Cảng biển",
+    "short_description": "Tin tức về hoạt động của các cảng biển, cảng nước sâu và logistics hàng hải",
+    "long_description": "Thông tin về lưu lượng hàng hóa qua cảng, đầu tư mở rộng cảng nước sâu (Cái Mép – Thị Vải), và các chính sách phát triển kinh tế biển.",
+    "examples": [
+      "Cảng Cái Mép đón tàu container siêu lớn của thế giới.",
+      "Việt Nam đầu tư xây dựng cảng trung chuyển quốc tế.",
+      "Tình hình thiếu hụt container ảnh hưởng đến vận tải biển."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 108,
+    "parent_id": 104,
+    "name": "Cao tốc",
+    "short_description": "Tin tức về các dự án đường cao tốc, đường vành đai và các tuyến đường bộ trọng điểm",
+    "long_description": "Thông tin về tiến độ giải phóng mặt bằng, thi công, vốn đầu tư và tác động kinh tế của các tuyến đường cao tốc (như Cao tốc Bắc – Nam, Vành đai 3).",
+    "examples": [
+      "Khởi công xây dựng đoạn cao tốc từ X đến Y.",
+      "Chính phủ huy động vốn xã hội hóa cho các dự án cao tốc.",
+      "Cao tốc X đã đưa vào khai thác giúp giảm thời gian di chuyển."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 111,
+    "parent_id": null,
+    "name": "Vận tải",
+    "short_description": "Tin tức chung về ngành vận tải hành khách và hàng hóa (đường bộ, sắt, thủy)",
+    "long_description": "Thông tin về chính sách quản lý vận tải, an toàn giao thông, hoạt động của các doanh nghiệp vận tải hành khách và logistics, và các vấn đề liên quan đến cước phí, hạ tầng.",
+    "examples": [
+      "Ngành vận tải đối mặt với thách thức tăng giá nhiên liệu.",
+      "Chính phủ thúc đẩy vận tải đa phương thức để giảm chi phí logistics.",
+      "Các giải pháp giảm tải giao thông trong giờ cao điểm."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 112,
+    "parent_id": 111,
+    "name": "Xe buýt",
+    "short_description": "Tin tức về hệ thống xe buýt công cộng và vận tải hành khách công cộng",
+    "long_description": "Thông tin về các tuyến xe buýt mới, chính sách trợ giá, vấn đề chất lượng dịch vụ, và việc chuyển đổi xe buýt sang sử dụng năng lượng sạch (xe điện, CNG).",
+    "examples": [
+      "Hà Nội thí điểm mở thêm các tuyến xe buýt điện.",
+      "Chính sách miễn phí vé xe buýt cho người cao tuổi.",
+      "Nâng cao chất lượng dịch vụ và thái độ của lái xe buýt."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 113,
+    "parent_id": 111,
+    "name": "Xe điện",
+    "short_description": "Tin tức về ô tô điện, xe máy điện, công nghệ pin và hạ tầng trạm sạc",
+    "long_description": "Chỉ bao gồm tin tức liên quan đến các phương tiện chạy bằng điện như ô tô điện (EV), xe máy điện, xe buýt điện. Bao gồm thông tin về công nghệ pin, trạm sạc, chính sách ưu đãi dành riêng cho xe điện. Không bao gồm các tin tức về ô tô xăng, diesel, ô tô truyền thống hoặc các chính sách thuế quan đối với ô tô thông thường.",
+    "examples": [
+      "VinFast công bố mẫu xe điện cỡ nhỏ VF 3 tại thị trường quốc tế.",
+      "Chính phủ ưu đãi thuế trước bạ dành riêng cho ô tô điện.",
+      "Các công ty đẩy mạnh đầu tư xây dựng trạm sạc điện.",
+      "Tesla ra mắt mẫu xe điện mới với công nghệ pin LFP."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 114,
+    "parent_id": 111,
+    "name": "Tài xế công nghệ",
+    "short_description": "Tin tức về đội ngũ tài xế xe ôm, taxi công nghệ (Grab, Gojek, Be) và các vấn đề liên quan",
+    "long_description": "Thông tin về thu nhập, quyền lợi, bảo hiểm xã hội của tài xế công nghệ, tranh chấp với các nền tảng, và các vấn đề an toàn giao thông liên quan đến nghề nghiệp này.",
+    "examples": [
+      "Tài xế công nghệ đình công phản đối chính sách chiết khấu của hãng.",
+      "Đảm bảo an toàn cho tài xế nữ khi hoạt động về đêm.",
+      "Phân tích về thu nhập và chi phí của tài xế xe ôm công nghệ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 115,
+    "parent_id": 111,
+    "name": "Tàu",
+    "short_description": "Tin tức về vận tải đường sắt và đường thủy (tàu hỏa, tàu thủy, phà)",
+    "long_description": "Thông tin về các tuyến tàu hỏa Bắc-Nam, tàu cao tốc du lịch, vận tải hàng hóa bằng đường thủy nội địa và các chính sách an toàn, vé tàu.",
+    "examples": [
+      "Ngành đường sắt tăng cường tàu phục vụ dịp Tết Nguyên đán.",
+      "Phát triển vận tải đường thủy nội địa tại Đồng bằng sông Cửu Long.",
+      "Tàu cao tốc đưa khách ra đảo Phú Quốc hoạt động trở lại."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 116,
+    "parent_id": null,
+    "name": "Luật, kiện tụng",
+    "short_description": "Tin tức về các luật mới ban hành, các vụ kiện lớn, và các vấn đề pháp lý quan trọng",
+    "long_description": "Thông tin về việc Quốc hội thông qua các bộ luật, các vụ án kinh tế, dân sự, hình sự nổi bật, và các tranh chấp pháp lý giữa doanh nghiệp, cá nhân.",
+    "examples": [
+      "Quốc hội thông qua Luật Đất đai (sửa đổi) với nhiều điểm mới.",
+      "Phiên tòa xét xử vụ án kinh tế ngàn tỷ được dư luận quan tâm.",
+      "Doanh nghiệp khởi kiện đối tác vi phạm hợp đồng thương mại."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 117,
+    "parent_id": null,
+    "name": "Thuế",
+    "short_description": "Tin tức về chính sách thuế, các loại thuế (VAT, thu nhập cá nhân, thu nhập doanh nghiệp), và quản lý thuế",
+    "long_description": "Thông tin về các quy định, mức thuế suất, việc hoàn thuế, và các chính sách ưu đãi thuế nhằm hỗ trợ doanh nghiệp và người dân.",
+    "examples": [
+      "Chính phủ đề xuất giảm thuế VAT để kích cầu tiêu dùng.",
+      "Cục Thuế tăng cường kiểm tra các giao dịch thương mại điện tử.",
+      "Hướng dẫn quyết toán thuế thu nhập cá nhân hàng năm."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 118,
+    "parent_id": null,
+    "name": "Ngân hàng",
+    "short_description": "Tin tức chung về hệ thống ngân hàng, chính sách tiền tệ và thị trường tài chính",
+    "long_description": "Thông tin về Ngân hàng Nhà nước, các ngân hàng thương mại, lãi suất, tỷ giá hối đoái, tín dụng, và các dịch vụ ngân hàng số.",
+    "examples": [
+      "Ngân hàng Nhà nước điều chỉnh lãi suất điều hành để kiểm soát lạm phát.",
+      "Các ngân hàng thương mại đẩy mạnh cho vay tiêu dùng cuối năm.",
+      "Xu hướng thanh toán không dùng tiền mặt và ngân hàng số."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 119,
+    "parent_id": 118,
+    "name": "Kho bạc",
+    "short_description": "Tin tức về Kho bạc Nhà nước, quản lý ngân sách và trái phiếu chính phủ",
+    "long_description": "Thông tin về hoạt động thu chi ngân sách, phát hành và đấu thầu trái phiếu chính phủ, và công tác quản lý tài chính công.",
+    "examples": [
+      "Kho bạc Nhà nước hoàn thành kế hoạch huy động vốn qua trái phiếu.",
+      "Quy trình kiểm soát chi tiêu ngân sách nhà nước được siết chặt.",
+      "Kho bạc triển khai hệ thống thanh toán điện tử mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 120,
+    "parent_id": 118,
+    "name": "Fed",
+    "short_description": "Tin tức về Cục Dự trữ Liên bang Hoa Kỳ (Fed) và chính sách tiền tệ của Mỹ",
+    "long_description": "Thông tin về các quyết định tăng/giảm lãi suất của Fed, các cuộc họp FOMC, và tác động của chính sách tiền tệ Mỹ đến thị trường tài chính toàn cầu, đặc biệt là tỷ giá hối đoái.",
+    "examples": [
+      "Fed quyết định giữ nguyên lãi suất cơ bản lần thứ 5 liên tiếp.",
+      "Phân tích về khả năng cắt giảm lãi suất của Fed trong năm tới.",
+      "Tác động của lạm phát Mỹ đến các thị trường mới nổi."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 121,
+    "parent_id": 118,
+    "name": "CIC",
+    "short_description": "Tin tức về Trung tâm Thông tin Tín dụng Quốc gia Việt Nam (CIC) và xếp hạng tín dụng",
+    "long_description": "Thông tin về vai trò của CIC trong việc quản lý và cung cấp thông tin tín dụng, các quy định về nợ xấu, và tầm quan trọng của lịch sử tín dụng cá nhân, doanh nghiệp.",
+    "examples": [
+      "CIC cảnh báo về tình trạng nợ xấu tăng cao trong lĩnh vực bất động sản.",
+      "Hướng dẫn kiểm tra điểm tín dụng cá nhân trên hệ thống CIC.",
+      "Ngân hàng sử dụng dữ liệu CIC để đánh giá hồ sơ vay vốn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 123,
+    "parent_id": 118,
+    "name": "Ngân hàng Việt Nam",
+    "short_description": "Tin tức về các ngân hàng thương mại Việt Nam (Sacombank, Techcombank, Vietcombank, MBBank)",
+    "long_description": "Thông tin về kết quả kinh doanh, lợi nhuận, chiến lược mở rộng, dịch vụ ngân hàng số, và các vấn đề về vốn, nợ xấu của các ngân hàng thương mại cổ phần.",
+    "examples": [
+      "Techcombank công bố lợi nhuận quý 4 tăng trưởng ấn tượng.",
+      "MBBank triển khai các dịch vụ ngân hàng số tích hợp AI.",
+      "Vietcombank giảm lãi suất cho vay ưu đãi đối với doanh nghiệp vừa và nhỏ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 124,
+    "parent_id": null,
+    "name": "Ngoại giao Việt Nam",
+    "short_description": "Thông tin về chính sách đối ngoại, quan hệ song phương và đa phương của Việt Nam với các đối tác quốc tế",
+    "long_description": "Tin tức về các chuyến thăm cấp cao, ký kết hiệp định thương mại, đối tác chiến lược, và vai trò của Việt Nam tại các diễn đàn quốc tế (ASEAN, Liên Hợp Quốc).",
+    "examples": [
+      "Việt Nam và Hoa Kỳ nâng cấp quan hệ lên Đối tác Chiến lược Toàn diện.",
+      "Thủ tướng thăm chính thức Trung Quốc, ký kết các văn kiện hợp tác.",
+      "Việt Nam đăng cai Hội nghị Thượng đỉnh ASEAN lần thứ X."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 125,
+    "parent_id": null,
+    "name": "Ngày lễ",
+    "short_description": "Các ngày lễ lớn của Việt Nam (lịch nghỉ, hoạt động kỷ niệm)",
+    "long_description": "Thông tin về lịch nghỉ lễ chính thức (Tết Nguyên Đán, Quốc Khánh, Giỗ Tổ Hùng Vương), các hoạt động văn hóa, lễ hội kỷ niệm trong các dịp lễ lớn.",
+    "examples": [
+      "Lịch nghỉ Tết Nguyên Đán kéo dài 7 ngày, người dân có kế hoạch du lịch.",
+      "Các hoạt động văn hóa, nghệ thuật mừng ngày Quốc khánh.",
+      "Đề xuất kéo dài hoặc thay đổi ngày nghỉ lễ cho người lao động."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 126,
+    "parent_id": 125,
+    "name": "Trung thu",
+    "short_description": "Tin tức về Tết Trung thu, bánh trung thu, lồng đèn và các hoạt động vui chơi",
+    "long_description": "Thông tin về thị trường bánh trung thu, các hoạt động rước đèn, múa lân, và các chương trình thiện nguyện dành cho trẻ em nhân dịp Tết Trung thu.",
+    "examples": [
+      "Thị trường bánh trung thu truyền thống và hiện đại cạnh tranh sôi nổi.",
+      "Các em nhỏ tham gia lễ hội rước đèn lớn nhất thành phố.",
+      "Ý nghĩa và nguồn gốc của Tết Trung thu truyền thống."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 127,
+    "parent_id": 125,
+    "name": "Quốc Khánh",
+    "short_description": "Tin tức về ngày Quốc Khánh 2/9 và các hoạt động kỷ niệm chính thức",
+    "long_description": "Thông tin về các hoạt động kỷ niệm Ngày Độc lập, lễ thượng cờ, bắn pháo hoa, diễu hành và các sự kiện văn hóa, lịch sử liên quan đến ngày 2/9.",
+    "examples": [
+      "Hà Nội tổ chức bắn pháo hoa chào mừng ngày Quốc Khánh.",
+      "Triển lãm ảnh kỷ niệm 70 năm Cách mạng tháng Tám và Quốc Khánh.",
+      "Người dân đổ về Lăng Chủ tịch Hồ Chí Minh viếng Bác dịp 2/9."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 128,
+    "parent_id": 125,
+    "name": "Tết",
+    "short_description": "Tin tức về Tết Nguyên Đán, chuẩn bị đón Tết, phong tục và hoạt động vui Xuân",
+    "long_description": "Thông tin về thị trường hoa, cây cảnh Tết (đào, quất), vấn đề an toàn giao thông, các phong tục truyền thống (gói bánh chưng, lễ chùa), và kinh tế dịp Tết.",
+    "examples": [
+      "Các tuyến xe khách tăng cường chuyến phục vụ người dân về quê ăn Tết.",
+      "Thị trường hoa Tết tại chợ hoa Hàng Lược nhộn nhịp.",
+      "Bộ Y tế khuyến cáo về an toàn vệ sinh thực phẩm trong dịp Tết."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 129,
+    "parent_id": 125,
+    "name": "Quốc tế lao động",
+    "short_description": "Tin tức về Ngày Quốc tế Lao động 1/5 và các hoạt động liên quan đến quyền lợi người lao động",
+    "long_description": "Thông tin về các hoạt động kỷ niệm ngày 1/5, chính sách tiền lương, bảo hiểm xã hội, và các vấn đề liên quan đến điều kiện làm việc của người lao động.",
+    "examples": [
+      "Tổng Liên đoàn Lao động tổ chức các hoạt động tôn vinh công nhân.",
+      "Chính phủ ban hành chính sách tăng lương tối thiểu vùng.",
+      "Người lao động được nghỉ 5 ngày liên tục dịp Lễ 30/4 và 1/5."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 130,
+    "parent_id": null,
+    "name": "Sự kiện",
+    "short_description": "Thông tin về các sự kiện, đại lễ, hội thảo, workshop và các buổi gặp mặt lớn",
+    "long_description": "Tin tức về các sự kiện văn hóa, tôn giáo, xã hội có quy mô lớn, các buổi hội thảo chuyên ngành, và các hoạt động gây quỹ, từ thiện.",
+    "examples": [
+      "Tổ chức Đại lễ Phật đản Vesak tại chùa Bái Đính.",
+      "Hội thảo quốc tế về Trí tuệ nhân tạo (AI) thu hút nhiều chuyên gia.",
+      "Sự kiện âm nhạc ngoài trời thu hút hàng chục ngàn người tham dự."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 131,
+    "parent_id": null,
+    "name": "Triển lãm",
+    "short_description": "Tin tức về các triển lãm thương mại, nghệ thuật, công nghệ và hội chợ chuyên ngành",
+    "long_description": "Thông tin về các sự kiện trưng bày sản phẩm mới, công nghệ, tác phẩm nghệ thuật, và các hội chợ giới thiệu hàng tiêu dùng, nông sản.",
+    "examples": [
+      "Triển lãm Ô tô Việt Nam (Vietnam Motor Show) ra mắt nhiều mẫu xe mới.",
+      "Hội chợ Du lịch Quốc tế thu hút sự tham gia của nhiều quốc gia.",
+      "Khán giả chiêm ngưỡng triển lãm tranh của họa sĩ đương đại."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 170,
+    "parent_id": null,
+    "name": "Thị trường Chứng Khoán",
+    "short_description": "Tin tức về thị trường vốn, cổ phiếu, trái phiếu, chỉ số VN-Index và chính sách của UBCKNN",
+    "long_description": "Thông tin về diễn biến chỉ số chứng khoán (VN30, HNX, UPCOM), các đợt phát hành, niêm yết cổ phiếu mới (IPO), các quy định giao dịch, và phân tích các mã cổ phiếu lớn.",
+    "examples": [
+      "VN-Index vượt mốc 1300 điểm với thanh khoản tăng mạnh.",
+      "Ủy ban Chứng khoán Nhà nước siết chặt quy định về phát hành trái phiếu doanh nghiệp.",
+      "Phân tích triển vọng cổ phiếu ngành Ngân hàng trong quý tới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 171,
+    "parent_id": 170,
+    "name": "Tạp chí Tài chính",
+    "short_description": "Bình luận, phân tích chuyên sâu về kinh tế vĩ mô, tài chính toàn cầu và các tạp chí tài chính hàng đầu",
+    "long_description": "Bài viết, phân tích từ các tạp chí uy tín (như Forbes, Bloomberg, The Economist) về xu hướng kinh tế vĩ mô, chính sách tài khóa, tiền tệ toàn cầu và các vấn đề tài chính phức tạp.",
+    "examples": [
+      "Forbes công bố danh sách tỷ phú giàu nhất thế giới năm 2024.",
+      "Phân tích của Bloomberg về tác động của lạm phát đến thị trường Châu Á.",
+      "Bài bình luận về cuộc chiến thương mại Mỹ-Trung trên The Economist."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 172,
+    "parent_id": 170,
+    "name": "Sàn giao dịch",
+    "short_description": "Hoạt động của các sàn giao dịch chứng khoán (HOSE, HNX), sàn phái sinh và sàn hàng hóa",
+    "long_description": "Thông tin về các sàn giao dịch cổ phiếu, thị trường phái sinh (Futures, Options), thời gian giao dịch, các sự cố kỹ thuật và các sản phẩm tài chính mới được niêm yết trên sàn.",
+    "examples": [
+      "Sàn HOSE nâng cấp hệ thống giao dịch, giảm thiểu tình trạng nghẽn lệnh.",
+      "Thị trường chứng khoán phái sinh thu hút lượng lớn nhà đầu tư mới.",
+      "Giá trị giao dịch trung bình hàng ngày trên HNX đạt mức kỷ lục."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 173,
+    "parent_id": null,
+    "name": "Đầu tư, Startup",
+    "short_description": "Tin tức về vốn đầu tư mạo hiểm (VC), Thiên thần (Angel Investor), các vòng gọi vốn và hệ sinh thái khởi nghiệp",
+    "long_description": "Thông tin về các thương vụ đầu tư (Seed, Series A, B...), hoạt động của các quỹ đầu tư mạo hiểm trong và ngoài nước, và các xu hướng công nghệ, đổi mới sáng tạo trong cộng đồng Startup.",
+    "examples": [
+      "Startup công nghệ giáo dục Việt Nam gọi vốn thành công 5 triệu USD.",
+      "Chính phủ công bố chính sách hỗ trợ quỹ đầu tư mạo hiểm.",
+      "Phân tích về hệ sinh thái khởi nghiệp tại TP.HCM và Hà Nội."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 174,
+    "parent_id": null,
+    "name": "Khoáng sản, nhiên vật liệu",
+    "short_description": "Tin tức về khai thác, sản xuất, giá cả và quy hoạch các loại tài nguyên khoáng sản, nhiên liệu hóa thạch và vật liệu cơ bản",
+    "long_description": "Thông tin về giá các loại hàng hóa cơ bản (Commodities), chính sách khai thác tài nguyên, bảo vệ môi trường trong ngành khoáng sản, và các vấn đề về cung ứng năng lượng.",
+    "examples": [
+      "Giá dầu thô thế giới biến động mạnh do căng thẳng địa chính trị.",
+      "Chính phủ siết chặt quản lý khai thác khoáng sản trái phép.",
+      "Các tập đoàn năng lượng đẩy mạnh tìm kiếm và thăm dò dầu khí."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 175,
+    "parent_id": 174,
+    "name": "Dầu",
+    "short_description": "Giá dầu thô (Brent, WTI), khai thác dầu mỏ, OPEC, các giàn khoan và sản phẩm dầu mỏ",
+    "long_description": "Thông tin về giá dầu thô trên thị trường quốc tế (Brent, WTI), các quyết định của OPEC, trữ lượng dầu mỏ, và hoạt động của các công ty thăm dò, khai thác dầu khí (PVEP, PVS).",
+    "examples": [
+      "OPEC+ quyết định cắt giảm sản lượng dầu để giữ giá.",
+      "Giá dầu Brent vượt mốc 90 USD/thùng.",
+      "Phân tích về triển vọng cung cầu dầu mỏ toàn cầu."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 176,
+    "parent_id": 174,
+    "name": "Vàng",
+    "short_description": "Giá vàng SJC, vàng miếng, vàng thế giới (Spot Gold), chính sách quản lý vàng",
+    "long_description": "Thông tin về biến động giá vàng trong nước (SJC, nhẫn tròn trơn) và quốc tế (XAU/USD), các chính sách can thiệp của Ngân hàng Nhà nước để bình ổn thị trường vàng.",
+    "examples": [
+      "Ngân hàng Nhà nước tổ chức đấu thầu vàng miếng để tăng nguồn cung.",
+      "Giá vàng thế giới tăng kỷ lục do lo ngại lạm phát.",
+      "Người dân đổ xô đi mua vàng tích trữ dịp Thần Tài."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 177,
+    "parent_id": 174,
+    "name": "Xăng",
+    "short_description": "Giá xăng E5 RON 92, RON 95, giá dầu diesel, điều chỉnh giá xăng dầu trong nước",
+    "long_description": "Thông tin về các kỳ điều hành giá xăng dầu trong nước, thuế, phí và quỹ bình ổn giá xăng dầu, cũng như tình hình cung ứng xăng dầu trên thị trường nội địa.",
+    "examples": [
+      "Giá xăng được điều chỉnh tăng mạnh do giá dầu thế giới tăng.",
+      "Bộ Công Thương yêu cầu các doanh nghiệp đảm bảo nguồn cung xăng dầu.",
+      "Quỹ Bình ổn giá xăng dầu được sử dụng để kiềm chế đà tăng của giá bán lẻ."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 178,
+    "parent_id": 174,
+    "name": "Kim cương",
+    "short_description": "Thị trường kim cương, đấu giá kim cương, giá trị và sản xuất kim cương tự nhiên, nhân tạo",
+    "long_description": "Thông tin về thị trường, nguồn gốc, và giá trị của kim cương tự nhiên và nhân tạo (Lab-grown Diamond), các hoạt động đấu giá và buôn bán kim cương.",
+    "examples": [
+      "Viên kim cương hồng quý hiếm được đấu giá với mức kỷ lục.",
+      "Kim cương nhân tạo dần chiếm lĩnh thị trường trang sức.",
+      "Các thương hiệu trang sức lớn công bố bộ sưu tập kim cương mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 179,
+    "parent_id": 174,
+    "name": "Đá quý",
+    "short_description": "Thị trường đá quý, đá bán quý, ngọc trai, và các loại khoáng vật làm trang sức",
+    "long_description": "Thông tin về giá trị, khai thác và thị trường các loại đá quý (ruby, sapphire, ngọc bích), ngọc trai, và các vấn đề về nguồn gốc, tính pháp lý của đá quý.",
+    "examples": [
+      "Thị trường đá quý Việt Nam phát triển sôi động với nhiều loại đá hiếm.",
+      "Khai thác đá quý trái phép gây ảnh hưởng đến môi trường.",
+      "Bộ sưu tập trang sức từ ngọc trai cao cấp được giới thiệu."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 180,
+    "parent_id": 174,
+    "name": "Carbon, than",
+    "short_description": "Thị trường than đá, khai thác than, than nhiệt điện, tín chỉ Carbon và năng lượng hóa thạch",
+    "long_description": "Thông tin về giá than đá thế giới, hoạt động của Tập đoàn Than Khoáng sản Việt Nam (TKV), vai trò của than trong sản xuất điện và các chính sách liên quan đến **tín chỉ Carbon** và **giảm phát thải**.",
+    "examples": [
+      "Tập đoàn TKV tăng cường sản xuất than phục vụ nhiệt điện.",
+      "Việt Nam xây dựng thị trường tín chỉ Carbon trong nước.",
+      "Thế giới chuyển đổi năng lượng, giảm dần sự phụ thuộc vào than đá."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 181,
+    "parent_id": 174,
+    "name": "Tài nguyên nước ngọt",
+    "short_description": "Vấn đề về nước sạch, thủy lợi, biến đổi khí hậu và an ninh nguồn nước",
+    "long_description": "Thông tin về quản lý, bảo vệ và khai thác nguồn nước ngọt, các dự án thủy lợi lớn, tác động của biến đổi khí hậu đến nguồn nước (hạn hán, xâm nhập mặn) và chính sách an ninh nguồn nước.",
+    "examples": [
+      "Biến đổi khí hậu gây ra hạn hán nghiêm trọng tại Đồng bằng sông Cửu Long.",
+      "Các dự án thủy lợi lớn được triển khai để chống xâm nhập mặn.",
+      "Chính phủ tăng cường quản lý và bảo vệ nguồn nước sạch."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 182,
+    "parent_id": null,
+    "name": "Đấu giá, đấu thầu",
+    "short_description": "Các sự kiện đấu giá tài sản, đất đai, biển số xe và các mặt hàng giá trị; quy trình đấu thầu các dự án, gói thầu Chính phủ",
+    "long_description": "Thông tin về quy trình, kết quả các phiên đấu giá công khai (đất, biển số xe, tài sản), Luật Đấu thầu, các gói thầu xây dựng, mua sắm công, và các tranh chấp pháp lý liên quan đến đấu giá, đấu thầu.",
+    "examples": [
+      "Biển số xe ngũ quý 9 được đấu giá với mức giá kỷ lục.",
+      "Doanh nghiệp bỏ cọc sau khi trúng đấu giá đất tại Thủ Thiêm.",
+      "Các ngân hàng thương mại tiến hành đấu giá tài sản bảo đảm.",
+      "Quy trình lựa chọn nhà thầu cho dự án Sân bay Long Thành."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 183,
+    "parent_id": null,
+    "name": "Ngoại tệ",
+    "short_description": "Tỷ giá hối đoái, USD, EUR, Yên Nhật, các can thiệp của Ngân hàng Nhà nước trên thị trường ngoại hối",
+    "long_description": "Thông tin về diễn biến tỷ giá hối đoái (USD/VND, EUR/VND), chính sách điều hành ngoại hối của Ngân hàng Nhà nước (NHNN), thị trường chợ đen và nhu cầu ngoại tệ phục vụ xuất nhập khẩu.",
+    "examples": [
+      "NHNN quyết định bán ngoại tệ can thiệp thị trường để ổn định tỷ giá.",
+      "Tỷ giá USD/VND tăng mạnh do ảnh hưởng từ chính sách lãi suất của FED.",
+      "Phân tích về tình hình dự trữ ngoại hối quốc gia."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 184,
+    "parent_id": null,
+    "name": "Nợ",
+    "short_description": "Nợ xấu, nợ công, nợ cá nhân, nợ doanh nghiệp, xử lý nợ và mua bán nợ (VAMC)",
+    "long_description": "Thông tin về tỷ lệ và xử lý nợ xấu trong hệ thống ngân hàng, nợ công quốc gia, các chính sách xóa nợ, và hoạt động mua bán nợ của VAMC (Công ty Quản lý tài sản của các tổ chức tín dụng).",
+    "examples": [
+      "Nợ xấu ngân hàng có xu hướng tăng cao trong bối cảnh kinh tế khó khăn.",
+      "Chính phủ công bố kế hoạch quản lý và giảm nợ công quốc gia.",
+      "Các công ty tài chính tăng cường thu hồi nợ cá nhân và doanh nghiệp."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 185,
+    "parent_id": null,
+    "name": "Tiền số",
+    "short_description": "Thị trường tiền điện tử, Blockchain, Bitcoin, Ethereum, quy định pháp lý về tiền số",
+    "long_description": "Thông tin về biến động giá các đồng tiền điện tử chính, công nghệ Blockchain, quy định của Chính phủ về tiền ảo, các dự án tiền số mới và vấn đề lừa đảo liên quan đến tiền điện tử.",
+    "examples": [
+      "Giá Bitcoin vượt mốc 70.000 USD sau sự kiện Halving.",
+      "NHNN đang nghiên cứu việc ban hành khuôn khổ pháp lý cho tài sản số.",
+      "Các sàn giao dịch tiền điện tử lớn đối mặt với rủi ro an ninh mạng."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 186,
+    "parent_id": 185,
+    "name": "Tiền ảo Pi",
+    "short_description": "Thông tin về dự án Pi Network, mạng lưới Pi, giá trị và tính pháp lý",
+    "long_description": "Tin tức cập nhật về dự án Pi Network, việc trao đổi Pi, các cảnh báo của cơ quan chức năng về rủi ro pháp lý khi giao dịch đồng Pi tại Việt Nam.",
+    "examples": [
+      "Cộng đồng Pi Network Việt Nam tổ chức các sự kiện trao đổi hàng hóa.",
+      "Cơ quan chức năng cảnh báo về mô hình hoạt động của Pi Network.",
+      "Tiến độ phát triển Mainnet của Pi Network."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 187,
+    "parent_id": 185,
+    "name": "Bitcoin",
+    "short_description": "Giá Bitcoin, khai thác Bitcoin (Mining), sự kiện Halving, ETF Bitcoin",
+    "long_description": "Thông tin chi tiết về biến động giá Bitcoin, ảnh hưởng của các quỹ ETF Bitcoin giao ngay, hoạt động khai thác Bitcoin và các sự kiện kinh tế quan trọng (như Halving).",
+    "examples": [
+      "Các quỹ ETF Bitcoin giao ngay tại Mỹ đạt mức thanh khoản kỷ lục.",
+      "Bitcoin Halving tác động đến chi phí khai thác và nguồn cung.",
+      "Phân tích vai trò của Bitcoin như một tài sản trú ẩn an toàn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 189,
+    "parent_id": null,
+    "name": "Trái phiếu",
+    "short_description": "Trái phiếu Chính phủ, trái phiếu doanh nghiệp, lãi suất, mua lại trái phiếu và thị trường trái phiếu thứ cấp",
+    "long_description": "Thông tin về thị trường trái phiếu doanh nghiệp, lãi suất và rủi ro trái phiếu, các đợt phát hành, và chính sách của Chính phủ về việc cơ cấu lại nợ trái phiếu doanh nghiệp.",
+    "examples": [
+      "Chính phủ đẩy mạnh phát hành trái phiếu để huy động vốn đầu tư công.",
+      "Nhiều doanh nghiệp bất động sản công bố mua lại trái phiếu trước hạn.",
+      "Quy định mới về xếp hạng tín nhiệm đối với trái phiếu doanh nghiệp."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 190,
+    "parent_id": null,
+    "name": "Thiên tai",
+    "short_description": "Các hiện tượng thiên tai (bão, lũ, động đất, hạn hán), cảnh báo và biện pháp phòng chống",
+    "long_description": "Thông tin về dự báo, cảnh báo các hiện tượng thời tiết nguy hiểm, thiệt hại do thiên tai gây ra, và các chính sách, biện pháp ứng phó, khắc phục hậu quả thiên tai, cứu hộ, cứu nạn.",
+    "examples": [
+      "Bão số 3 gây thiệt hại nặng nề cho các tỉnh miền Trung.",
+      "Chính phủ ban hành lệnh sơ tán khẩn cấp người dân khỏi vùng lũ.",
+      "Các giải pháp phòng chống sạt lở đất tại miền núi phía Bắc."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 191,
+    "parent_id": 190,
+    "name": "Lũ lụt",
+    "short_description": "Tình hình lũ lụt, ngập úng, mức nước sông, cứu trợ và khắc phục hậu quả",
+    "long_description": "Thông tin chi tiết về các đợt lũ quét, lũ ống, ngập lụt đô thị, tình hình các hồ chứa và hoạt động cứu trợ, ủng hộ người dân vùng lũ.",
+    "examples": [
+      "Mực nước sông Cửu Long đạt đỉnh, gây ngập úng trên diện rộng.",
+      "Các đội cứu hộ khẩn cấp di chuyển người dân bị mắc kẹt trong lũ.",
+      "Hàng hóa cứu trợ được chuyển đến các tỉnh miền Trung chịu ảnh hưởng của lũ lụt."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 192,
+    "parent_id": 190,
+    "name": "Bão",
+    "short_description": "Dự báo đường đi của bão, áp thấp nhiệt đới, cấp độ rủi ro thiên tai và phòng chống bão",
+    "long_description": "Thông tin về dự báo, cảnh báo bão, áp thấp nhiệt đới, cường độ gió, cấp độ rủi ro và các biện pháp chuẩn bị, gia cố nhà cửa, tàu thuyền trước khi bão đổ bộ.",
+    "examples": [
+      "Dự báo Bão số 5 có khả năng đổ bộ trực tiếp vào đất liền.",
+      "Các tỉnh ven biển cấm tàu thuyền ra khơi để phòng chống bão.",
+      "Chính phủ họp khẩn triển khai công tác phòng chống bão."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 193,
+    "parent_id": 190,
+    "name": "Gió mùa",
+    "short_description": "Ảnh hưởng của gió mùa Đông Bắc, gió mùa Tây Nam, rét đậm, rét hại, và mưa trái mùa",
+    "long_description": "Thông tin về các đợt gió mùa gây rét đậm, rét hại ở miền Bắc, ảnh hưởng của gió mùa Tây Nam đến thời tiết miền Nam, và các vấn đề liên quan đến sản xuất nông nghiệp, sức khỏe.",
+    "examples": [
+      "Miền Bắc đón đợt gió mùa Đông Bắc mạnh, nhiệt độ giảm sâu.",
+      "Nông dân triển khai biện pháp chống rét cho đàn gia súc, cây trồng.",
+      "Gió mùa Tây Nam gây mưa lớn cục bộ ở TP.HCM."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 194,
+    "parent_id": 190,
+    "name": "Vỡ đập",
+    "short_description": "Sự cố vỡ đập thủy điện, thủy lợi, hồ chứa, cảnh báo và khắc phục",
+    "long_description": "Thông tin về các sự cố, nguy cơ vỡ đập, quy trình xả lũ khẩn cấp của các hồ chứa thủy điện, thủy lợi, và các biện pháp ứng phó với lũ quét do vỡ đập.",
+    "examples": [
+      "Thủy điện X tiến hành xả lũ khẩn cấp để đảm bảo an toàn đập.",
+      "Cảnh báo nguy cơ vỡ đập hồ chứa do mưa lớn kéo dài.",
+      "Huy động lực lượng gia cố đê điều và bờ bao."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 195,
+    "parent_id": 190,
+    "name": "Động đất, địa chấn",
+    "short_description": "Cảnh báo động đất, dư chấn, rung chấn và ảnh hưởng của địa chấn tới các công trình",
+    "long_description": "Thông tin về cường độ, tâm chấn của các trận động đất, cảnh báo sóng thần, và các nghiên cứu, dự báo về hoạt động địa chấn tại Việt Nam và khu vực.",
+    "examples": [
+      "Trận động đất mạnh 6.0 độ richter gây rung chấn tại khu vực Tây Bắc.",
+      "Các chuyên gia cảnh báo về nguy cơ động đất tại khu vực biển Đông.",
+      "Người dân được hướng dẫn kỹ năng phòng tránh khi có động đất."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 196,
+    "parent_id": 190,
+    "name": "Sạt lún, sụt",
+    "short_description": "Sạt lở đất, sụt lún mặt đất, xói mòn bờ biển, cảnh báo và biện pháp khắc phục",
+    "long_description": "Thông tin về các vụ sạt lở đất nghiêm trọng tại miền núi, tình trạng sụt lún ở đô thị, xói mòn bờ sông, bờ biển, và các dự án kè bảo vệ chống sạt lở.",
+    "examples": [
+      "Sạt lở nghiêm trọng tại các tuyến đường đèo ở Tây Nguyên.",
+      "TP.HCM triển khai dự án chống sụt lún khu vực ven sông.",
+      "Chính phủ chi ngân sách lớn cho việc xây dựng kè biển chống xói mòn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 197,
+    "parent_id": null,
+    "name": "Động vật",
+    "short_description": "Tin tức về thế giới động vật hoang dã, bảo tồn, săn bắn và các loài quý hiếm",
+    "long_description": "Thông tin về đa dạng sinh học, các loài động vật hoang dã, vấn đề buôn bán động vật trái phép, các nỗ lực bảo tồn và săn bắt trái phép.",
+    "examples": [
+      "Các tổ chức quốc tế kêu gọi bảo vệ loài tê giác khỏi nguy cơ tuyệt chủng.",
+      "Phát hiện loài động vật mới tại Vườn quốc gia Phong Nha - Kẻ Bàng.",
+      "Tình hình buôn bán động vật hoang dã tại biên giới phía Bắc."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 198,
+    "parent_id": null,
+    "name": "Sở thú",
+    "short_description": "Hoạt động của các vườn thú, nuôi dưỡng và bảo tồn động vật trong môi trường nuôi nhốt",
+    "long_description": "Thông tin về quản lý, chăm sóc, và các chương trình gây nuôi bảo tồn tại các vườn thú, công viên động vật hoang dã (Safari), và các vấn đề phúc lợi động vật trong môi trường nuôi nhốt.",
+    "examples": [
+      "Vườn thú Hà Nội đón thêm thành viên mới từ châu Phi.",
+      "Chương trình gây nuôi hổ Đông Dương thành công tại sở thú Sài Gòn.",
+      "Các hoạt động giáo dục và trải nghiệm tại công viên Safari."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 199,
+    "parent_id": 197,
+    "name": "Loài cá",
+    "short_description": "Thủy hải sản, cá cảnh, bảo tồn và khai thác các loài cá",
+    "long_description": "Thông tin về các loài cá nước ngọt, nước mặn, cá cảnh, hoạt động khai thác thủy hải sản bền vững, và các vấn đề ô nhiễm ảnh hưởng đến sinh vật biển.",
+    "examples": [
+      "Các nhà khoa học cảnh báo nguy cơ tuyệt chủng của loài cá heo nước ngọt.",
+      "Kỹ thuật nuôi cá tra công nghệ cao cho năng suất vượt trội.",
+      "Các quy định mới về đánh bắt thủy hải sản trên biển."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 200,
+    "parent_id": 197,
+    "name": "Loài gấu",
+    "short_description": "Bảo tồn gấu, gấu ngựa, gấu chó, các vấn đề về săn bắt và nuôi nhốt gấu lấy mật",
+    "long_description": "Thông tin về các nỗ lực bảo tồn các loài gấu (gấu ngựa, gấu chó), các vấn đề về săn bắt, nuôi nhốt gấu lấy mật trái phép và các trung tâm cứu hộ gấu.",
+    "examples": [
+      "Việt Nam đẩy mạnh chấm dứt tình trạng nuôi nhốt gấu lấy mật.",
+      "Gấu được cứu hộ và đưa về trung tâm bảo tồn thiên nhiên.",
+      "Hình phạt nghiêm khắc cho hành vi săn bắt gấu trái phép."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 201,
+    "parent_id": null,
+    "name": "Chăn nuôi",
+    "short_description": "Kinh tế chăn nuôi, bệnh dịch (Cúm gia cầm, Lợn châu Phi), thức ăn chăn nuôi, và mô hình chăn nuôi công nghiệp",
+    "long_description": "Thông tin về giá cả, thị trường các sản phẩm chăn nuôi (thịt lợn, gia cầm, trứng, sữa), các biện pháp phòng chống dịch bệnh (ASF, H5N1), và công nghệ trong chăn nuôi quy mô lớn.",
+    "examples": [
+      "Giá thịt lợn hơi tăng cao do nguồn cung giảm sau dịch bệnh.",
+      "Các biện pháp kiểm soát và phòng chống dịch cúm gia cầm trên cả nước.",
+      "Đầu tư vào các trang trại chăn nuôi bò sữa công nghệ cao."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 202,
+    "parent_id": null,
+    "name": "Năng lượng",
+    "short_description": "Chính sách năng lượng quốc gia, điện (thủy điện, nhiệt điện), năng lượng tái tạo và an ninh năng lượng",
+    "long_description": "Thông tin về các dự án năng lượng (thủy điện, nhiệt điện, điện mặt trời, điện gió), Quy hoạch Điện VIII, vấn đề thiếu điện, và chiến lược đảm bảo an ninh năng lượng quốc gia.",
+    "examples": [
+      "Quy hoạch Điện VIII tập trung phát triển mạnh năng lượng tái tạo.",
+      "Miền Bắc đối mặt với nguy cơ thiếu điện trong mùa hè nắng nóng.",
+      "EVN kêu gọi người dân tiết kiệm điện để giảm áp lực lên hệ thống."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 203,
+    "parent_id": 202,
+    "name": "Năng lượng gió",
+    "short_description": "Điện gió trên bờ, điện gió ngoài khơi (Offshore Wind), công nghệ tuabin gió và giá mua điện FIT",
+    "long_description": "Thông tin về các dự án điện gió (trên bờ và ngoài khơi), công nghệ tuabin gió, cơ chế giá ưu đãi (FIT), và các chính sách thu hút đầu tư vào năng lượng gió.",
+    "examples": [
+      "Bình Thuận là trung tâm phát triển điện gió lớn nhất cả nước.",
+      "Các nhà đầu tư đề xuất xây dựng dự án điện gió ngoài khơi quy mô lớn.",
+      "Chính phủ ban hành cơ chế mới cho giá mua bán điện gió."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 204,
+    "parent_id": 202,
+    "name": "Khí thải",
+    "short_description": "Phát thải Carbon, khí nhà kính, cam kết Net Zero, và thị trường tín chỉ Carbon",
+    "long_description": "Thông tin về cam kết giảm phát thải, khí nhà kính (CO2, Methane), lộ trình đạt mức phát thải ròng bằng 0 (Net Zero), và phát triển thị trường mua bán tín chỉ Carbon.",
+    "examples": [
+      "Việt Nam cam kết đạt Net Zero vào năm 2050 tại COP26.",
+      "Bộ Tài nguyên và Môi trường triển khai thí điểm thị trường tín chỉ Carbon.",
+      "Các doanh nghiệp công bố báo cáo giảm thiểu khí nhà kính."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 205,
+    "parent_id": 202,
+    "name": "Hạt nhân",
+    "short_description": "Năng lượng hạt nhân, lò phản ứng, Uranium, và an toàn hạt nhân",
+    "long_description": "Thông tin về công nghệ điện hạt nhân, các dự án nghiên cứu lò phản ứng hạt nhân, nguyên liệu Uranium và các vấn đề liên quan đến an toàn, quản lý chất thải phóng xạ.",
+    "examples": [
+      "Chính phủ nghiên cứu khả năng tái khởi động dự án điện hạt nhân.",
+      "Các nước phát triển công nghệ lò phản ứng mô-đun nhỏ (SMR).",
+      "Đảm bảo an toàn và an ninh cho các cơ sở hạt nhân."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 206,
+    "parent_id": 202,
+    "name": "Plasma và siêu dẫn",
+    "short_description": "Công nghệ vật lý Plasma, năng lượng nhiệt hạch (Fusion Energy), và vật liệu siêu dẫn",
+    "long_description": "Thông tin về các nghiên cứu khoa học vật lý Plasma, tiềm năng phát triển năng lượng nhiệt hạch sạch và các ứng dụng của vật liệu siêu dẫn trong công nghệ và năng lượng.",
+    "examples": [
+      "Các nhà khoa học đạt bước tiến mới trong nghiên cứu phản ứng nhiệt hạch.",
+      "Ứng dụng vật liệu siêu dẫn trong truyền tải điện năng hiệu quả hơn.",
+      "Thử nghiệm lò phản ứng nhiệt hạch ITER tại Pháp."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 207,
+    "parent_id": null,
+    "name": "Sinh vật học",
+    "short_description": "Nghiên cứu khoa học về sự sống, tế bào, hệ sinh thái, và các cơ chế sinh học",
+    "long_description": "Thông tin về các nghiên cứu Sinh học cơ bản, sinh học phân tử, di truyền học, tiến hóa, và các ứng dụng công nghệ sinh học (Biotech) trong y học, nông nghiệp và môi trường.",
+    "examples": [
+      "Phát hiện cơ chế mới về sự lão hóa ở cấp độ tế bào.",
+      "Ứng dụng công nghệ chỉnh sửa gen CRISPR-Cas9 trong điều trị bệnh.",
+      "Nghiên cứu về vai trò của hệ vi sinh vật đường ruột đối với sức khỏe."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 208,
+    "parent_id": 207,
+    "name": "Nhiễm sắc thể, Gen",
+    "short_description": "DNA, RNA, đột biến gen, công nghệ gen và di truyền học",
+    "long_description": "Thông tin về cấu trúc DNA, các loại đột biến gen, phân tích bộ gen người (Genome Sequencing), và các tiến bộ trong công nghệ di truyền.",
+    "examples": [
+      "Giải mã thành công bộ gen của một loài thực vật quý hiếm.",
+      "Các nhà khoa học phát hiện gen mới liên quan đến bệnh ung thư.",
+      "Ứng dụng xét nghiệm gen để chẩn đoán và điều trị bệnh."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 209,
+    "parent_id": 207,
+    "name": "Loài người, Homo sapiens",
+    "short_description": "Nghiên cứu về lịch sử tiến hóa, nhân chủng học, và đặc điểm sinh học của con người",
+    "long_description": "Thông tin về lịch sử tiến hóa của loài người, các nghiên cứu nhân chủng học, các khám phá về nguồn gốc tổ tiên và các đặc điểm sinh học độc đáo của Homo sapiens.",
+    "examples": [
+      "Phát hiện hóa thạch cổ đại cung cấp bằng chứng mới về sự tiến hóa của loài người.",
+      "Nghiên cứu về sự khác biệt di truyền giữa các quần thể người.",
+      "Các giả thuyết về sự di cư và phân bố của người hiện đại."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 210,
+    "parent_id": 207,
+    "name": "Nội tạng, não",
+    "short_description": "Giải phẫu, sinh lý học các cơ quan nội tạng, nghiên cứu về thần kinh học (Neuroscience) và bệnh lý",
+    "long_description": "Thông tin về cấu tạo, chức năng của các cơ quan nội tạng (tim, gan, thận, phổi), nghiên cứu chuyên sâu về bộ não (Neuroscience), hoạt động thần kinh và các bệnh lý liên quan.",
+    "examples": [
+      "Các công nghệ mới trong cấy ghép và phục hồi chức năng nội tạng.",
+      "Nghiên cứu về cơ chế hình thành trí nhớ và giấc ngủ của não.",
+      "Các phương pháp điều trị tiên tiến cho bệnh lý thần kinh (Parkinson, Alzheimer)."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 211,
+    "parent_id": null,
+    "name": "Thiên nhiên",
+    "short_description": "Các hiện tượng tự nhiên, nghiên cứu về Trái đất, đại dương, thời tiết và hệ sinh thái",
+    "long_description": "Thông tin về khoa học địa chất, thủy văn, khí hậu, các quá trình vật lý và hóa học diễn ra trong tự nhiên, và các vấn đề bảo tồn tài nguyên thiên nhiên.",
+    "examples": [
+      "Nghiên cứu về quá trình hình thành các lục địa và đại dương.",
+      "Tác động của El Nino và La Nina đến thời tiết khu vực.",
+      "Các giải pháp bảo vệ đa dạng sinh học trong rừng và biển."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 212,
+    "parent_id": 211,
+    "name": "Biển",
+    "short_description": "Đại dương, hệ sinh thái biển, ô nhiễm biển, hải lưu, và các vấn đề về môi trường biển",
+    "long_description": "Thông tin về độ sâu, nhiệt độ, hải lưu, hệ sinh thái san hô và sinh vật biển, vấn đề rác thải nhựa, ô nhiễm dầu và các nỗ lực bảo tồn biển.",
+    "examples": [
+      "Các nhà khoa học cảnh báo về sự suy thoái của các rạn san hô.",
+      "Hải lưu nóng El Nino ảnh hưởng đến nghề cá tại Việt Nam.",
+      "Chương trình làm sạch rác thải nhựa tại các bãi biển."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 213,
+    "parent_id": 211,
+    "name": "Thủy triều",
+    "short_description": "Hiện tượng thủy triều lên xuống, chu kỳ, ảnh hưởng của Mặt trăng và ứng dụng năng lượng thủy triều",
+    "long_description": "Thông tin về cơ chế hình thành thủy triều (do lực hấp dẫn của Mặt trăng và Mặt trời), dự báo thủy triều, và tiềm năng khai thác năng lượng từ thủy triều.",
+    "examples": [
+      "Hiện tượng triều cường gây ngập lụt tại các thành phố ven biển.",
+      "Chu kỳ thủy triều ảnh hưởng đến hoạt động đánh bắt hải sản.",
+      "Công nghệ điện năng lượng thủy triều được phát triển."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 214,
+    "parent_id": 211,
+    "name": "Thiên hà",
+    "short_description": "Vũ trụ, các thiên hà (Milky Way), hố đen, sao, và các khám phá thiên văn",
+    "long_description": "Thông tin về cấu trúc và sự hình thành của vũ trụ, các thiên hà (dải Ngân Hà), hố đen, các loại sao (sao neutron, sao lùn trắng), và các phát hiện mới trong lĩnh vực thiên văn học.",
+    "examples": [
+      "Kính thiên văn James Webb phát hiện thiên hà xa nhất từng được biết đến.",
+      "Các nhà khoa học nghiên cứu về hố đen siêu khối lượng tại trung tâm Dải Ngân Hà.",
+      "Phân tích về vòng đời của các ngôi sao."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 215,
+    "parent_id": 211,
+    "name": "Mặt trăng",
+    "short_description": "Nghiên cứu Mặt trăng, các sứ mệnh thám hiểm, và ảnh hưởng của Mặt trăng đến Trái đất",
+    "long_description": "Thông tin về các sứ mệnh thám hiểm Mặt trăng (Artemis, Hằng Nga), việc tìm kiếm nước trên Mặt trăng, và vai trò của Mặt trăng đối với thủy triều và trục nghiêng của Trái đất.",
+    "examples": [
+      "NASA công bố kế hoạch đưa con người trở lại Mặt trăng vào năm 2026.",
+      "Tàu thăm dò Trung Quốc tìm thấy dấu vết nước trên bề mặt Mặt trăng.",
+      "Các nhà khoa học nghiên cứu sự hình thành của Mặt trăng."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 216,
+    "parent_id": 211,
+    "name": "Mưa",
+    "short_description": "Quá trình tạo mưa, các loại mưa (axit, đá), chu trình nước và khí tượng học",
+    "long_description": "Thông tin về chu trình nước, quá trình ngưng tụ và tạo mưa, các loại mưa đặc biệt (mưa axit, mưa đá) và dự báo, cảnh báo thời tiết mưa lớn.",
+    "examples": [
+      "Mưa axit gây ảnh hưởng xấu đến cây trồng và công trình kiến trúc.",
+      "Dự báo có mưa đá cục bộ tại vùng núi phía Bắc.",
+      "Nghiên cứu về công nghệ gây mưa nhân tạo."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 217,
+    "parent_id": 211,
+    "name": "Hồ, sông, suối",
+    "short_description": "Quản lý tài nguyên nước ngọt, các hệ thống sông lớn (Mekong, Hồng), ô nhiễm nước và thủy điện",
+    "long_description": "Thông tin về các dự án quản lý lưu vực sông, vấn đề ô nhiễm nước sông, xây dựng đập thủy điện, và bảo tồn hệ sinh thái nước ngọt (hồ, đầm lầy).",
+    "examples": [
+      "Mực nước sông Mekong xuống thấp kỷ lục do hạn hán.",
+      "Chính phủ triển khai các biện pháp xử lý ô nhiễm tại hồ Tây, Hà Nội.",
+      "Đánh giá tác động môi trường của các dự án thủy điện trên sông."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 218,
+    "parent_id": 211,
+    "name": "Rừng, cây",
+    "short_description": "Rừng tự nhiên, rừng trồng, nạn phá rừng, lâm nghiệp và các loài thực vật",
+    "long_description": "Thông tin về các loại rừng (rừng nguyên sinh, rừng ngập mặn), nạn phá rừng trái phép, cháy rừng, các chương trình trồng rừng và quản lý lâm nghiệp bền vững.",
+    "examples": [
+      "Các vụ cháy rừng nghiêm trọng tại khu vực Tây Nguyên.",
+      "Nỗ lực bảo tồn rừng ngập mặn Cần Giờ trước biến đổi khí hậu.",
+      "Kỹ thuật trồng và chăm sóc cây giống lâm nghiệp chất lượng cao."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 219,
+    "parent_id": null,
+    "name": "Trí tuệ nhân tạo (AI)",
+    "short_description": "Công nghệ AI, Học máy (Machine Learning), Học sâu (Deep Learning), và các ứng dụng AI trong cuộc sống",
+    "long_description": "Thông tin về các mô hình AI tiên tiến (LLMs, Generative AI), đạo đức AI, chính sách quản lý AI, và ứng dụng AI trong các lĩnh vực y tế, sản xuất, tài chính và công nghệ.",
+    "examples": [
+      "Các nhà khoa học cảnh báo về rủi ro đạo đức của Trí tuệ nhân tạo.",
+      "Google ra mắt mô hình AI mới có khả năng tạo video từ văn bản.",
+      "Việt Nam xây dựng chiến lược quốc gia về phát triển AI."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 220,
+    "parent_id": 219,
+    "name": "Chat Bot",
+    "short_description": "Ứng dụng Chatbot, mô hình ngôn ngữ lớn (LLMs), và AI đàm thoại",
+    "long_description": "Thông tin về các chatbot sử dụng AI (như ChatGPT, Gemini), công nghệ đằng sau các mô hình ngôn ngữ lớn (LLMs), và ứng dụng của chatbot trong dịch vụ khách hàng và giáo dục.",
+    "examples": [
+      "Phân tích khả năng sáng tạo của ChatGPT trong việc viết văn.",
+      "Các công ty ứng dụng chatbot để tự động hóa dịch vụ khách hàng.",
+      "Học sinh sử dụng chatbot như một công cụ hỗ trợ học tập."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 221,
+    "parent_id": 219,
+    "name": "Trợ lý ảo",
+    "short_description": "Các trợ lý ảo (Siri, Alexa, Google Assistant), nhà thông minh (Smart Home) và điều khiển bằng giọng nói",
+    "long_description": "Thông tin về các công nghệ trợ lý ảo, tích hợp vào các thiết bị nhà thông minh (Smart Home), và các tiến bộ trong công nghệ nhận dạng giọng nói.",
+    "examples": [
+      "Trợ lý ảo giúp người dùng quản lý lịch làm việc và nhắc nhở.",
+      "Hệ thống nhà thông minh được điều khiển hoàn toàn bằng giọng nói.",
+      "Apple cải tiến Siri với khả năng hiểu ngữ cảnh tốt hơn."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 222,
+    "parent_id": 219,
+    "name": "Deepfake",
+    "short_description": "Công nghệ Deepfake, video giả mạo, các vấn đề về an ninh thông tin và pháp lý",
+    "long_description": "Thông tin về công nghệ Deepfake (tạo video, hình ảnh giả mạo bằng AI), các vụ lừa đảo sử dụng Deepfake, và các nỗ lực pháp lý nhằm kiểm soát, xử lý các sản phẩm Deepfake độc hại.",
+    "examples": [
+      "Công an cảnh báo về các vụ lừa đảo gọi điện video Deepfake.",
+      "Các công ty công nghệ phát triển công cụ phát hiện nội dung Deepfake.",
+      "Dư luận tranh cãi về tính pháp lý của các sản phẩm Deepfake giải trí."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 223,
+    "parent_id": null,
+    "name": "Ứng dụng",
+    "short_description": "Các ứng dụng di động (App), phần mềm máy tính, và xu hướng phát triển ứng dụng",
+    "long_description": "Thông tin về các ứng dụng phổ biến trên các nền tảng (iOS, Android), cập nhật tính năng, lỗ hổng bảo mật của ứng dụng và các xu hướng công nghệ phát triển phần mềm.",
+    "examples": [
+      "Ứng dụng ngân hàng số ra mắt tính năng bảo mật mới.",
+      "Các ứng dụng chỉnh sửa ảnh sử dụng công nghệ AI.",
+      "Phân tích thị trường ứng dụng di động tại Việt Nam."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 224,
+    "parent_id": 223,
+    "name": "Zalo",
+    "short_description": "Mạng xã hội Zalo, các tính năng nhắn tin, gọi điện, và nền tảng ZaloPay",
+    "long_description": "Thông tin về các cập nhật, tính năng mới của ứng dụng Zalo, các vấn đề bảo mật, và sự cạnh tranh với các nền tảng nhắn tin khác.",
+    "examples": [
+      "Zalo bổ sung tính năng thu hồi tin nhắn sau thời gian dài.",
+      "Người dùng Zalo được cảnh báo về các tin nhắn lừa đảo.",
+      "ZaloPay đẩy mạnh tích hợp thanh toán không tiền mặt."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 225,
+    "parent_id": 223,
+    "name": "Tiktok",
+    "short_description": "Nền tảng video ngắn Tiktok, thuật toán đề xuất nội dung, xu hướng và chính sách quản lý nội dung",
+    "long_description": "Thông tin về các trend (xu hướng) trên Tiktok, thuật toán đề xuất nội dung, các vấn đề về quản lý nội dung độc hại, và hoạt động kinh doanh (Tiktok Shop).",
+    "examples": [
+      "Chính phủ yêu cầu Tiktok siết chặt quản lý nội dung trên nền tảng.",
+      "Tiktok Shop trở thành kênh bán hàng hiệu quả cho các doanh nghiệp nhỏ.",
+      "Phân tích về sự phát triển mạnh mẽ của Tiktok tại Việt Nam."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 226,
+    "parent_id": 223,
+    "name": "Adobe",
+    "short_description": "Phần mềm Adobe (Photoshop, Premiere Pro, Illustrator), cập nhật tính năng và công nghệ AI tích hợp",
+    "long_description": "Thông tin về các sản phẩm phần mềm của Adobe, các tính năng mới (ví dụ: Adobe Firefly sử dụng AI), và các vấn đề bản quyền, thuê bao phần mềm.",
+    "examples": [
+      "Adobe ra mắt phiên bản Photoshop tích hợp AI tạo ảnh.",
+      "Người dùng thảo luận về chi phí thuê bao các phần mềm Adobe.",
+      "Các khóa học về sử dụng thành thạo Premiere Pro."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 227,
+    "parent_id": 223,
+    "name": "Microsoft Office",
+    "short_description": "Bộ ứng dụng văn phòng Microsoft (Word, Excel, PowerPoint), Microsoft 365, và công cụ Copilot AI",
+    "long_description": "Thông tin về các cập nhật của Word, Excel, PowerPoint, dịch vụ Microsoft 365, và công cụ AI Copilot hỗ trợ làm việc văn phòng.",
+    "examples": [
+      "Microsoft tích hợp Copilot AI vào toàn bộ bộ ứng dụng Office.",
+      "Các lỗi bảo mật và cách khắc phục trên phần mềm Excel.",
+      "Lợi ích của việc chuyển sang sử dụng dịch vụ Microsoft 365."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 228,
+    "parent_id": 223,
+    "name": "Mạng xã hội",
+    "short_description": "Các nền tảng mạng xã hội (Facebook, X/Twitter, Instagram), tin tức, chính sách và quyền riêng tư",
+    "long_description": "Thông tin về các thay đổi thuật toán, chính sách, các vụ vi phạm dữ liệu, và xu hướng sử dụng các nền tảng mạng xã hội khác nhau.",
+    "examples": [
+      "Facebook công bố các biện pháp mới chống tin giả và lừa đảo.",
+      "Nền tảng X (Twitter) đối mặt với thách thức về quản lý nội dung.",
+      "Người dùng lo ngại về chính sách quyền riêng tư trên Instagram."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 229,
+    "parent_id": 223,
+    "name": "WhatsApp",
+    "short_description": "Ứng dụng nhắn tin WhatsApp, tính năng bảo mật, mã hóa đầu cuối và các vấn đề liên quan",
+    "long_description": "Thông tin về tính năng mã hóa đầu cuối (End-to-End Encryption) của WhatsApp, các cập nhật về chính sách quyền riêng tư, và sự cạnh tranh với các ứng dụng nhắn tin khác.",
+    "examples": [
+      "WhatsApp bổ sung tính năng nhắn tin biến mất sau 24 giờ.",
+      "Các quốc gia thảo luận về việc yêu cầu WhatsApp mở khóa mã hóa.",
+      "Người dùng chuyển sang WhatsApp vì lo ngại về quyền riêng tư trên các nền tảng khác."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 230,
+    "parent_id": null,
+    "name": "Biểu tình",
+    "short_description": "Các cuộc biểu tình, đình công, tuần hành và các hoạt động phản đối chính sách, kinh tế",
+    "long_description": "Thông tin về nguyên nhân, diễn biến và kết quả của các cuộc biểu tình ôn hòa hoặc bạo loạn, các vấn đề an ninh trật tự liên quan và phản ứng của chính quyền.",
+    "examples": [
+      "Công nhân đình công yêu cầu tăng lương và cải thiện điều kiện làm việc.",
+      "Các cuộc biểu tình chống biến đổi khí hậu diễn ra trên toàn thế giới.",
+      "Cảnh sát can thiệp để giải tán đám đông biểu tình."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 231,
+    "parent_id": null,
+    "name": "Di cư",
+    "short_description": "Làn sóng di cư, người nhập cư, tị nạn, chính sách thị thực và xuất khẩu lao động",
+    "long_description": "Thông tin về xu hướng di cư quốc tế, vấn đề người tị nạn và nhập cư bất hợp pháp, chính sách quản lý biên giới và các chương trình xuất khẩu lao động sang các nước.",
+    "examples": [
+      "Các nước châu Âu đối mặt với làn sóng người tị nạn lớn từ chiến sự.",
+      "Chính sách cấp thị thực lao động mới thu hút người Việt Nam di cư.",
+      "Tình hình người nhập cư trái phép bị trục xuất."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 232,
+    "parent_id": null,
+    "name": "Xung đột",
+    "short_description": "Các cuộc xung đột vũ trang, tấn công chiến tranh, khủng bố, căng thẳng địa chính trị và ngoại giao",
+    "long_description": "Tin tức về diễn biến các cuộc chiến, đặc biệt là xung đột, các cuộc tấn công trả đũa, pháo kích, tên lửa, không kích, phòng không, thương vong dân sự, và căng thẳng địa chính trị.",
+    "examples": [
+      "Xung đột tại Gaza leo thang, gây thương vong lớn cho dân thường.",
+      "Các cường quốc tổ chức đàm phán nhằm chấm dứt chiến tranh.",
+      "Phân tích tác động của chiến tranh Nga-Ukraine lên giá năng lượng.",
+      "Tổng thống Zelensky lên tiếng sau các cuộc tấn công trả đũa của Nga",
+      "Nga tấn công trả đũa các mục tiêu quân sự của Ukraine.",
+      "Ukraine đáp trả bằng các hệ thống pháo phản lực HIMARS."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 233,
+    "parent_id": null,
+    "name": "Nguồn nhân lực",
+    "short_description": "Thị trường lao động, thất nghiệp, đình công, thiếu hụt nhân lực và đào tạo nghề",
+    "long_description": "Thông tin về tỷ lệ thất nghiệp, nhu cầu nhân lực của các ngành, các vụ đình công, mâu thuẫn lao động, và chính sách đào tạo, phát triển kỹ năng cho người lao động.",
+    "examples": [
+      "Các doanh nghiệp công nghệ đối mặt với tình trạng thiếu hụt nhân lực chất lượng cao.",
+      "Thị trường lao động Việt Nam phục hồi sau đại dịch.",
+      "Công nhân đình công đòi quyền lợi và thưởng Tết."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 234,
+    "parent_id": null,
+    "name": "Lừa đảo",
+    "short_description": "Các vụ lừa đảo qua mạng, lừa đảo tài chính, chiếm đoạt tài sản và các hình thức tội phạm công nghệ cao",
+    "long_description": "Thông tin về các thủ đoạn lừa đảo mới (qua điện thoại, mạng xã hội, đầu tư tài chính), cảnh báo từ cơ quan công an và các biện pháp phòng ngừa.",
+    "examples": [
+      "Cảnh báo lừa đảo qua điện thoại giả danh cơ quan công an.",
+      "Vụ lừa đảo đầu tư tiền ảo quy mô lớn bị phanh phui.",
+      "Các biện pháp bảo vệ thông tin cá nhân khỏi lừa đảo trực tuyến."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 235,
+    "parent_id": null,
+    "name": "Lạm phát",
+    "short_description": "Chỉ số CPI, lạm phát, giảm phát, chính sách tiền tệ và giá cả hàng hóa",
+    "long_description": "Thông tin về chỉ số giá tiêu dùng (CPI), tỷ lệ lạm phát, các biện pháp kiểm soát lạm phát của Ngân hàng Nhà nước và Chính phủ, cùng với biến động giá các mặt hàng thiết yếu.",
+    "examples": [
+      "Lạm phát toàn cầu đạt đỉnh, ảnh hưởng đến chi tiêu của người dân.",
+      "Chính phủ sử dụng công cụ lãi suất để kiềm chế lạm phát.",
+      "Giá xăng dầu và thực phẩm tăng mạnh do áp lực lạm phát."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 236,
+    "parent_id": null,
+    "name": "Tấn công mạng",
+    "short_description": "Hack, virus máy tính, mã độc, vi phạm dữ liệu và an ninh mạng",
+    "long_description": "Thông tin về các vụ tấn công mạng nhắm vào các tổ chức, doanh nghiệp, các loại virus và mã độc mới (ransomware), và các giải pháp bảo mật dữ liệu, an ninh mạng.",
+    "examples": [
+      "Hệ thống của một ngân hàng lớn bị tấn công bởi ransomware.",
+      "Các chuyên gia cảnh báo về lỗ hổng bảo mật trên phần mềm phổ biến.",
+      "Doanh nghiệp đầu tư vào giải pháp an ninh mạng để bảo vệ dữ liệu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 237,
+    "parent_id": null,
+    "name": "Vấn đề dân số",
+    "short_description": "Gia tăng dân số, già hóa dân số, tỷ lệ sinh, kế hoạch hóa gia đình và chính sách dân số",
+    "long_description": "Thông tin về tốc độ tăng trưởng dân số, vấn đề già hóa dân số, tỷ lệ sinh thấp, và các chính sách của Chính phủ về dân số, gia đình và phát triển bền vững.",
+    "examples": [
+      "Việt Nam đối mặt với thách thức già hóa dân số nhanh chóng.",
+      "Chính phủ khuyến khích các cặp vợ chồng sinh đủ hai con.",
+      "Phân tích tác động của dân số vàng đến phát triển kinh tế."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 238,
+    "parent_id": null,
+    "name": "Trục xuất",
+    "short_description": "Trục xuất người nước ngoài, hồi hương, vi phạm quy định cư trú",
+    "long_description": "Thông tin về các quyết định trục xuất người nước ngoài vi phạm pháp luật hoặc quy định cư trú, và các hoạt động hồi hương công dân.",
+    "examples": [
+      "Người nước ngoài bị trục xuất vì lưu trú bất hợp pháp tại Việt Nam.",
+      "Các hoạt động trục xuất tội phạm quốc tế về nước.",
+      "Chính sách hỗ trợ công dân Việt Nam hồi hương từ vùng dịch."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 239,
+    "parent_id": null,
+    "name": "Vụ cướp, trộm",
+    "short_description": "Các vụ cướp ngân hàng, trộm cắp tài sản, hành vi trấn lột, và các biện pháp điều tra",
+    "long_description": "Thông tin về các vụ án cướp giật, trộm cắp tài sản nghiêm trọng, các biện pháp phòng chống tội phạm và công tác điều tra, bắt giữ thủ phạm của cơ quan công an.",
+    "examples": [
+      "Vụ cướp tiệm vàng táo tợn gây chấn động dư luận.",
+      "Cảnh sát bắt giữ băng nhóm chuyên trộm cắp xe máy.",
+      "Cảnh báo về các thủ đoạn trộm cắp tại các khu vực công cộng."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 240,
+    "parent_id": null,
+    "name": "Tự tử, giết người",
+    "short_description": "Các vụ án giết người, tự tử, phát hiện thi thể, và các vấn đề về sức khỏe tâm thần",
+    "long_description": "Thông tin về các vụ án hình sự nghiêm trọng (giết người, án mạng), các vụ tự tử, và các vấn đề xã hội liên quan đến bạo lực, trầm cảm và sức khỏe tâm thần.",
+    "examples": [
+      "Cơ quan điều tra làm rõ vụ án giết người giấu xác chấn động.",
+      "Chính phủ tăng cường các dịch vụ hỗ trợ sức khỏe tâm thần để phòng ngừa tự tử.",
+      "Phát hiện thi thể người bị mất tích tại khu vực rừng sâu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 241,
+    "parent_id": null,
+    "name": "Phá hoại, bạo động",
+    "short_description": "Các hành vi phá hoại tài sản, bạo loạn, gây rối trật tự công cộng",
+    "long_description": "Thông tin về các vụ phá hoại tài sản công, tư, bạo động, gây rối trật tự xã hội, và các biện pháp xử lý hình sự đối với các hành vi này.",
+    "examples": [
+      "Các nhóm quá khích tiến hành phá hoại tài sản công sau trận đấu bóng đá.",
+      "Công an xử lý nghiêm các đối tượng tham gia gây rối trật tự tại khu vực trung tâm.",
+      "Thiệt hại kinh tế do các hành vi phá hoại tài sản gây ra."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 242,
+    "parent_id": null,
+    "name": "Hối lộ",
+    "short_description": "Các vụ án hối lộ, tham nhũng, nhận và đưa hối lộ, điều tra chống tham nhũng",
+    "long_description": "Thông tin về các vụ án tham nhũng, hối lộ trong khu vực công và tư, chiến dịch chống tham nhũng, và các quy định pháp luật về phòng chống hối lộ.",
+    "examples": [
+      "Cựu quan chức bị khởi tố vì tội nhận hối lộ hàng chục tỷ đồng.",
+      "Chiến dịch chống tham nhũng 'đốt lò' được đẩy mạnh.",
+      "Các biện pháp kiểm soát tài sản và thu nhập của cán bộ, công chức."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 223,
+    "parent_id": null,
+    "name": "Cấp cứu",
+    "short_description": "Các tình huống khẩn cấp, cứu chữa, quy trình nhập viện, xe cứu thương và sơ cứu y tế",
+    "long_description": "Thông tin về các trường hợp cấp cứu (tai nạn, ngộ độc, đột quỵ), quy trình sơ cấp cứu, hoạt động của các trung tâm cấp cứu 115, và tình trạng quá tải tại các khoa cấp cứu bệnh viện.",
+    "examples": [
+      "Quy trình xử lý cấp cứu cho nạn nhân tai nạn giao thông.",
+      "Bác sĩ cấp cứu thành công bệnh nhân đột quỵ tim.",
+      "Tình trạng thiếu giường bệnh tại các khoa cấp cứu lớn."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 224,
+    "parent_id": null,
+    "name": "Phẫu thuật",
+    "short_description": "Các ca phẫu thuật, mổ, y học can thiệp, công nghệ phẫu thuật robot và ghép tạng",
+    "long_description": "Thông tin về các loại phẫu thuật (phẫu thuật tim, thần kinh, thẩm mỹ), các kỹ thuật mổ nội soi, phẫu thuật robot, và các vấn đề liên quan đến quyên góp, ghép tạng.",
+    "examples": [
+      "Bệnh viện thực hiện thành công ca ghép tim xuyên Việt.",
+      "Công nghệ phẫu thuật robot được ứng dụng để tăng độ chính xác.",
+      "Cảnh báo rủi ro khi thực hiện phẫu thuật thẩm mỹ không phép."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 225,
+    "parent_id": null,
+    "name": "Dược phẩm, vật dụng y tế",
+    "short_description": "Thuốc tân dược, vắc-xin, vật tư tiêu hao, thiết bị y tế và thị trường dược phẩm",
+    "long_description": "Thông tin về sản xuất, phân phối và quản lý thuốc (Kê đơn, không kê đơn), các loại vắc-xin, trang thiết bị y tế (máy thở, máy siêu âm), và các vấn đề về đấu thầu, nhập khẩu dược phẩm.",
+    "examples": [
+      "Bộ Y tế cấp phép lưu hành vắc-xin mới phòng chống dịch bệnh.",
+      "Giá thuốc và vật tư y tế tăng cao do chi phí nhập khẩu.",
+      "Thị trường dược phẩm Việt Nam đẩy mạnh sản xuất thuốc generic."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 226,
+    "parent_id": 225,
+    "name": "Thuốc y tế",
+    "short_description": "Các loại thuốc đặc trị, thuốc kê đơn, thuốc không kê đơn và quản lý chất lượng thuốc",
+    "long_description": "Thông tin về các loại thuốc điều trị bệnh lý (ung thư, tim mạch, tiểu đường), quy định về bán và sử dụng thuốc kê đơn, và các vụ việc thuốc giả, kém chất lượng.",
+    "examples": [
+      "Cảnh báo về việc lạm dụng thuốc kháng sinh không kê đơn.",
+      "Thuốc điều trị ung thư thế hệ mới được đưa vào danh mục bảo hiểm y tế.",
+      "Các công ty dược phẩm giới thiệu thuốc trị cúm mới."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 227,
+    "parent_id": 225,
+    "name": "Máy trợ thính",
+    "short_description": "Thiết bị trợ thính, công nghệ và ứng dụng cho người khiếm thính",
+    "long_description": "Thông tin về các loại máy trợ thính (kỹ thuật số, cấy ghép), công nghệ xử lý âm thanh, và các chương trình hỗ trợ người khiếm thính.",
+    "examples": [
+      "Máy trợ thính tích hợp công nghệ AI để lọc tiếng ồn.",
+      "Tổ chức từ thiện tặng máy trợ thính cho trẻ em nghèo.",
+      "Hướng dẫn sử dụng và bảo quản thiết bị trợ thính."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 228,
+    "parent_id": 225,
+    "name": "Đồ cứu thương",
+    "short_description": "Bộ sơ cứu (First Aid Kit), băng gạc, dụng cụ y tế cơ bản và thiết bị phòng hộ cá nhân (PPE)",
+    "long_description": "Thông tin về các vật dụng cần thiết trong bộ sơ cứu, cách sử dụng băng gạc, thuốc sát trùng, và tầm quan trọng của thiết bị phòng hộ cá nhân trong y tế và phòng chống dịch bệnh.",
+    "examples": [
+      "Hướng dẫn chuẩn bị bộ sơ cứu cần thiết trong gia đình.",
+      "Thiết bị phòng hộ cá nhân được tăng cường trong mùa dịch bệnh.",
+      "Sự cần thiết của việc huấn luyện sơ cấp cứu cơ bản."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 229,
+    "parent_id": 225,
+    "name": "Thực phẩm chức năng",
+    "short_description": "Thị trường thực phẩm chức năng, vitamin, thuốc bổ, quản lý chất lượng và quảng cáo",
+    "long_description": "Thông tin về các loại thực phẩm chức năng (vitamin, khoáng chất, thảo dược), quy định về quảng cáo, kiểm soát chất lượng và các cảnh báo về tác dụng phụ của sản phẩm không rõ nguồn gốc.",
+    "examples": [
+      "Cục An toàn thực phẩm siết chặt quản lý quảng cáo thực phẩm chức năng.",
+      "Người dân đổ xô mua các loại vitamin và thuốc bổ tăng cường miễn dịch.",
+      "Cảnh báo về việc sử dụng thực phẩm chức năng thay thế thuốc chữa bệnh."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 230,
+    "parent_id": null,
+    "name": "Đội ngũ y tế",
+    "short_description": "Bác sĩ, y tá, dược sĩ, nhân viên y tế, thiếu hụt nhân lực ngành y và đãi ngộ",
+    "long_description": "Thông tin về lực lượng lao động ngành y (bác sĩ, y tá, điều dưỡng, kỹ thuật viên), các vấn đề về thiếu hụt nhân lực, chính sách đãi ngộ, bạo hành nhân viên y tế, và các vấn đề đạo đức nghề nghiệp.",
+    "examples": [
+      "Các bệnh viện đối mặt với tình trạng bác sĩ nghỉ việc do áp lực công việc.",
+      "Chính phủ tăng cường chính sách thu hút và giữ chân nhân viên y tế.",
+      "Tổ chức các khóa đào tạo nâng cao trình độ cho đội ngũ y tá."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 231,
+    "parent_id": null,
+    "name": "Bệnh viện, phòng khám",
+    "short_description": "Hệ thống y tế công và tư, bệnh viện tuyến trên, tuyến dưới, cơ sở hạ tầng y tế",
+    "long_description": "Thông tin về cơ sở vật chất, quản lý, và chất lượng dịch vụ của các bệnh viện (công và tư), phòng khám, vấn đề quá tải bệnh viện tuyến trên và phát triển y tế cơ sở.",
+    "examples": [
+      "Bệnh viện K khai trương cơ sở mới với trang thiết bị hiện đại.",
+      "Chính sách giảm tải cho bệnh viện tuyến trung ương bằng cách phát triển y tế cơ sở.",
+      "Các phòng khám tư nhân bị xử phạt vì vi phạm quy định y tế."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 232,
+    "parent_id": 225,
+    "name": "Vaccine",
+    "short_description": "Tiêm chủng, vắc-xin COVID-19, vắc-xin 5 trong 1, và chương trình tiêm chủng mở rộng",
+    "long_description": "Thông tin về các loại vắc-xin, chương trình tiêm chủng (cho trẻ em và người lớn), nghiên cứu, sản xuất và phân phối vắc-xin, và các vấn đề liên quan đến khan hiếm vắc-xin hoặc phản ứng sau tiêm.",
+    "examples": [
+      "Bộ Y tế triển khai tiêm vắc-xin cúm mùa cho trẻ em trên toàn quốc.",
+      "Tình trạng khan hiếm vắc-xin 5 trong 1 tại các điểm tiêm chủng.",
+      "Các nhà khoa học Việt Nam nghiên cứu phát triển vắc-xin ngừa sốt xuất huyết."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 233,
+    "parent_id": null,
+    "name": "Vi khuẩn, bệnh",
+    "short_description": "Vi rút (virus), vi khuẩn, dịch bệnh (Ebola, sốt xuất huyết, cúm), và kháng kháng sinh",
+    "long_description": "Thông tin về các bệnh truyền nhiễm và không truyền nhiễm, các loại vi khuẩn, vi rút, sự bùng phát của dịch bệnh (như Ebola, COVID-19, sốt xuất huyết), và vấn đề kháng thuốc kháng sinh.",
+    "examples": [
+      "Các chuyên gia cảnh báo về sự xuất hiện của chủng vi rút cúm mới.",
+      "Việt Nam đẩy mạnh chiến dịch phòng chống sốt xuất huyết trên diện rộng.",
+      "Tổ chức Y tế Thế giới công bố về nguy cơ kháng kháng sinh toàn cầu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 234,
+    "parent_id": null,
+    "name": "Bảo hiểm",
+    "short_description": "Bảo hiểm nhân thọ, bảo hiểm y tế, bảo hiểm xã hội, phí bảo hiểm và các công ty bảo hiểm",
+    "long_description": "Thông tin về các loại hình bảo hiểm (nhân thọ, phi nhân thọ, y tế, xã hội), chính sách của Nhà nước về bảo hiểm y tế toàn dân, và các vấn đề tranh chấp, lừa đảo liên quan đến bảo hiểm.",
+    "examples": [
+      "Quy định mới về mức đóng và quyền lợi của bảo hiểm y tế.",
+      "Các công ty bảo hiểm nhân thọ tăng cường minh bạch thông tin sản phẩm.",
+      "Tranh chấp pháp lý giữa khách hàng và công ty bảo hiểm."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 235,
+    "parent_id": null,
+    "name": "Chuyển đổi số",
+    "short_description": "Số hóa, đổi mới công nghệ, kinh tế số, chính phủ điện tử (E-Government) và dịch vụ công trực tuyến",
+    "long_description": "Thông tin về chiến lược chuyển đổi số quốc gia, ứng dụng công nghệ số trong các ngành (y tế, giáo dục, tài chính), phát triển kinh tế số, và xây dựng chính phủ điện tử.",
+    "examples": [
+      "Chính phủ thúc đẩy chuyển đổi số mạnh mẽ trong các doanh nghiệp nhà nước.",
+      "Các bộ, ngành triển khai dịch vụ công trực tuyến mức độ 4.",
+      "Lợi ích của việc số hóa dữ liệu trong ngành y tế (hồ sơ bệnh án điện tử)."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 236,
+    "parent_id": null,
+    "name": "Chip lõi, bộ xử lý",
+    "short_description": "Công nghệ bán dẫn (Semiconductor), chip máy tính, CPU, GPU, và sản xuất chip tại Việt Nam",
+    "long_description": "Thông tin về thiết kế, sản xuất và thị trường chip bán dẫn, các loại bộ xử lý (CPU, GPU), và chiến lược phát triển ngành công nghiệp chip, vi mạch tại Việt Nam.",
+    "examples": [
+      "Intel công bố dòng chip thế hệ mới với hiệu năng vượt trội.",
+      "Việt Nam thu hút đầu tư nước ngoài vào ngành công nghiệp bán dẫn.",
+      "Phân tích cuộc chiến công nghệ giữa các nhà sản xuất chip hàng đầu thế giới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 237,
+    "parent_id": null,
+    "name": "Mã định danh",
+    "short_description": "Căn cước công dân (CCCD), mã số định danh cá nhân, mã số thuế và quản lý danh tính điện tử",
+    "long_description": "Thông tin về việc cấp và sử dụng căn cước công dân, mã số định danh cá nhân, mã số thuế, và các vấn đề liên quan đến cơ sở dữ liệu quốc gia về dân cư và danh tính số (Digital Identity).",
+    "examples": [
+      "Lợi ích của việc sử dụng Căn cước công dân gắn chip điện tử.",
+      "Quy trình cấp và quản lý mã số định danh cá nhân.",
+      "Các vấn đề bảo mật liên quan đến dữ liệu dân cư quốc gia."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 238,
+    "parent_id": null,
+    "name": "Công nghệ sinh trắc học",
+    "short_description": "Nhận diện khuôn mặt, vân tay, quét mống mắt, và ứng dụng bảo mật sinh trắc học",
+    "long_description": "Thông tin về các công nghệ nhận diện sinh trắc học (như nhận diện khuôn mặt, vân tay, mống mắt), ứng dụng trong bảo mật, thanh toán không chạm, và các vấn đề về quyền riêng tư dữ liệu sinh trắc học.",
+    "examples": [
+      "Ngân hàng ứng dụng nhận diện khuôn mặt cho giao dịch rút tiền.",
+      "Điện thoại thông minh sử dụng cảm biến vân tay để mở khóa.",
+      "Các nhà khoa học nghiên cứu công nghệ nhận diện giọng nói chính xác hơn."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 239,
+    "parent_id": null,
+    "name": "Dịch vụ đặt cược",
+    "short_description": "Cá cược thể thao (Betting), sòng bạc (Casino), xổ số, và chính sách quản lý hoạt động cờ bạc",
+    "long_description": "Thông tin về thị trường cá cược hợp pháp và bất hợp pháp, hoạt động của các sòng bạc (Casino), quy định về xổ số và các chính sách quản lý hoạt động cờ bạc, phòng chống rửa tiền.",
+    "examples": [
+      "Chính phủ thí điểm cho phép kinh doanh cá cược thể thao.",
+      "Cảnh báo về các trang web cá cược trực tuyến bất hợp pháp.",
+      "Lợi nhuận và đóng góp ngân sách từ các khu nghỉ dưỡng có Casino."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 240,
+    "parent_id": null,
+    "name": "Dịch vụ viễn thông",
+    "short_description": "Tốc độ mạng (4G, 5G), Internet, Wifi, tên miền (Domain) và các nhà mạng (Viettel, VNPT)",
+    "long_description": "Thông tin về hạ tầng và tốc độ mạng viễn thông (4G, 5G), chất lượng dịch vụ Internet, thị trường tên miền (Domain), và các chính sách quản lý nhà mạng, phổ tần số.",
+    "examples": [
+      "Các nhà mạng Việt Nam thử nghiệm triển khai mạng 6G.",
+      "Chính phủ đấu giá các tên miền đẹp thu hút đầu tư.",
+      "Người dùng phản ánh về tốc độ đường truyền Internet quốc tế chậm."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 241,
+    "parent_id": null,
+    "name": "Game, Esport",
+    "short_description": "Thể thao điện tử (Esport), game trực tuyến, game di động và ngành công nghiệp game",
+    "long_description": "Thông tin về các giải đấu thể thao điện tử (League of Legends, Mobile Legends), thị trường game trực tuyến và di động, và các chính sách quản lý ngành công nghiệp game (cấp phép, nội dung).",
+    "examples": [
+      "Tuyển thủ Việt Nam giành huy chương vàng tại SEA Games môn Esport.",
+      "Các công ty game lớn ra mắt trò chơi di động mới.",
+      "Chính phủ ban hành quy định mới về nội dung game bạo lực."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 242,
+    "parent_id": null,
+    "name": "Giải thưởng",
+    "short_description": "Các giải thưởng khoa học, văn hóa, thể thao, và các lễ trao giải quan trọng",
+    "long_description": "Thông tin về các giải thưởng lớn trong nước và quốc tế (Nobel, Oscar, Grammy, Quả bóng vàng), các tiêu chí xét tặng, và lễ trao giải.",
+    "examples": [
+      "Công bố danh sách đề cử Giải thưởng Oscar năm nay.",
+      "Cầu thủ nhận danh hiệu Quả bóng vàng Việt Nam.",
+      "Các nhà khoa học được trao giải thưởng Tạ Quang Bửu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 243,
+    "parent_id": 242,
+    "name": "Nobel",
+    "short_description": "Giải thưởng Nobel (Hòa bình, Vật lý, Hóa học, Y học, Văn học, Kinh tế) và các cá nhân đoạt giải",
+    "long_description": "Thông tin về lịch sử, các hạng mục của Giải thưởng Nobel, công trình nghiên cứu của các cá nhân đoạt giải và ý nghĩa của các giải thưởng này.",
+    "examples": [
+      "Người đoạt giải Nobel Hòa bình năm 2024 được công bố.",
+      "Nghiên cứu khoa học đoạt giải Nobel Vật lý về vật chất tối.",
+      "Phân tích tác phẩm văn học của người đoạt giải Nobel Văn học."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 244,
+    "parent_id": 242,
+    "name": "Huân chương, huy chương",
+    "short_description": "Các danh hiệu, huân chương, huy chương Nhà nước, và quy trình khen thưởng",
+    "long_description": "Thông tin về các danh hiệu, huân chương, huy chương (như Huân chương Lao động, Huy chương vì sự nghiệp Giáo dục), các tiêu chí và quy trình khen thưởng của Nhà nước cho cá nhân và tập thể.",
+    "examples": [
+      "Chủ tịch nước trao Huân chương cho các Anh hùng Lao động.",
+      "Lễ trao Huy chương Vàng, Bạc tại các giải đấu thể thao.",
+      "Quy định mới về việc xét tặng danh hiệu Nhà nước."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 245,
+    "parent_id": 16,
+    "name": "Két sắt",
+    "short_description": "Các loại két sắt (điện tử, cơ), công nghệ khóa, bảo mật tài sản và chống cháy",
+    "long_description": "Thông tin về các loại két sắt (két sắt điện tử, két sắt vân tay, két sắt chống cháy), công nghệ bảo mật, và hướng dẫn lựa chọn, sử dụng két sắt để bảo vệ tài sản.",
+    "examples": [
+      "Người tiêu dùng tìm mua két sắt chống cháy, chống trộm cho gia đình.",
+      "Kỹ thuật mở khóa két sắt điện tử khi quên mã.",
+      "So sánh các loại két sắt nhập khẩu và sản xuất trong nước."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 246,
+    "parent_id": null,
+    "name": "Phi hành gia",
+    "short_description": "Nhà du hành vũ trụ, đào tạo phi hành gia, các chuyến bay không gian và cuộc sống trên ISS",
+    "long_description": "Thông tin về các phi hành gia (astronaut), quá trình đào tạo, các sứ mệnh không gian (Space Missions), và các hoạt động, nghiên cứu khoa học trên Trạm Vũ trụ Quốc tế (ISS).",
+    "examples": [
+      "NASA công bố danh sách phi hành gia cho sứ mệnh Artemis lên Mặt trăng.",
+      "Chương trình đào tạo phi hành gia Việt Nam đầu tiên.",
+      "Cuộc sống thường ngày và các thử nghiệm khoa học trên Trạm ISS."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 247,
+    "parent_id": null,
+    "name": "Thế hệ alpha",
+    "short_description": "Đặc điểm, giáo dục, thói quen và ảnh hưởng của công nghệ đến Thế hệ Alpha (sinh sau 2010)",
+    "long_description": "Phân tích về đặc điểm tâm lý, hành vi, xu hướng giáo dục cho Thế hệ Alpha (sinh ra sau năm 2010), và tác động của công nghệ, môi trường số đến sự phát triển của thế hệ này.",
+    "examples": [
+      "Các chuyên gia giáo dục thảo luận về phương pháp dạy học cho Thế hệ Alpha.",
+      "Ảnh hưởng của thiết bị di động đến khả năng tập trung của trẻ em Thế hệ Alpha.",
+      "Xu hướng tiêu dùng và giải trí của Thế hệ Alpha."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 248,
+    "parent_id": null,
+    "name": "Gen Z",
+    "short_description": "Đặc điểm, phong cách sống, xu hướng nghề nghiệp và ảnh hưởng xã hội của Thế hệ Z (sinh sau 1997)",
+    "long_description": "Phân tích về đặc điểm, giá trị sống, xu hướng thời trang, nghề nghiệp của Thế hệ Z (Gen Z), và vai trò của họ trong các vấn đề xã hội, chính trị, công nghệ.",
+    "examples": [
+      "Gen Z dẫn đầu xu hướng làm việc linh hoạt và từ xa.",
+      "Các thương hiệu điều chỉnh chiến lược marketing để tiếp cận Gen Z.",
+      "Sự ảnh hưởng của Gen Z đến các vấn đề môi trường và xã hội."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 249,
+    "parent_id": null,
+    "name": "Chụp ảnh",
+    "short_description": "Nhiếp ảnh, selfie, ảnh nghệ thuật, máy ảnh và công nghệ xử lý ảnh",
+    "long_description": "Thông tin về nghệ thuật nhiếp ảnh, các xu hướng chụp ảnh (chụp ảnh phong cảnh, chân dung, selfie), công nghệ máy ảnh và smartphone, và các ứng dụng chỉnh sửa ảnh.",
+    "examples": [
+      "Công nghệ AI trong xử lý ảnh và cải thiện chất lượng ảnh chụp.",
+      "Các cuộc thi ảnh nghệ thuật quốc tế thu hút nhiếp ảnh gia Việt Nam.",
+      "Hướng dẫn chụp ảnh 'selfie' đẹp bằng điện thoại di động."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 250,
+    "parent_id": null,
+    "name": "Xác ướp",
+    "short_description": "Kỹ thuật ướp xác, xác ướp Ai Cập, các nghiên cứu khảo cổ và bí ẩn lịch sử",
+    "long_description": "Thông tin về các xác ướp cổ đại (như xác ướp Ai Cập, xác ướp băng), các kỹ thuật ướp xác, và các nghiên cứu khoa học, khảo cổ nhằm giải mã bí ẩn về văn hóa và lịch sử của các nền văn minh.",
+    "examples": [
+      "Phát hiện mới về xác ướp của một vị Pharaoh Ai Cập.",
+      "Các nhà khoa học sử dụng công nghệ quét 3D để nghiên cứu xác ướp.",
+      "Bí ẩn về quá trình ướp xác của người Inca cổ đại."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 251,
+    "parent_id": null,
+    "name": "Diễu binh",
+    "short_description": "Lễ duyệt binh, diễu binh, diễu hành quân sự và nghi thức nhà nước",
+    "long_description": "Thông tin về các lễ duyệt binh, diễu binh, diễu hành quân sự, các sự kiện kỷ niệm quốc gia quan trọng, và nghi thức chính thức của Nhà nước.",
+    "examples": [
+      "Việt Nam tổ chức Lễ diễu binh kỷ niệm Ngày Quốc khánh.",
+      "Các màn trình diễn máy bay và vũ khí tại lễ duyệt binh của một quốc gia.",
+      "Lễ diễu hành chào mừng đoàn vận động viên Olympic."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 252,
+    "parent_id": null,
+    "name": "Livestream",
+    "short_description": "Phát sóng trực tiếp, Livestream bán hàng, KOL/KOC và các nền tảng Livestream",
+    "long_description": "Thông tin về xu hướng Livestream (phát trực tiếp) trên các nền tảng mạng xã hội, hoạt động Livestream bán hàng, vai trò của KOL/KOC, và các vấn đề về quản lý nội dung Livestream.",
+    "examples": [
+      "Livestream bán hàng phá kỷ lục doanh số trên nền tảng TikTok.",
+      "Các nghệ sĩ tổ chức Livestream giao lưu với người hâm mộ.",
+      "Cơ quan quản lý siết chặt kiểm soát nội dung Livestream độc hại."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 253,
+    "parent_id": null,
+    "name": "Thể thao",
+    "short_description": "Các bộ môn thể thao (Bóng đá, Điền kinh, Bơi lội), giải đấu lớn (Olympic, World Cup, SEA Games) và thành tích vận động viên",
+    "long_description": "Thông tin về các giải đấu thể thao chuyên nghiệp và phong trào, kết quả thi đấu, thành tích của các vận động viên, và các vấn đề về quản lý, đào tạo thể thao.",
+    "examples": [
+      "Đội tuyển bóng đá Việt Nam giành chức vô địch AFF Cup.",
+      "Vận động viên Nguyễn Thị Ánh Viên phá kỷ lục SEA Games môn bơi lội.",
+      "Chuẩn bị cho Thế vận hội Olympic mùa hè sắp tới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 254,
+    "parent_id": null,
+    "name": "Khoa học",
+    "short_description": "Nghiên cứu khoa học cơ bản (Vật lý, Hóa học), phát minh, công nghệ đột phá và ứng dụng khoa học",
+    "long_description": "Thông tin về các công trình nghiên cứu khoa học cơ bản, các phát minh, sáng chế mới, các công nghệ đột phá và vai trò của khoa học trong phát triển kinh tế, xã hội.",
+    "examples": [
+      "Các nhà khoa học công bố bước đột phá trong nghiên cứu năng lượng sạch.",
+      "Chính phủ tăng cường đầu tư cho quỹ phát triển khoa học và công nghệ.",
+      "Ứng dụng công nghệ nano trong sản xuất vật liệu mới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 255,
+    "parent_id": null,
+    "name": "Viện hàn lâm",
+    "short_description": "Các Viện nghiên cứu khoa học, Học viện, các hoạt động nghiên cứu cấp cao và hợp tác quốc tế",
+    "long_description": "Thông tin về các Viện hàn lâm khoa học và công nghệ, các tổ chức nghiên cứu cấp cao, các đề tài nghiên cứu trọng điểm và các hoạt động hợp tác khoa học quốc tế.",
+    "examples": [
+      "Viện Hàn lâm Khoa học và Công nghệ Việt Nam công bố báo cáo thường niên.",
+      "Lễ ký kết hợp tác nghiên cứu giữa Viện Hàn lâm Việt Nam và Nhật Bản.",
+      "Các hoạt động đào tạo sau đại học tại các Học viện hàng đầu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 256,
+    "parent_id": null,
+    "name": "Lịch sử văn hóa",
+    "short_description": "Di tích lịch sử, khảo cổ học, phong tục tập quán, lễ hội truyền thống và bảo tồn văn hóa",
+    "long_description": "Thông tin về các sự kiện, nhân vật lịch sử quan trọng, các di sản văn hóa, phong tục, lễ hội truyền thống, các công trình khảo cổ và nỗ lực bảo tồn các giá trị văn hóa vật thể và phi vật thể.",
+    "examples": [
+      "Phát hiện mới từ công trình khảo cổ tại Hoàng thành Thăng Long.",
+      "Lễ hội truyền thống được tổ chức nhằm thu hút khách du lịch.",
+      "Công nhận di tích lịch sử quốc gia cho một địa điểm quan trọng."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 257,
+    "parent_id": null,
+    "name": "Thương mại quốc tế",
+    "short_description": "Xuất nhập khẩu, thuế quan và các hiệp định thương mại quốc tế",
+    "long_description": "Tin tức liên quan đến hoạt động xuất nhập khẩu hàng hóa, thuế quan đánh vào hàng hóa nhập khẩu, thuế chống bán phá giá, rào cản kỹ thuật trong thương mại, chính sách thương mại giữa các quốc gia, cán cân thương mại và tác động của các hiệp định thương mại tự do như EVFTA, CPTPP, RCEP.",
+    "examples": [
+      "Mỹ áp thuế quan mới đối với ô tô nhập khẩu từ Nhật Bản.",
+      "Việt Nam đẩy mạnh xuất khẩu nông sản sang thị trường EU theo EVFTA.",
+      "EU siết chặt rào cản kỹ thuật đối với hàng điện tử nhập khẩu.",
+      "Các doanh nghiệp tận dụng ưu đãi từ các hiệp định thương mại tự do.",
+      "Trung Quốc tăng thuế chống bán phá giá đối với thép nhập khẩu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 258,
+    "parent_id": null,
+    "name": "Robot",
+    "short_description": "Robotics, chế tạo robot, tự động hóa, robot công nghiệp và cuộc thi Robocon",
+    "long_description": "Thông tin về công nghệ Robotics, các loại robot (robot công nghiệp, robot dịch vụ), tự động hóa trong sản xuất, và các cuộc thi sáng tạo robot (Robocon).",
+    "examples": [
+      "Robot công nghiệp được ứng dụng rộng rãi trong các nhà máy sản xuất ô tô.",
+      "Sinh viên Việt Nam giành chiến thắng tại cuộc thi Robocon quốc tế.",
+      "Robot dịch vụ được sử dụng trong các nhà hàng và khách sạn."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 259,
+    "parent_id": null,
+    "name": "Drone",
+    "short_description": "Thiết bị bay không người lái, UAV, ứng dụng Drone trong nông nghiệp, giao hàng và quốc phòng",
+    "long_description": "Thông tin về các loại máy bay không người lái (Drone, UAV), công nghệ điều khiển, và ứng dụng của Drone trong các lĩnh vực (quay phim, khảo sát địa hình, phun thuốc nông nghiệp, giao hàng, quốc phòng).",
+    "examples": [
+      "Drone được sử dụng để phun thuốc trừ sâu tự động trong nông nghiệp.",
+      "Các công ty công nghệ thử nghiệm dịch vụ giao hàng bằng Drone.",
+      "Quy định mới về việc sử dụng và cấp phép thiết bị bay không người lái."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 260,
+    "parent_id": null,
+    "name": "Xổ số",
+    "short_description": "Xổ số kiến thiết, Vietlott, giải thưởng, và quy định quản lý hoạt động xổ số",
+    "long_description": "Thông tin về các loại hình xổ số (truyền thống, điện toán Vietlott), kết quả và giá trị các giải thưởng lớn, và các quy định pháp lý về quản lý hoạt động kinh doanh xổ số.",
+    "examples": [
+      "Người chơi trúng giải độc đắc Vietlott trị giá hàng trăm tỷ đồng.",
+      "Xổ số kiến thiết tăng cường tính minh bạch trong quay số.",
+      "Các quy định mới về thuế thu nhập cá nhân đối với người trúng xổ số."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 261,
+    "parent_id": null,
+    "name": "Ngộ độc",
+    "short_description": "Ngộ độc thực phẩm, ngộ độc hóa chất, ngộ độc rượu, và các biện pháp cấp cứu",
+    "long_description": "Thông tin về các vụ ngộ độc thực phẩm hàng loạt, ngộ độc do hóa chất (thuốc trừ sâu, công nghiệp), ngộ độc rượu (methanol), các triệu chứng, quy trình cấp cứu, và các biện pháp phòng ngừa an toàn thực phẩm.",
+    "examples": [
+      "Các vụ ngộ độc thực phẩm hàng loạt tại trường học và khu công nghiệp.",
+      "Cảnh báo về ngộ độc rượu methanol gây tử vong.",
+      "Hướng dẫn sơ cứu và cấp cứu khi bị ngộ độc hóa chất."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 262,
+    "parent_id": 111,
+    "name": "Ô tô truyền thống",
+    "short_description": "Ô tô xăng, diesel, hybrid nhẹ và thị trường xe hơi nói chung",
+    "long_description": "Bao gồm tin tức về ô tô động cơ đốt trong (ICE), thị trường xe hơi truyền thống, chính sách thuế quan, nhập khẩu ô tô, các hãng xe như Toyota, Honda, Mitsubishi..., các dòng xe sedan, SUV, bán tải và xu hướng tiêu dùng.",
+    "examples": [
+      "Mỹ tăng thuế nhập khẩu đối với ô tô từ Nhật Bản.",
+      "Toyota ra mắt mẫu Camry bản mới tại thị trường Việt Nam.",
+      "Thị trường SUV 7 chỗ cạnh tranh mạnh trong năm 2025."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 263,
+    "parent_id": 221,
+    "name": "Thời tiết",
+    "short_description": "Dự báo thời tiết, khí hậu, mưa bão, nhiệt độ, cảnh báo thiên tai",
+    "long_description": "Tin tức về tình hình thời tiết hằng ngày, dự báo khí hậu ngắn hạn và dài hạn, các hiện tượng như mưa lớn, nắng nóng, rét đậm, bão, áp thấp nhiệt đới, lũ quét, hạn hán, cũng như cảnh báo thiên tai từ cơ quan khí tượng. Gồm cả ảnh hưởng của biến đổi khí hậu đến thời tiết.",
+    "examples": [
+      "Miền Bắc đón đợt không khí lạnh tăng cường gây mưa rét.",
+      "Bão số 3 di chuyển vào Biển Đông với tốc độ mạnh dần.",
+      "Nắng nóng gay gắt kéo dài ở miền Trung.",
+      "Đài khí tượng cảnh báo lũ quét và sạt lở đất tại vùng núi.",
+      "Tình hình hạn hán ảnh hưởng đến sản xuất nông nghiệp."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 264,
+    "parent_id": 7,
+    "name": "Quán ăn, Nhà hàng",
+    "short_description": "Tin tức về ẩm thực, các chuỗi nhà hàng, quán ăn, đánh giá món ăn và xu hướng F&B",
+    "long_description": "Thông tin tổng hợp về khai trương/đóng cửa nhà hàng, các chuỗi F&B lớn (Highlands, The Coffee House, Golden Gate), đánh giá ẩm thực của các chuyên gia và xu hướng tiêu dùng trong ngành dịch vụ ăn uống.",
+    "examples": [
+      "Đánh giá các món ăn mới tại nhà hàng ABC.",
+      "Chuỗi nhà hàng XYZ mở rộng chi nhánh ra các tỉnh thành.",
+      "Xu hướng ẩm thực chay và các quán ăn healthy tại TP.HCM."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 265,
+    "parent_id": 7,
+    "name": "Thực phẩm bẩn",
+    "short_description": "Các vụ việc vi phạm an toàn vệ sinh thực phẩm, ngộ độc, sử dụng hóa chất cấm trong chế biến, và các vấn đề liên quan đến nguồn gốc thực phẩm.",
+    "long_description": "Bao gồm các tin tức về việc kinh doanh, chế biến và tiêu thụ thực phẩm không rõ nguồn gốc, bị nhiễm khuẩn, chứa hóa chất độc hại, gây ngộ độc hàng loạt, và các biện pháp xử lý vi phạm của cơ quan chức năng.",
+    "examples": [
+      "Cảnh báo về thịt bẩn, rau củ có tồn dư thuốc bảo vệ thực vật.",
+      "Phân tích nguyên nhân và cách phòng tránh các vụ ngộ độc thực phẩm tại bếp ăn tập thể.",
+      "Cơ quan chức năng triệt phá đường dây sản xuất thực phẩm giả, kém chất lượng."
+    ],
+    "level": 2
+  },
+  {
+    "topic_id": 264,
+    "parent_id": null,
+    "name": "Ô tô, xe hơi",
+    "short_description": "Tin tức về ô tô, xe hơi, thị trường xe, thuế nhập khẩu và chính sách liên quan",
+    "long_description": "Thông tin về các mẫu ô tô mới, thị trường xe hơi, chính sách thuế nhập khẩu, ưu đãi và quy định về ô tô truyền thống.",
+    "examples": [
+      "Thuế nhập khẩu ô tô từ Nhật Bản thay đổi theo hiệp định thương mại.",
+      "Các hãng xe ra mắt mẫu sedan mới.",
+      "Giá ô tô biến động mạnh do chính sách mới."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 266,
+    "parent_id": 85,
+    "name": "Sáp nhập, Giải thể, Tái cấu trúc (M&A/Restructuring)",
+    "short_description": "Các hoạt động Mua bán và Sáp nhập (M&A), giải thể doanh nghiệp, tái cấu trúc tổ chức trong khối Nhà nước và tư nhân.",
+    "long_description": "Thông tin về việc sắp xếp lại hệ thống tổ chức hành chính, các trường Đại học, Bệnh viện; hoạt động mua bán, sáp nhập (M&A) giữa các doanh nghiệp tư nhân; các quyết định giải thể hoặc tái cấu trúc nợ, tài sản của các tổ chức không hiệu quả.",
+    "examples": [
+      "Đại học không đạt chuẩn sẽ bị sáp nhập, giải thể theo yêu cầu của Chính phủ.",
+      "Bộ Tài chính công bố kế hoạch tái cấu trúc nợ của doanh nghiệp nhà nước.",
+      "Thương vụ M&A lớn giữa hai tập đoàn công nghệ trong nước.",
+      "Quyết định giải thể một bệnh viện tuyến huyện không hiệu quả."
+    ],
+    "level": 2
+  }
+]

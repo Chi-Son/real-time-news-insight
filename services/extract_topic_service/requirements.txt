@@ -1,0 +1,10 @@
+torch
+transformers
+tokenizers
+sentence-transformers
+huggingface_hub
+flashtext
+psycopg2-binary
+py_vncorenlp
+underthesea
+confluent-kafka

@@ -63,7 +63,19 @@ services:
       kafka:
         condition: service_healthy
     restart: "always"
-
+  extract_topic_service:
+    build:
+      context: ./services/extract_topic_service
+    volumes:
+      - ./services/extract_topic_service/app.py:/app/app.py
+      - ./shared:/app/shared
+      - ./models/ModelPhoberSim:/app/models/ModelPhoberSim  
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: "always"
 volumes:
   kafka-data:
     name: kafka-data

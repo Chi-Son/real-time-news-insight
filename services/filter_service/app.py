@@ -7,63 +7,71 @@ from bs4 import BeautifulSoup
 from shared.postgresql_config import DB_CONFIG
 from shared.kafka_config import get_kafka_producer
 import json
-# -------------------------------
-# Hàm lấy cursor DB
-# -------------------------------
+
+# =========================================================
+# DB cursor
+# =========================================================
 def get_db_cursor():
     conn = psycopg2.connect(**DB_CONFIG)
     conn.autocommit = True
     return conn, conn.cursor()
 
-# -------------------------------
-# Kafka producer với retry
-# -------------------------------
+# =========================================================
+# Kafka producer with retry
+# =========================================================
 producer = None
 while producer is None:
     try:
         producer = get_kafka_producer()
+        print("Kafka producer connected.")
     except Exception as e:
-        print(f"Kafka chưa sẵn sàng: {e}, retry sau 5s...")
+        print(f"Kafka chưa sẵn sàng: {e}, retry sau 5s…")
         time.sleep(5)
 
 topic_name = "raw_links"
 
-# -------------------------------
+# =========================================================
 # Load FastText model
-# -------------------------------
+# =========================================================
 MODEL_PATH = "/app/models/model_news_filter.bin"
 if not os.path.exists(MODEL_PATH):
     raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
-print(f"Loading FastText model from {MODEL_PATH} ...")
+print(f"Loading FastText model from {MODEL_PATH} …")
 model = fasttext.load_model(MODEL_PATH)
 
-# -------------------------------
-# Hàm lấy title từ URL
-# -------------------------------
+
+# =========================================================
+# Extract title
+# =========================================================
 def extract_title(url):
     try:
         resp = requests.get(url, timeout=5)
         if resp.status_code != 200:
             return None
+
         soup = BeautifulSoup(resp.text, "html.parser")
-        if soup.title:
+
+        if soup.title and soup.title.string:
             return soup.title.string.strip()
+
         og_title = soup.find("meta", property="og:title")
         if og_title and og_title.get("content"):
             return og_title["content"].strip()
+
         return None
     except Exception as e:
-        print(f"Lỗi extract title {url}: {e}")
+        print(f"[ERR] extract_title {url}: {e}")
         return None
 
-# -------------------------------
-# Vòng lặp chính
-# -------------------------------
+
+# =========================================================
+# Main loop
+# =========================================================
 while True:
     conn, cur = get_db_cursor()
 
-    # Lấy last_processed_id
+    # Get last processed ID
     cur.execute("""
         SELECT last_processed_id 
         FROM filter_state 
@@ -71,33 +79,47 @@ while True:
     """)
     row = cur.fetchone()
     last_processed_id = row[0] if row else 0
-    print(f"Last processed ID: {last_processed_id}")
 
-    # Lấy các bản ghi mới
+    print(f"\nLast processed ID: {last_processed_id}")
+
+    # Get new rows
     cur.execute("""
         SELECT id, url, category
         FROM news_links
         WHERE id > %s
         ORDER BY id ASC
     """, (last_processed_id,))
-
     rows = cur.fetchall()
 
     processed_ids = []
 
     for news_id, url, category in rows:
-        print(f"Processing ID={news_id}, URL={url}, category={category}")
+        print(f"\nProcessing ID={news_id}, URL={url}, category={category}")
+        processed_ids.append(news_id)   # luôn đánh dấu là đã xử lý
 
-        title = None
-        if category == "news" or category =="foreign":
-            title = extract_title(url)
-            if title:
-                # Predict với model FastText
-                labels, probs = model.predict(title)
+        try:
+            # --------------------------------------------
+            # CASE 1: News → phải filter bằng FastText
+            # --------------------------------------------
+            if category in ("news", "foreign"):
+                title = extract_title(url)
+
+                if not title:
+                    print(f"[WARN] Không lấy được title → bỏ qua")
+                    continue
+
+                # Clean title: loại \n, \t, space thừa
+                clean_title = " ".join(title.split())
+
+                try:
+                    labels, probs = model.predict(clean_title)
+                except Exception as e:
+                    print(f"[ERR] FastText predict lỗi tại ID={news_id}: {e}")
+                    continue  # không crash service
+
                 label = labels[0].replace("__label__", "")
                 confidence = float(probs[0])
 
-                # Chỉ lấy tin relevant > 0.3
                 if label == "relevent" and confidence > 0.3:
                     msg = {
                         "id": news_id,
@@ -108,24 +130,34 @@ while True:
                         producer.produce(topic_name, json.dumps(msg).encode("utf-8"))
                         print(f"Sent to Kafka: {msg}")
                     except Exception as e:
-                        print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
-        else:
-            # Category khác news thì gửi thẳng
-            msg = {
-                "id": news_id,
-                "url": url,
-                "category": category
-            }
-            try:
-                producer.produce(topic_name, json.dumps(msg).encode("utf-8"))
-                print(f"Sent (non-news) to Kafka: {msg}")
-            except Exception as e:
-                print(f"Lỗi gửi Kafka cho ID={news_id}: {e}")
-        # Luôn đánh dấu ID đã xử lý, bất kể có gửi Kafka hay không
-        processed_ids.append(news_id)
+                        print(f"[ERR] Kafka gửi lỗi ID={news_id}: {e}")
 
-    producer.flush()
+            # --------------------------------------------
+            # CASE 2: Category khác → gửi thẳng
+            # --------------------------------------------
+            else:
+                msg = {
+                    "id": news_id,
+                    "url": url,
+                    "category": category,
+                }
+                try:
+                    producer.produce(topic_name, json.dumps(msg).encode("utf-8"))
+                    print(f"Sent (non-news) to Kafka: {msg}")
+                except Exception as e:
+                    print(f"[ERR] Kafka gửi lỗi ID={news_id}: {e}")
 
+        except Exception as e:
+            print(f"[FATAL] Lỗi không mong muốn khi xử lý ID={news_id}: {e}")
+            continue  # không bao giờ dừng vòng lặp
+
+    # Flush Kafka
+    try:
+        producer.flush()
+    except:
+        pass
+
+    # Update last_processed_id (an toàn)
     if processed_ids:
         max_id = max(processed_ids)
         cur.execute("""
@@ -138,4 +170,5 @@ while True:
 
     cur.close()
     conn.close()
+
     time.sleep(5)

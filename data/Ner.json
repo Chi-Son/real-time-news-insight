@@ -1,0 +1,901 @@
+[
+    {
+        "entity_id": 35,
+        "type": "PER",
+        "text": "Trần Đình Long",
+        "normalized": "tran_dinh_long",
+        "aliases": [
+            "tỷ phú Hoà Phát",
+            "ông Long",
+            "Chủ tịch HPG"
+        ]
+    },
+    {
+        "entity_id": 36,
+        "type": "PER",
+        "text": "Tô Lâm",
+        "normalized": "to_lam",
+        "aliases": [
+            "Tổng Bí thư Tô Lâm",
+            "Tổng Bí thư"
+        ]
+    },
+    {
+        "entity_id": 37,
+        "type": "PER",
+        "text": "Trần Thanh Mẫn",
+        "normalized": "tran_thanh_man",
+        "aliases": [
+            "Chủ tịch Quốc hội Trần Thanh Mẫn",
+            "Chủ tịch Quốc hội"
+        ]
+    },
+    {
+        "entity_id": 38,
+        "type": "PER",
+        "text": "Nguyễn Thị Phương Thảo",
+        "normalized": "nguyen_thi_phuong_thao",
+        "aliases": [
+            "CEO VietJet Air",
+            "bà Thảo",
+            "tỷ phú VietJet"
+        ]
+    },
+    {
+        "entity_id": 40,
+        "type": "PER",
+        "text": "Elon Musk",
+        "normalized": "elon_musk",
+        "aliases": [
+            "tỷ phú Elon Musk",
+            "CEO Tesla",
+            "nhà sáng lập SpaceX"
+        ]
+    },
+    {
+        "entity_id": 41,
+        "type": "PER",
+        "text": "Phạm Minh Chính",
+        "normalized": "pham_minh_chinh",
+        "aliases": [
+            "Thủ tướng Phạm Minh Chính",
+            "Thủ tướng Chính phủ"
+        ]
+    },
+    {
+        "entity_id": 42,
+        "type": "PER",
+        "text": "Donald Trump",
+        "normalized": "donald_trump",
+        "aliases": [
+            "cựu Tổng thống Trump",
+            "ông Trump"
+        ]
+    },
+    {
+        "entity_id": 43,
+        "type": "PER",
+        "text": "Vladimir Putin",
+        "normalized": "vladimir_putin",
+        "aliases": [
+            "Tổng thống Putin",
+            "ông Putin"
+        ]
+    },
+    {
+        "entity_id": 44,
+        "type": "PER",
+        "text": "Bill Gates",
+        "normalized": "bill_gates",
+        "aliases": [
+            "tỷ phú Bill Gates",
+            "đồng sáng lập Microsoft"
+        ]
+    },
+    {
+        "entity_id": 45,
+        "type": "PER",
+        "text": "Jeff Bezos",
+        "normalized": "jeff_bezos",
+        "aliases": [
+            "tỷ phú Jeff Bezos",
+            "nhà sáng lập Amazon",
+            "Chủ tịch điều hành Amazon"
+        ]
+    },
+    {
+        "entity_id": 46,
+        "type": "PER",
+        "text": "Mark Zuckerberg",
+        "normalized": "mark_zuckerberg",
+        "aliases": [
+            "CEO Meta",
+            "nhà sáng lập Facebook"
+        ]
+    },
+    {
+        "entity_id": 47,
+        "type": "PER",
+        "text": "Tim Cook",
+        "normalized": "tim_cook",
+        "aliases": [
+            "CEO Apple",
+            "ông Tim Cook"
+        ]
+    },
+    {
+        "entity_id": 48,
+        "type": "PER",
+        "text": "Lê Viết Hải",
+        "normalized": "le_viet_hai",
+        "aliases": [
+            "Chủ tịch Hòa Bình",
+            "ông Lê Viết Hải (HBC)"
+        ]
+    },
+    {
+        "entity_id": 49,
+        "type": "PER",
+        "text": "Nguyễn Đăng Quang",
+        "normalized": "nguyen_dang_quang",
+        "aliases": [
+            "Chủ tịch Masan",
+            "ông Nguyễn Đăng Quang (MSN)"
+        ]
+    },
+    {
+        "entity_id": 50,
+        "type": "PER",
+        "text": "Trương Gia Bình",
+        "normalized": "truong_gia_binh",
+        "aliases": [
+            "Chủ tịch FPT",
+            "ông Trương Gia Bình (FPT)"
+        ]
+    },
+    {
+        "entity_id": 51,
+        "type": "PER",
+        "text": "Vương Đình Huệ",
+        "normalized": "vuong_dinh_hue",
+        "aliases": [
+            "cựu Chủ tịch Quốc hội Vương Đình Huệ",
+            "ông Vương Đình Huệ"
+        ]
+    },
+    {
+        "entity_id": 52,
+        "type": "PER",
+        "text": "Joe Biden",
+        "normalized": "joe_biden",
+        "aliases": [
+            "Tổng thống Joe Biden",
+            "ông Biden"
+        ]
+    },
+    {
+        "entity_id": 53,
+        "type": "PER",
+        "text": "Nguyễn Phú Trọng",
+        "normalized": "nguyen_phu_trong",
+        "aliases": [
+            "Tổng Bí thư Nguyễn Phú Trọng",
+            "Cố Tổng Bí thư"
+        ]
+    },
+    {
+        "entity_id": 54,
+        "type": "PER",
+        "text": "Phạm Nhật Vượng",
+        "normalized": "pham_nhat_vuong",
+        "aliases": [
+            "tỷ phú Phạm Nhật Vượng",
+            "Chủ tịch Vingroup",
+            "ông Vượng"
+        ]
+    },
+    {
+        "entity_id": 55,
+        "type": "PER",
+        "text": "Nguyễn Xuân Phúc",
+        "normalized": "nguyen_xuan_phuc",
+        "aliases": [
+            "cựu Chủ tịch nước Nguyễn Xuân Phúc",
+            "ông Nguyễn Xuân Phúc"
+        ]
+    },
+    {
+        "entity_id": 56,
+        "type": "PER",
+        "text": "Sundaar Pichai",
+        "normalized": "sundaar_pichai",
+        "aliases": [
+            "CEO Google",
+            "CEO Alphabet"
+        ]
+    },
+    {
+        "entity_id": 57,
+        "type": "PER",
+        "text": "Satya Nadella",
+        "normalized": "satya_nadella",
+        "aliases": [
+            "CEO Microsoft",
+            "ông Nadella"
+        ]
+    },
+    {
+        "entity_id": 58,
+        "type": "PER",
+        "text": "Lý Gia Thành",
+        "normalized": "ly_gia_thanh",
+        "aliases": [
+            "tỷ phú Lý Gia Thành",
+            "ông Lý Gia Thành (Hong Kong)"
+        ]
+    },
+    {
+        "entity_id": 59,
+        "type": "PER",
+        "text": "Dương Tử Quỳnh",
+        "normalized": "duong_tu_quynh",
+        "aliases": [
+            "diễn viên Dương Tử Quỳnh",
+            "Michelle Yeoh"
+        ]
+    },
+    {
+        "entity_id": 60,
+        "type": "PER",
+        "text": "Tập Cận Bình",
+        "normalized": "tap_can_binh",
+        "aliases": [
+            "Chủ tịch Tập Cận Bình",
+            "ông Tập (Trung Quốc)"
+        ]
+    },
+    {
+        "entity_id": 61,
+        "type": "PER",
+        "text": "Rishi Sunak",
+        "normalized": "rishi_sunak",
+        "aliases": [
+            "Thủ tướng Anh Rishi Sunak",
+            "ông Sunak"
+        ]
+    },
+    {
+        "entity_id": 62,
+        "type": "PER",
+        "text": "Kim Jong Un",
+        "normalized": "kim_jong_un",
+        "aliases": [
+            "Lãnh đạo Kim Jong Un",
+            "Chủ tịch Triều Tiên"
+        ]
+    },
+    {
+        "entity_id": 63,
+        "type": "PER",
+        "text": "Volodymyr Zelensky",
+        "normalized": "volodymyr_zelensky",
+        "aliases": [
+            "Tổng thống Zelensky",
+            "ông Zelensky (Ukraine)"
+        ]
+    },
+    {
+        "entity_id": 64,
+        "type": "PER",
+        "text": "Larry Ellison",
+        "normalized": "larry_ellison",
+        "aliases": [
+            "Chủ tịch Oracle",
+            "tỷ phú Larry Ellison",
+            "nhà sáng lập Oracle"
+        ]
+    },
+    {
+        "entity_id": 59,
+        "type": "ORG",
+        "text": "Tập đoàn Hòa Phát",
+        "normalized": "tap_doan_hoa_phat",
+        "aliases": [
+            "Hòa Phát",
+            "HPG",
+            "Thép Hòa Phát"
+        ]
+    },
+    {
+        "entity_id": 60,
+        "type": "ORG",
+        "text": "Starbucks",
+        "normalized": "starbucks",
+        "aliases": [
+            "Chuỗi cà phê Starbucks"
+        ]
+    },
+    {
+        "entity_id": 61,
+        "type": "ORG",
+        "text": "Coca Cola",
+        "normalized": "coca_cola",
+        "aliases": [
+            "CocaCola",
+            "Tập đoàn Coca-Cola"
+        ]
+    },
+    {
+        "entity_id": 62,
+        "type": "ORG",
+        "text": "Unilever",
+        "normalized": "unilever",
+        "aliases": [
+            "Tập đoàn Unilever",
+            "Unilever Việt Nam"
+        ]
+    },
+    {
+        "entity_id": 63,
+        "type": "ORG",
+        "text": "Nvidia",
+        "normalized": "nvidia",
+        "aliases": [
+            "Công ty Nvidia",
+            "Chip Nvidia"
+        ]
+    },
+    {
+        "entity_id": 64,
+        "type": "ORG",
+        "text": "Intel",
+        "normalized": "intel",
+        "aliases": [
+            "Tập đoàn Intel",
+            "Chip Intel"
+        ]
+    },
+    {
+        "entity_id": 68,
+        "type": "ORG",
+        "text": "VinGroup",
+        "normalized": "vingroup",
+        "aliases": [
+            "Tập đoàn Vingroup",
+            "VIC",
+            "Vinhomes",
+            "VinFast"
+        ]
+    },
+    {
+        "entity_id": 69,
+        "type": "ORG",
+        "text": "Xanh SM",
+        "normalized": "xanh_sm",
+        "aliases": [
+            "Taxi điện Xanh SM",
+            "GSM"
+        ]
+    },
+    {
+        "entity_id": 72,
+        "type": "ORG",
+        "text": "Viettel",
+        "normalized": "viettel",
+        "aliases": [
+            "Tập đoàn Viettel",
+            "Viettel Telecom"
+        ]
+    },
+    {
+        "entity_id": 73,
+        "type": "ORG",
+        "text": "Google",
+        "normalized": "google",
+        "aliases": [
+            "Tập đoàn Google",
+            "Alphabet"
+        ]
+    },
+    {
+        "entity_id": 74,
+        "type": "ORG",
+        "text": "Tesla",
+        "normalized": "tesla",
+        "aliases": [
+            "Công ty Tesla",
+            "Xe điện Tesla"
+        ]
+    },
+    {
+        "entity_id": 75,
+        "type": "ORG",
+        "text": "LG Electronics",
+        "normalized": "lg_electronics",
+        "aliases": [
+            "LG",
+            "Tập đoàn LG"
+        ]
+    },
+    {
+        "entity_id": 76,
+        "type": "ORG",
+        "text": "Meta Facebook",
+        "normalized": "meta_facebook",
+        "aliases": [
+            "Meta",
+            "Facebook",
+            "Instagram",
+            "WhatsApp"
+        ]
+    },
+    {
+        "entity_id": 77,
+        "type": "ORG",
+        "text": "Microsoft",
+        "normalized": "microsoft",
+        "aliases": [
+            "Tập đoàn Microsoft",
+            "Windows",
+            "Azure"
+        ]
+    },
+    {
+        "entity_id": 78,
+        "type": "ORG",
+        "text": "Oracle",
+        "normalized": "oracle",
+        "aliases": [
+            "Tập đoàn Oracle",
+            "Cơ sở dữ liệu Oracle"
+        ]
+    },
+    {
+        "entity_id": 79,
+        "type": "ORG",
+        "text": "Apple",
+        "normalized": "apple",
+        "aliases": [
+            "Tập đoàn Apple",
+            "Iphone",
+            "Macbook"
+        ]
+    },
+    {
+        "entity_id": 80,
+        "type": "ORG",
+        "text": "Samsung",
+        "normalized": "samsung",
+        "aliases": [
+            "Tập đoàn Samsung",
+            "Galaxy",
+            "Z Fold/Flip"
+        ]
+    },
+    {
+        "entity_id": 133,
+        "type": "LOC",
+        "text": "Quảng Ninh",
+        "normalized": "quang_ninh",
+        "aliases": [
+            "QN",
+            "Vịnh Hạ Long",
+            "Móng Cái",
+            "Vân Đồn"
+        ]
+    },
+    {
+        "entity_id": 134,
+        "type": "LOC",
+        "text": "An Giang",
+        "normalized": "an_giang",
+        "aliases": [
+            "AG",
+            "ĐBSCL An Giang",
+            "Núi Sam"
+        ]
+    },
+    {
+        "entity_id": 135,
+        "type": "LOC",
+        "text": "Tp. Hồ Chí Minh",
+        "normalized": "tp_ho_chi_minh",
+        "aliases": [
+            "TPHCM",
+            "Sài Gòn",
+            "Thành phố Hồ Chí Minh",
+            "Thành phố Thủ Đức"
+        ]
+    },
+    {
+        "entity_id": 136,
+        "type": "LOC",
+        "text": "Đà Lạt Lâm Đồng",
+        "normalized": "da_lat_lam_dong",
+        "aliases": [
+            "Đà Lạt",
+            "Lâm Đồng",
+            "Cao nguyên Lâm Viên"
+        ]
+    },
+    {
+        "entity_id": 137,
+        "type": "LOC",
+        "text": "Thái Bình",
+        "normalized": "thai_binh",
+        "aliases": [
+            "TB",
+            "Vựa lúa Đồng bằng sông Hồng"
+        ]
+    },
+    {
+        "entity_id": 138,
+        "type": "LOC",
+        "text": "Đà Nẵng",
+        "normalized": "da_nang",
+        "aliases": [
+            "TP Đà Nẵng",
+            "ĐN",
+            "Thành phố đáng sống"
+        ]
+    },
+    {
+        "entity_id": 140,
+        "type": "COUNTRY",
+        "text": "Ai Cập",
+        "normalized": "ai_cap",
+        "aliases": [
+            "Egypt",
+            "Cộng hòa Ả Rập Ai Cập"
+        ]
+    },
+    {
+        "entity_id": 141,
+        "type": "COUNTRY",
+        "text": "Ấn Độ",
+        "normalized": "an_do",
+        "aliases": [
+            "India",
+            "Cộng hòa Ấn Độ"
+        ]
+    },
+    {
+        "entity_id": 142,
+        "type": "COUNTRY",
+        "text": "Bỉ",
+        "normalized": "bi",
+        "aliases": [
+            "Belgium",
+            "Vương quốc Bỉ"
+        ]
+    },
+    {
+        "entity_id": 143,
+        "type": "COUNTRY",
+        "text": "Anh Quốc",
+        "normalized": "anh_quoc",
+        "aliases": [
+            "Vương quốc Anh",
+            "UK",
+            "Great Britain"
+        ]
+    },
+    {
+        "entity_id": 144,
+        "type": "COUNTRY",
+        "text": "Campuchia",
+        "normalized": "campuchia",
+        "aliases": [
+            "Cambodia",
+            "CPC"
+        ]
+    },
+    {
+        "entity_id": 145,
+        "type": "COUNTRY",
+        "text": "Canada",
+        "normalized": "canada",
+        "aliases": [
+            "CA"
+        ]
+    },
+    {
+        "entity_id": 146,
+        "type": "COUNTRY",
+        "text": "Cuba",
+        "normalized": "cuba",
+        "aliases": [
+            "Cộng hòa Cuba"
+        ]
+    },
+    {
+        "entity_id": 147,
+        "type": "COUNTRY",
+        "text": "Đan Mạch",
+        "normalized": "dan_mach",
+        "aliases": [
+            "Denmark",
+            "Vương quốc Đan Mạch"
+        ]
+    },
+    {
+        "entity_id": 148,
+        "type": "COUNTRY",
+        "text": "Đức",
+        "normalized": "duc",
+        "aliases": [
+            "Germany",
+            "Cộng hòa Liên bang Đức"
+        ]
+    },
+    {
+        "entity_id": 149,
+        "type": "COUNTRY",
+        "text": "Hàn Quốc",
+        "normalized": "han_quoc",
+        "aliases": [
+            "HQ",
+            "Đại Hàn Dân Quốc",
+            "South Korea"
+        ]
+    },
+    {
+        "entity_id": 150,
+        "type": "COUNTRY",
+        "text": "Hungary",
+        "normalized": "hungary",
+        "aliases": [
+            "Cộng hòa Hungary"
+        ]
+    },
+    {
+        "entity_id": 151,
+        "type": "COUNTRY",
+        "text": "Iran",
+        "normalized": "iran",
+        "aliases": [
+            "Cộng hòa Hồi giáo Iran"
+        ]
+    },
+    {
+        "entity_id": 152,
+        "type": "COUNTRY",
+        "text": "Israel",
+        "normalized": "israel",
+        "aliases": [
+            "Nhà nước Israel"
+        ]
+    },
+    {
+        "entity_id": 153,
+        "type": "COUNTRY",
+        "text": "Palestine",
+        "normalized": "palestine",
+        "aliases": [
+            "Nhà nước Palestine"
+        ]
+    },
+    {
+        "entity_id": 154,
+        "type": "COUNTRY",
+        "text": "Mỹ",
+        "normalized": "my",
+        "aliases": [
+            "Mỹ",
+            "USA",
+            "Hoa Kỳ",
+            "Hợp chủng quốc Hoa Kỳ"
+        ]
+    },
+    {
+        "entity_id": 155,
+        "type": "COUNTRY",
+        "text": "Nam Phi",
+        "normalized": "nam_phi",
+        "aliases": [
+            "South Africa",
+            "Cộng hòa Nam Phi"
+        ]
+    },
+    {
+        "entity_id": 156,
+        "type": "COUNTRY",
+        "text": "Nepal",
+        "normalized": "nepal",
+        "aliases": [
+            "Cộng hòa Liên bang Dân chủ Nepal"
+        ]
+    },
+    {
+        "entity_id": 157,
+        "type": "COUNTRY",
+        "text": "New Zealand",
+        "normalized": "new_zealand",
+        "aliases": [
+            "NZ"
+        ]
+    },
+    {
+        "entity_id": 158,
+        "type": "COUNTRY",
+        "text": "Nga",
+        "normalized": "nga",
+        "aliases": [
+            "Liên bang Nga",
+            "Russia",
+            "Moskva"
+        ]
+    },
+    {
+        "entity_id": 159,
+        "type": "COUNTRY",
+        "text": "Ukraine",
+        "normalized": "ukraine",
+        "aliases": [
+            "Ukraina",
+            "Kiev"
+        ]
+    },
+    {
+        "entity_id": 160,
+        "type": "COUNTRY",
+        "text": "Ba Lan",
+        "normalized": "ba_lan",
+        "aliases": [
+            "Poland",
+            "Cộng hòa Ba Lan"
+        ]
+    },
+    {
+        "entity_id": 161,
+        "type": "COUNTRY",
+        "text": "Romania",
+        "normalized": "romania",
+        "aliases": [
+            "Cộng hòa Romania"
+        ]
+    },
+    {
+        "entity_id": 162,
+        "type": "COUNTRY",
+        "text": "Nhật Bản",
+        "normalized": "nhat_ban",
+        "aliases": [
+            "JP",
+            "Japan"
+        ]
+    },
+    {
+        "entity_id": 163,
+        "type": "COUNTRY",
+        "text": "Pháp",
+        "normalized": "phap",
+        "aliases": [
+            "France",
+            "Cộng hòa Pháp"
+        ]
+    },
+    {
+        "entity_id": 164,
+        "type": "COUNTRY",
+        "text": "Philippines",
+        "normalized": "philippines",
+        "aliases": [
+            "Cộng hòa Philippines"
+        ]
+    },
+    {
+        "entity_id": 165,
+        "type": "COUNTRY",
+        "text": "Qatar",
+        "normalized": "qatar",
+        "aliases": [
+            "Quốc gia Qatar"
+        ]
+    },
+    {
+        "entity_id": 166,
+        "type": "COUNTRY",
+        "text": "Afghanistan (Taliban)",
+        "normalized": "afghanistan_taliban",
+        "aliases": [
+            "Afghanistan",
+            "Taliban"
+        ]
+    },
+    {
+        "entity_id": 167,
+        "type": "COUNTRY",
+        "text": "Triều Tiên",
+        "normalized": "trieu_tien",
+        "aliases": [
+            "Bắc Triều Tiên",
+            "DPRK",
+            "North Korea"
+        ]
+    },
+    {
+        "entity_id": 168,
+        "type": "COUNTRY",
+        "text": "Trung Quốc",
+        "normalized": "trung_quoc",
+        "aliases": [
+            "TQ",
+            "Cộng hòa Nhân dân Trung Hoa",
+            "China"
+        ]
+    },
+    {
+        "entity_id": 169,
+        "type": "COUNTRY",
+        "text": "Úc",
+        "normalized": "uc",
+        "aliases": [
+            "Australia",
+            "AUKUS"
+        ]
+    },
+    {
+        "entity_id": 170,
+        "type": "PRODUCT",
+        "text": "ChatGPT",
+        "normalized": "chat_gpt",
+        "aliases": [
+            "GPT",
+            "OpenAI GPT",
+            "mô hình ngôn ngữ lớn"
+        ]
+    },
+    {
+        "entity_id": 171,
+        "type": "PRODUCT",
+        "text": "Gemini",
+        "normalized": "gemini",
+        "aliases": [
+            "Google Gemini",
+            "mô hình Gemini",
+            "trợ lý AI của Google"
+        ]
+    },
+    {
+        "entity_id": 172,
+        "type": "PRODUCT",
+        "text": "Copilot",
+        "normalized": "copilot",
+        "aliases": [
+            "Microsoft Copilot",
+            "GitHub Copilot",
+            "trợ lý AI Microsoft"
+        ]
+    },
+    {
+        "entity_id": 173,
+        "type": "PRODUCT",
+        "text": "Siri",
+        "normalized": "siri",
+        "aliases": [
+            "trợ lý giọng nói Siri",
+            "Siri của Apple"
+        ]
+    },
+    {
+        "entity_id": 174,
+        "type": "PRODUCT",
+        "text": "Alexa",
+        "normalized": "alexa",
+        "aliases": [
+            "Amazon Alexa",
+            "trợ lý ảo Amazon"
+        ]
+    },
+    {
+        "entity_id": 175,
+        "type": "PRODUCT",
+        "text": "Claude",
+        "normalized": "claude",
+        "aliases": [
+            "Anthropic Claude",
+            "mô hình AI Claude"
+        ]
+    }
+]

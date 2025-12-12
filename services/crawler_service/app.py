@@ -60,6 +60,6 @@ def crawl_rss():
 
 if __name__ == "__main__":
     while True:
-        print("⏰ Bắt đầu crawl RSS", flush=True)
+        print("s Bắt đầu crawl RSS", flush=True)
         crawl_rss()
-        time.sleep(300)  # 5 phút
+        time.sleep(300)  
