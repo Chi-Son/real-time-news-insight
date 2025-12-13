@@ -2,59 +2,55 @@ import json
 import logging
 import os
 import re
-from flashtext import KeywordProcessor
-from sentence_transformers import SentenceTransformer, util, models
 import torch
 import psycopg2
 from psycopg2.extras import DictCursor
-from shared.kafka_config import get_kafka_consumer, get_kafka_producer
+from flashtext import KeywordProcessor
+from sentence_transformers import SentenceTransformer, util
+from shared.kafka_config import get_kafka_consumer
 from shared.postgresql_config import DB_CONFIG
-
-SentenceTransformer.default_transaction_allocator = None
+import ast
+import numpy as np
+# =========================
+# LOGGING
+# =========================
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("topic_ranking")
 
+# =========================
+# KAFKA CONFIG
+# =========================
 INPUT_TOPIC = "extractor_news"
 GROUP_ID = "topic_ranking_group"
-
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
-producer = get_kafka_producer()
 
-# =====================================================
-# COUNTRY STOPWORDS (để tránh bắt nhầm)
-# =====================================================
+# =========================
+# COUNTRY STOPWORDS
+# =========================
 COUNTRY_STOPWORDS = [
-    "pháp lý", "tư pháp", "luật pháp","pháp luật"
+    "pháp lý", "tư pháp", "luật pháp","pháp luật",
     "đức tính", "đức hạnh",
     "nga ngố", "nga ngáo"
 ]
 
-# =====================================================
-# Detect tên người để loại COUNTRY
-# =====================================================
+# =========================
+# PERSON NAME CHECK
+# =========================
 def is_person_name_around(entity_text, full_text):
-    """
-    Kiểm tra xem thực thể COUNTRY có nằm trong tên người không.
-    Đức/Nga/Bỉ/Pháp → nếu nằm trong cụm tên người thì loại.
-    """
     name = entity_text
-
     pattern_mid = rf"\b[A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+ {name} [A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+\b"
     pattern_after = rf"\b[A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+ {name}\b"
     pattern_before = rf"\b{name} [A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+\b"
 
-    if re.search(pattern_mid, full_text):
-        return True
-    if re.search(pattern_after, full_text):
-        return True
-    if re.search(pattern_before, full_text):
-        return True
+    return (
+        re.search(pattern_mid, full_text)
+        or re.search(pattern_after, full_text)
+        or re.search(pattern_before, full_text)
+    )
 
-    return False
-
-# =====================================================
-# Filter COUNTRY sai
-# =====================================================
+# =========================
+# FILTER COUNTRY FALSE MATCH
+# =========================
 def filter_country_false_matches(entities, text):
     filtered = []
     text_lower = text.lower()
@@ -64,31 +60,21 @@ def filter_country_false_matches(entities, text):
             filtered.append(ent)
             continue
 
-        name = ent["text"]
-        name_lower = name.lower()
+        name = ent["text"].lower()
 
-        # Nếu dính stopword → loại
-        for sw in COUNTRY_STOPWORDS:
-            if sw in text_lower:
-                if name_lower in sw or name_lower == sw.split()[-1]:
-                    break
-        else:
-            sw = None
-
-        if sw:
+        if any(name in sw and sw in text_lower for sw in COUNTRY_STOPWORDS):
             continue
 
-        # Nếu nằm trong tên người → loại
-        if is_person_name_around(name, text):
+        if is_person_name_around(ent["text"], text):
             continue
 
         filtered.append(ent)
 
     return filtered
 
-# =====================================================
-# KeywordProcessor setup
-# =====================================================
+# =========================
+# KEYWORD PROCESSOR
+# =========================
 keyword_processor = KeywordProcessor(case_sensitive=False)
 viet_chars = set(
     "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễ"
@@ -98,168 +84,148 @@ viet_chars = set(
 )
 keyword_processor.non_word_boundaries = viet_chars
 
-# =====================================================
-# Load NER from DB
-# =====================================================
+# =========================
+# LOAD NER DATA
+# =========================
 def load_ner_data_from_db():
-    conn = None
-    try:
-        conn = psycopg2.connect(**DB_CONFIG)
-        cur = conn.cursor(cursor_factory=DictCursor)
-        cur.execute("SELECT type, text, aliases FROM entity;")
-        count = 0
-        for ent in cur.fetchall():
-            main_name = ent["text"]
-            keyword_processor.add_keyword(main_name, {
-                "label": ent["type"],
-                "text": main_name
+    conn = psycopg2.connect(**DB_CONFIG)
+    cur = conn.cursor(cursor_factory=DictCursor)
+
+    cur.execute("SELECT type, text, aliases FROM entity;")
+    count = 0
+
+    for row in cur.fetchall():
+        keyword_processor.add_keyword(row["text"], {
+            "label": row["type"],
+            "text": row["text"]
+        })
+        count += 1
+
+        aliases = row["aliases"] or []
+        if not isinstance(aliases, list):
+            aliases = json.loads(aliases)
+
+        for a in aliases:
+            keyword_processor.add_keyword(a, {
+                "label": row["type"],
+                "text": row["text"]
             })
             count += 1
 
-            aliases = ent["aliases"] if isinstance(ent["aliases"], list) else json.loads(ent["aliases"])
-            for alias in aliases:
-                keyword_processor.add_keyword(alias, {
-                    "label": ent["type"],
-                    "text": main_name
-                })
-                count += 1
-
-        logger.info(f"Đã tải {count} từ khóa NER từ DB.")
-    except Exception as e:
-        logger.error(f"Lỗi load NER: {e}")
-    finally:
-        if conn:
-            conn.close()
+    conn.close()
+    logger.info(f"Loaded {count} NER keywords")
 
 load_ner_data_from_db()
 
-# =====================================================
-# Extract entities (dedupe) + clean text
-# =====================================================
+# =========================
+# ENTITY + CLEAN TEXT
+# =========================
 def extract_entities_and_clean(text):
     matches = keyword_processor.extract_keywords(text, span_info=True)
+    unique = {m[0]["text"]: m[0] for m in matches}
+    entities = filter_country_false_matches(list(unique.values()), text)
+    return entities, " ".join(text.split())
 
-    unique = {}
-    for ent_info, start, end in matches:
-        unique[ent_info["text"]] = ent_info  # dedupe
+# =========================
+# LOAD TOPIC EMBEDDINGS
+# =========================
+def load_topic_embeddings():
+    conn = psycopg2.connect(**DB_CONFIG)
+    cur = conn.cursor(cursor_factory=DictCursor)
 
-    entities = list(unique.values())
+    cur.execute("""
+        SELECT t.topic_id, t.name, e.embedding
+        FROM topic_embedding e
+        JOIN topic t ON t.topic_id = e.topic_id
+        ORDER BY t.topic_id
+    """)
 
-    # Filter COUNTRY sai (tên người + stopword)
-    entities = filter_country_false_matches(entities, text)
+    topic_ids = []
+    topic_names = []
+    vectors = []
 
-    cleaned = " ".join(text.split())
-    return entities, cleaned
+    for row in cur.fetchall():
+        topic_ids.append(row["topic_id"])
+        topic_names.append(row["name"])
 
-# =====================================================
-# Load topics from DB
-# =====================================================
-def load_topics_from_db():
-    conn = None
-    topics = []
-    try:
-        conn = psycopg2.connect(**DB_CONFIG)
-        cur = conn.cursor(cursor_factory=DictCursor)
-        cur.execute("SELECT topic_id, name, short_description, long_description, example FROM topic ORDER BY topic_id;")
+        emb = row["embedding"]
 
-        for row in cur.fetchall():
-            examples = row["example"] if isinstance(row["example"], list) else json.loads(row["example"])
-            topics.append({
-                "topic_id": row["topic_id"],
-                "name": row["name"],
-                "short_description": row["short_description"],
-                "long_description": row["long_description"],
-                "examples": examples
-            })
+        # pgvector → Python
+        if not isinstance(emb, (list, tuple)):
+            emb = ast.literal_eval(emb)
 
-        logger.info(f"Đã tải {len(topics)} topics từ DB.")
-        return topics
+        vectors.append(emb)
 
-    except Exception as e:
-        logger.error(f"Lỗi load topics: {e}")
-        return []
-    finally:
-        if conn:
-            conn.close()
+    conn.close()
 
-topics_data = load_topics_from_db()
-topic_ids = [t["topic_id"] for t in topics_data]
-topic_texts = [
-    f"{t['name']}. {t['short_description']} {t['long_description']} {' '.join(t['examples'])}"
-    for t in topics_data
-]
+    embeddings = torch.from_numpy(
+        np.asarray(vectors, dtype="float32")
+    )
+    embeddings = torch.nn.functional.normalize(embeddings, dim=1)
 
-# =====================================================
-# Load local model PhoberSim
-# =====================================================
-current_dir = os.path.dirname(os.path.abspath(__file__))
-LOAD_PATH = os.path.join(current_dir, "models", "ModelPhoberSim")
+    logger.info(f"Loaded {len(topic_ids)} topic embeddings")
+    return topic_ids, topic_names, embeddings
 
-if not os.path.isdir(LOAD_PATH):
-    logger.error(f"Không tìm thấy model tại {LOAD_PATH}")
-    exit()
+topic_ids, topic_names, topic_embeddings = load_topic_embeddings()
 
-word_embedding_model = models.Transformer(LOAD_PATH)
-pooling_model = models.Pooling(
-    word_embedding_model.get_word_embedding_dimension(),
-    pooling_mode_mean_tokens=True
-)
-model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
+# =========================
+# LOAD ARTICLE MODEL
+# =========================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "models", "ModelPhoberSim")
 
-topic_embeddings = model.encode(topic_texts, convert_to_tensor=True,show_progress_bar=False)
+model = SentenceTransformer(MODEL_PATH)
+logger.info("SentenceTransformer loaded")
 
-logger.info(f"Model loaded. Topic embeddings shape: {topic_embeddings.shape}")
-logger.info("Topic Ranking Service started.")
-
-# =====================================================
-# Lấy title + 4 câu đầu content
-# =====================================================
+# =========================
+# ARTICLE TEXT FOR RANKING
+# =========================
 def get_text_for_ranking(title, content):
     sentences = re.split(r"(?<=[.!?])\s+", content)
-    first_4 = " ".join(sentences[:4])
-    return f"{title}. {first_4}"
+    return f"{title}. {' '.join(sentences[:2])}"
 
-# =====================================================
-# MAIN KAFKA LOOP
-# =====================================================
+logger.info("🚀 Topic Ranking Service started")
+
+# =========================
+# MAIN LOOP
+# =========================
 while True:
-    message = consumer.poll(1.0)
-    if message is None:
+    msg = consumer.poll(1.0)
+    if msg is None:
         continue
-    if message.error():
-        logger.error(f"Consumer error: {message.error()}")
+    if msg.error():
+        logger.error(msg.error())
         continue
 
     try:
-        msg = json.loads(message.value().decode("utf-8"))
-        news_id = msg.get("id")
-        title = msg.get("title")
-        content = msg.get("content")
+        data = json.loads(msg.value().decode("utf-8"))
+        news_id = data.get("id")
+        title = data.get("title")
+        content = data.get("content")
 
-        if not news_id or not content:
-            logger.warning(f"Message không hợp lệ: {msg}")
+        if not title or not content:
             continue
 
-        # Lấy phần dùng để phân loại
-        text_for_rank = get_text_for_ranking(title, content)
+        text = get_text_for_ranking(title, content)
+        entities, clean_text = extract_entities_and_clean(text)
 
-        # Detect entities
-        entities, cleaned_text = extract_entities_and_clean(text_for_rank)
-        if entities:
-            logger.info(f"ID={news_id}, Entities detected:")
-            for ent in entities:
-                logger.info(f" - [{ent['label']}] {ent['text']}")
+        article_embedding = model.encode(
+            [clean_text],
+            convert_to_tensor=True,
+            normalize_embeddings=True,
+            show_progress_bar=False
+        )
 
-        # Ranking topic
-        article_embedding = model.encode([cleaned_text], convert_to_tensor=True,show_progress_bar=False)
         scores = util.cos_sim(article_embedding, topic_embeddings)
-
         top_score, top_idx = torch.max(scores[0], dim=0)
 
         if top_score.item() > 0.51:
-            topic_id = topic_ids[top_idx.item()]
-            topic_name = topics_data[top_idx.item()]["name"]
-            logger.info(f"ID={news_id}, Top topic: [{topic_id}] {topic_name} (score={top_score.item():.4f})")
+            logger.info(
+                f"[NEWS {news_id}] "
+                f"'{title}' → "
+                f"Topic [{topic_ids[top_idx]}] {topic_names[top_idx]} "
+                f"(score={top_score.item():.4f})"
+            )
 
     except Exception as e:
-        logger.error(f"Lỗi xử lý message: {e}")
+        logger.exception(e)

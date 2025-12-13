@@ -1200,13 +1200,13 @@
   {
     "topic_id": 124,
     "parent_id": null,
-    "name": "Ngoại giao Việt Nam",
-    "short_description": "Thông tin về chính sách đối ngoại, quan hệ song phương và đa phương của Việt Nam với các đối tác quốc tế",
-    "long_description": "Tin tức về các chuyến thăm cấp cao, ký kết hiệp định thương mại, đối tác chiến lược, và vai trò của Việt Nam tại các diễn đàn quốc tế (ASEAN, Liên Hợp Quốc).",
+    "name": "Ngoại giao",
+    "short_description": "Thông tin về chính sách đối ngoại, quan hệ song phương và đa phương của quốc tế",
+    "long_description": "Tin tức về các chuyến thăm cấp cao, ký kết hiệp định thương mại, đối tác chiến lược",
     "examples": [
       "Việt Nam và Hoa Kỳ nâng cấp quan hệ lên Đối tác Chiến lược Toàn diện.",
-      "Thủ tướng thăm chính thức Trung Quốc, ký kết các văn kiện hợp tác.",
-      "Việt Nam đăng cai Hội nghị Thượng đỉnh ASEAN lần thứ X."
+      "Trung Quốc thăm",
+      "Mỹ đến"
     ],
     "level": 1
   },
@@ -2830,5 +2830,31 @@
       "Quyết định giải thể một bệnh viện tuyến huyện không hiệu quả."
     ],
     "level": 2
+  },
+  {
+    "topic_id": 267,
+    "parent_id": null,
+    "name": "Thời trang",
+    "short_description": "Xu hướng thời trang (Haute Couture, Street Style), các thương hiệu, sự kiện thời trang và công nghệ may mặc",
+    "long_description": "Thông tin về các xu hướng thời trang quốc tế và trong nước, sự kiện Fashion Week, các nhà thiết kế và thương hiệu lớn, ảnh hưởng của thời trang nhanh (Fast Fashion) và công nghệ (vải thông minh, AI) trong ngành may mặc.",
+    "examples": [
+      "Công bố bộ sưu tập mới của nhà thiết kế nổi tiếng tại Paris Fashion Week.",
+      "Xu hướng thời trang bền vững và các thương hiệu thân thiện môi trường.",
+      "Ảnh hưởng của thời trang nhanh (Fast Fashion) đến môi trường."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 268,
+    "parent_id": null,
+    "name": "Vấn đề lương, thưởng",
+    "short_description": "Chính sách lương, thưởng, tăng lương tối thiểu, tranh chấp tiền lương và phúc lợi",
+    "long_description": "Tin tức về chính sách tiền lương, tăng lương tối thiểu vùng, quy định về tiền thưởng (Thưởng Tết, Thưởng hiệu suất), các vụ tranh chấp, nợ lương, và các vấn đề phúc lợi, chế độ đãi ngộ của người lao động trong các khối doanh nghiệp.",
+    "examples": [
+      "Chính phủ công bố mức tăng lương tối thiểu vùng mới nhất.",
+      "Tranh chấp lao động về việc chậm trả lương, thưởng Tết tại khu công nghiệp.",
+      "Doanh nghiệp áp dụng chính sách lương 3P để tăng hiệu suất làm việc."
+    ],
+    "level": 1
   }
 ]
