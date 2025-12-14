@@ -2242,7 +2242,7 @@
     "level": 1
   },
   {
-    "topic_id": 223,
+    "topic_id": 271,
     "parent_id": null,
     "name": "Cấp cứu",
     "short_description": "Các tình huống khẩn cấp, cứu chữa, quy trình nhập viện, xe cứu thương và sơ cứu y tế",
@@ -2255,7 +2255,7 @@
     "level": 1
   },
   {
-    "topic_id": 224,
+    "topic_id": 272,
     "parent_id": null,
     "name": "Phẫu thuật",
     "short_description": "Các ca phẫu thuật, mổ, y học can thiệp, công nghệ phẫu thuật robot và ghép tạng",
@@ -2268,7 +2268,7 @@
     "level": 1
   },
   {
-    "topic_id": 225,
+    "topic_id": 283,
     "parent_id": null,
     "name": "Dược phẩm, vật dụng y tế",
     "short_description": "Thuốc tân dược, vắc-xin, vật tư tiêu hao, thiết bị y tế và thị trường dược phẩm",
@@ -2281,7 +2281,7 @@
     "level": 1
   },
   {
-    "topic_id": 226,
+    "topic_id": 284,
     "parent_id": 225,
     "name": "Thuốc y tế",
     "short_description": "Các loại thuốc đặc trị, thuốc kê đơn, thuốc không kê đơn và quản lý chất lượng thuốc",
@@ -2294,7 +2294,7 @@
     "level": 2
   },
   {
-    "topic_id": 227,
+    "topic_id": 270,
     "parent_id": 225,
     "name": "Máy trợ thính",
     "short_description": "Thiết bị trợ thính, công nghệ và ứng dụng cho người khiếm thính",
@@ -2307,7 +2307,7 @@
     "level": 2
   },
   {
-    "topic_id": 228,
+    "topic_id": 269,
     "parent_id": 225,
     "name": "Đồ cứu thương",
     "short_description": "Bộ sơ cứu (First Aid Kit), băng gạc, dụng cụ y tế cơ bản và thiết bị phòng hộ cá nhân (PPE)",
@@ -2320,7 +2320,7 @@
     "level": 2
   },
   {
-    "topic_id": 229,
+    "topic_id": 286,
     "parent_id": 225,
     "name": "Thực phẩm chức năng",
     "short_description": "Thị trường thực phẩm chức năng, vitamin, thuốc bổ, quản lý chất lượng và quảng cáo",
@@ -2333,7 +2333,7 @@
     "level": 2
   },
   {
-    "topic_id": 230,
+    "topic_id": 288,
     "parent_id": null,
     "name": "Đội ngũ y tế",
     "short_description": "Bác sĩ, y tá, dược sĩ, nhân viên y tế, thiếu hụt nhân lực ngành y và đãi ngộ",
@@ -2346,7 +2346,7 @@
     "level": 1
   },
   {
-    "topic_id": 231,
+    "topic_id": 280,
     "parent_id": null,
     "name": "Bệnh viện, phòng khám",
     "short_description": "Hệ thống y tế công và tư, bệnh viện tuyến trên, tuyến dưới, cơ sở hạ tầng y tế",
@@ -2359,7 +2359,7 @@
     "level": 1
   },
   {
-    "topic_id": 232,
+    "topic_id": 287,
     "parent_id": 225,
     "name": "Vaccine",
     "short_description": "Tiêm chủng, vắc-xin COVID-19, vắc-xin 5 trong 1, và chương trình tiêm chủng mở rộng",
@@ -2372,7 +2372,7 @@
     "level": 2
   },
   {
-    "topic_id": 233,
+    "topic_id": 282,
     "parent_id": null,
     "name": "Vi khuẩn, bệnh",
     "short_description": "Vi rút (virus), vi khuẩn, dịch bệnh (Ebola, sốt xuất huyết, cúm), và kháng kháng sinh",
@@ -2385,7 +2385,7 @@
     "level": 1
   },
   {
-    "topic_id": 234,
+    "topic_id": 281,
     "parent_id": null,
     "name": "Bảo hiểm",
     "short_description": "Bảo hiểm nhân thọ, bảo hiểm y tế, bảo hiểm xã hội, phí bảo hiểm và các công ty bảo hiểm",
@@ -2398,7 +2398,7 @@
     "level": 1
   },
   {
-    "topic_id": 235,
+    "topic_id": 289,
     "parent_id": null,
     "name": "Chuyển đổi số",
     "short_description": "Số hóa, đổi mới công nghệ, kinh tế số, chính phủ điện tử (E-Government) và dịch vụ công trực tuyến",
@@ -2411,7 +2411,7 @@
     "level": 1
   },
   {
-    "topic_id": 236,
+    "topic_id": 285,
     "parent_id": null,
     "name": "Chip lõi, bộ xử lý",
     "short_description": "Công nghệ bán dẫn (Semiconductor), chip máy tính, CPU, GPU, và sản xuất chip tại Việt Nam",
@@ -2424,7 +2424,7 @@
     "level": 1
   },
   {
-    "topic_id": 237,
+    "topic_id": 274,
     "parent_id": null,
     "name": "Mã định danh",
     "short_description": "Căn cước công dân (CCCD), mã số định danh cá nhân, mã số thuế và quản lý danh tính điện tử",
@@ -2437,7 +2437,7 @@
     "level": 1
   },
   {
-    "topic_id": 238,
+    "topic_id": 273,
     "parent_id": null,
     "name": "Công nghệ sinh trắc học",
     "short_description": "Nhận diện khuôn mặt, vân tay, quét mống mắt, và ứng dụng bảo mật sinh trắc học",
@@ -2450,7 +2450,7 @@
     "level": 1
   },
   {
-    "topic_id": 239,
+    "topic_id": 279,
     "parent_id": null,
     "name": "Dịch vụ đặt cược",
     "short_description": "Cá cược thể thao (Betting), sòng bạc (Casino), xổ số, và chính sách quản lý hoạt động cờ bạc",
@@ -2463,7 +2463,7 @@
     "level": 1
   },
   {
-    "topic_id": 240,
+    "topic_id": 275,
     "parent_id": null,
     "name": "Dịch vụ viễn thông",
     "short_description": "Tốc độ mạng (4G, 5G), Internet, Wifi, tên miền (Domain) và các nhà mạng (Viettel, VNPT)",
@@ -2476,7 +2476,7 @@
     "level": 1
   },
   {
-    "topic_id": 241,
+    "topic_id": 278,
     "parent_id": null,
     "name": "Game, Esport",
     "short_description": "Thể thao điện tử (Esport), game trực tuyến, game di động và ngành công nghiệp game",
@@ -2489,7 +2489,7 @@
     "level": 1
   },
   {
-    "topic_id": 242,
+    "topic_id": 277,
     "parent_id": null,
     "name": "Giải thưởng",
     "short_description": "Các giải thưởng khoa học, văn hóa, thể thao, và các lễ trao giải quan trọng",
@@ -2805,19 +2805,6 @@
     "level": 2
   },
   {
-    "topic_id": 264,
-    "parent_id": null,
-    "name": "Ô tô, xe hơi",
-    "short_description": "Tin tức về ô tô, xe hơi, thị trường xe, thuế nhập khẩu và chính sách liên quan",
-    "long_description": "Thông tin về các mẫu ô tô mới, thị trường xe hơi, chính sách thuế nhập khẩu, ưu đãi và quy định về ô tô truyền thống.",
-    "examples": [
-      "Thuế nhập khẩu ô tô từ Nhật Bản thay đổi theo hiệp định thương mại.",
-      "Các hãng xe ra mắt mẫu sedan mới.",
-      "Giá ô tô biến động mạnh do chính sách mới."
-    ],
-    "level": 1
-  },
-  {
     "topic_id": 266,
     "parent_id": 85,
     "name": "Sáp nhập, Giải thể, Tái cấu trúc (M&A/Restructuring)",
@@ -2854,6 +2841,58 @@
       "Chính phủ công bố mức tăng lương tối thiểu vùng mới nhất.",
       "Tranh chấp lao động về việc chậm trả lương, thưởng Tết tại khu công nghiệp.",
       "Doanh nghiệp áp dụng chính sách lương 3P để tăng hiệu suất làm việc."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 290,
+    "parent_id": null,
+    "name": "Tai nạn giao thông",
+    "short_description": "Tin tức về các vụ tai nạn giao thông, nguyên nhân, số liệu thống kê và các biện pháp giảm thiểu",
+    "long_description": "Thông tin về các vụ tai nạn đường bộ, đường sắt, đường thủy nghiêm trọng; phân tích nguyên nhân (do say xỉn, vượt ẩu, lỗi kỹ thuật); số liệu thống kê về thương vong, thiệt hại; và các chính sách, biện pháp nhằm tăng cường an toàn giao thông.",
+    "examples": [
+      "Vụ tai nạn thảm khốc trên đường cao tốc do xe khách mất lái.",
+      "Thống kê số liệu tử vong do tai nạn giao thông trong dịp Tết Nguyên Đán.",
+      "Chính phủ ban hành quy định phạt nặng hành vi lái xe khi say rượu."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 291,
+    "parent_id": null,
+    "name": "Rác, môi trường xanh",
+    "short_description": "Quản lý rác thải, xử lý ô nhiễm, phát triển năng lượng sạch và các dự án xanh",
+    "long_description": "Tin tức về quản lý, xử lý rác thải (rác sinh hoạt, rác công nghiệp, rác điện tử), các vấn đề ô nhiễm môi trường (nước, không khí, đất), chính sách phát triển kinh tế xanh, năng lượng tái tạo và các hoạt động bảo vệ môi trường, trồng rừng.",
+    "examples": [
+      "Thủ đô triển khai phân loại rác thải tại nguồn.",
+      "Cảnh báo ô nhiễm không khí tại các thành phố lớn do bụi mịn (PM2.5).",
+      "Việt Nam đẩy mạnh đầu tư vào năng lượng mặt trời và gió."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 292,
+    "parent_id": 7,
+    "name": "Mỹ phẩm",
+    "short_description": "Thị trường mỹ phẩm, xu hướng làm đẹp, mỹ phẩm giả và quy định an toàn",
+    "long_description": "Thông tin về thị trường mỹ phẩm trong nước và quốc tế, các thương hiệu lớn, xu hướng chăm sóc da, trang điểm, cảnh báo về mỹ phẩm giả, kém chất lượng, chứa hóa chất cấm, và các quy định của cơ quan chức năng về kiểm soát chất lượng sản phẩm làm đẹp.",
+    "examples": [
+      "Các thương hiệu Hàn Quốc dẫn đầu xu hướng chăm sóc da tại Đông Nam Á.",
+      "Cơ quan chức năng triệt phá đường dây sản xuất mỹ phẩm giả quy mô lớn.",
+      "Phân tích thành phần kem chống nắng và tác dụng của chúng."
+    ],
+    "level": 1
+  },
+  {
+    "topic_id": 293,
+    "parent_id": null,
+    "name": "Bất động sản",
+    "short_description": "Thị trường nhà đất, các dự án, chính sách pháp luật và đầu tư bất động sản",
+    "long_description": "Thông tin về thị trường bất động sản (nhà ở, đất nền, căn hộ, văn phòng), các dự án đầu tư lớn, chính sách pháp luật (Luật Đất đai, thuế), phân tích xu hướng giá, và các vấn đề liên quan đến quy hoạch, giải tỏa, tranh chấp đất đai.",
+    "examples": [
+      "Giá căn hộ chung cư tại TP.HCM tăng mạnh trong quý 3.",
+      "Chính phủ ban hành quy định mới về thuế chuyển nhượng bất động sản.",
+      "Phân tích về bong bóng bất động sản và rủi ro đầu tư."
     ],
     "level": 1
   }

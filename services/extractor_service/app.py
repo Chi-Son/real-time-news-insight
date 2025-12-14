@@ -84,7 +84,7 @@ def extract_article(url, source_name, driver=None):
 
             # Nội dung
             content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
-            if not content or len(content.split()) < 50:
+            if not content or len(content.split()) < 70:
                 logger.info(f"Bỏ bài {url} vì nội dung quá ít")
                 return None
 
@@ -205,7 +205,7 @@ def extract_article(url, source_name, driver=None):
                     clean_paragraphs = clean_paragraphs[:-1]
 
             content = " ".join(clean_paragraphs)
-            if not content or len(content.split()) < 50:
+            if not content or len(content.split()) < 70:
                 logger.info(f"Bỏ bài {url} vì nội dung quá ít")
                 return None
 

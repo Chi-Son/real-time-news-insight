@@ -182,7 +182,7 @@ logger.info("SentenceTransformer loaded")
 # =========================
 def get_text_for_ranking(title, content):
     sentences = re.split(r"(?<=[.!?])\s+", content)
-    return f"{title}. {' '.join(sentences[:2])}"
+    return f"{title}. {' '.join(sentences[:3])}"
 
 logger.info("🚀 Topic Ranking Service started")
 
