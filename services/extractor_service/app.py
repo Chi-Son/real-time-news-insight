@@ -15,6 +15,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import re
+from datetime import timezone, timedelta
 
 # -------------------------------
 # Logging setup
@@ -33,6 +34,7 @@ consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
 producer = get_kafka_producer()
 logger.info("URL Extractor service started.")
 
+VN_TZ = timezone(timedelta(hours=7))
 
 def get_db_cursor():
     conn = psycopg2.connect(**DB_CONFIG)
@@ -46,13 +48,35 @@ def parse_date(date_str: str):
     if not date_str:
         return None
     try:
-        cleaned = re.sub(r"Thứ\s+\w+,\s*", "", date_str)
-        cleaned = re.sub(r"\(GMT[^\)]*\)", "", cleaned)
-        cleaned = re.sub(r"Cập nhật:\s*", "", cleaned)
-        cleaned = cleaned.strip()
-        dt = parser.parse(cleaned, dayfirst=True)
-        return dt.strftime("%Y-%m-%d %H:%M:%S")
-    except:
+        # 1. Loại bỏ các tiền tố/hậu tố dư thừa
+        cleaned = re.sub(r"\(GMT[^\)]*\)", "", date_str)
+        cleaned = re.sub(r"Cập nhật:\s*", "", cleaned, flags=re.IGNORECASE)
+        
+        # 2. Dùng Regex để tìm cụm dd/mm/yyyy hh:mm hoặc dd/mm/yyyy
+        # Pattern này lấy được cả "28/9/2025, 09:51" hoặc "28/09/2025"
+        match = re.search(r"(\d{1,2}/\d{1,2}/\d{4})(?:\s*,\s*|\s+)(\d{1,2}:\d{2})?", cleaned)
+        
+        if match:
+            date_part = match.group(1)
+            time_part = match.group(2) if match.group(2) else "00:00"
+            final_str = f"{date_part} {time_part}"
+            
+            # Parse chuỗi đã làm sạch
+            dt = parser.parse(final_str, dayfirst=True)
+        else:
+            # Nếu regex không khớp, thử parse trực tiếp sau khi xóa tên thứ
+            cleaned = re.sub(r"Thứ\s+\w+,\s*", "", cleaned, flags=re.IGNORECASE)
+            dt = parser.parse(cleaned.strip(), dayfirst=True)
+
+        # 3. Xử lý Timezone
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=VN_TZ)
+        dt_utc = dt.astimezone(timezone.utc)
+        
+        return dt_utc.isoformat(timespec="seconds")
+
+    except Exception as e:
+        logger.warning(f"Không parse được date: {date_str}, lỗi: {e}")
         return None
 
 # -------------------------------
@@ -272,32 +296,32 @@ driver = webdriver.Chrome(
     service=Service("/usr/bin/chromedriver"),
     options=chrome_options
 )
+
 try:
     while True:
         message = consumer.poll(1.0)
-        if message is None:
-            continue
+        if message is None: continue
         if message.error():
             logger.error(f"Consumer error: {message.error()}")
             continue
 
         try:
             msg = json.loads(message.value().decode("utf-8"))
-            news_id = msg.get("id")
-            url = msg.get("url")
-            category =msg.get("category")
+            news_id, url, category = msg.get("id"), msg.get("url"), msg.get("category")
 
-            if not news_id or not url:
-                logger.warning(f"Bỏ qua message không hợp lệ: {msg}")
-                continue
+            if not news_id or not url: continue
 
             source = detect_source(url)
-            logger.info(f"Đang xử lý ID={news_id}, URL={url}, source={source}")
-
             article = extract_article(url, source_name=source, driver=driver)
-            if not article:
+
+            # 🛑 CHẶN Ở ĐÂY: Nếu không có ngày hoặc nội dung, không làm gì cả
+            if not article or not article.get("published_at"):
+                logger.warning(f"Bỏ qua ID={news_id} vì thiếu ngày xuất bản (published_at=null)")
+                # Vẫn commit offset để không bị lặp lại message lỗi này
+                consumer.commit(message) 
                 continue
 
+            # Chỉ khi có ngày mới tiến hành lưu DB và gửi Kafka
             conn, cur = get_db_cursor()
             try:
                 cur.execute("""
@@ -305,34 +329,30 @@ try:
                     VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (id) DO NOTHING
                 """, (news_id, article["title"], article["content"], source, article["published_at"]))
-                logger.info(f"Đã lưu bài ID={news_id}, source={source}")
                 
                 msg_out = {
                     "id": news_id,
-                    "url": url,
-                    "source": source,
                     "title": article["title"],
                     "content": article["content"],
                     "published_at": article["published_at"],
                     "category": category  
                 }
+                
                 producer.produce(
                     OUTPUT_TOPIC,
                     key=str(news_id),
                     value=json.dumps(msg_out, ensure_ascii=False).encode("utf-8")
                 )
                 producer.flush()
-                logger.info(f"Đã gửi sang topic '{OUTPUT_TOPIC}' ID={news_id}")
                 
+                logger.info(f"✔ Thành công ID={news_id} | Date={article['published_at']}")
                 consumer.commit(asynchronous=False)
-                logger.info(f"✔ Commit offset={message.offset()} partition={message.partition()}")
             finally:
                 cur.close()
                 conn.close()
 
         except Exception as e:
             logger.error(f"Lỗi xử lý message: {e}")
-            time.sleep(1)
 
 finally:
     consumer.close()

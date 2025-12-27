@@ -1,0 +1,143 @@
+import json
+import logging
+import math
+import time
+from datetime import datetime, timezone
+
+from shared.kafka_config import get_kafka_consumer
+from shared.redis_connect import redis_connection
+
+# =========================
+# LOGGING
+# =========================
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("topic_scoring_24h")
+
+# =========================
+# KAFKA CONFIG
+# =========================
+INPUT_TOPIC = "extractor_sentiment"
+GROUP_ID = "topic_scoring_24h_group"
+
+consumer = get_kafka_consumer(
+    topic=INPUT_TOPIC,
+    group_id=GROUP_ID
+)
+
+# =========================
+# REDIS
+# =========================
+redis = redis_connection()
+
+# =========================
+# CONFIG
+# =========================
+WINDOW_HOURS = 24
+WINDOW_MINUTES = WINDOW_HOURS * 60          # 1440 phút
+REDIS_TTL_SECONDS = 48 * 3600                # Redis giữ tối đa 2 ngày
+
+# decay sao cho sau 1440 phút ≈ 0.001
+DECAY_LAMBDA = 0.0048                       # per minute
+
+# =========================
+# UTILS
+# =========================
+def to_epoch(ts: str) -> int:
+    """
+    ISO8601 -> epoch seconds (UTC)
+    """
+    dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    return int(dt.astimezone(timezone.utc).timestamp())
+
+
+def decay_score(minutes_diff: float) -> float:
+    """
+    Exponential decay theo phút
+    """
+    return math.exp(-DECAY_LAMBDA * minutes_diff)
+
+
+# =========================
+# MAIN LOOP
+# =========================
+logger.info("🚀 Topic Scoring 24h Service started")
+
+while True:
+    msg = consumer.poll(1.0)
+
+    if msg is None:
+        continue
+    if msg.error():
+        logger.error(msg.error())
+        continue
+
+    try:
+        data = json.loads(msg.value().decode("utf-8"))
+
+        article_id = data.get("id")
+        topic_ids = data.get("topic_ids", [])
+        published_at = data.get("published_at")
+
+        if not article_id or not topic_ids or not published_at:
+            continue
+
+        pub_epoch = to_epoch(published_at)
+        now_epoch = int(time.time())
+
+        # =========================
+        # CHECK WINDOW 24H (THEO PHÚT)
+        # =========================
+        minutes_from_now = (now_epoch - pub_epoch) / 60
+        if minutes_from_now > WINDOW_MINUTES:
+            logger.info(f"[SKIP] Article {article_id} older than 24h")
+            continue
+
+        # =========================
+        # PROCESS EACH TOPIC
+        # =========================
+        for topic_id in topic_ids:
+            topic_key = f"topic:window:{topic_id}"
+
+            # Lưu article vào window (score = epoch seconds)
+            redis.zadd(topic_key, {str(article_id): pub_epoch})
+            redis.expire(topic_key, REDIS_TTL_SECONDS)
+
+            # Lấy toàn bộ bài của topic
+            items = redis.zrange(topic_key, 0, -1, withscores=True)
+
+            valid_timestamps = []
+            for _, ts in items:
+                minutes_diff = (now_epoch - ts) / 60
+                if minutes_diff <= WINDOW_MINUTES:
+                    valid_timestamps.append(ts)
+
+            # Nếu topic đã chết hoàn toàn
+            if not valid_timestamps:
+                redis.delete(topic_key)
+                redis.zrem("topic:score", str(topic_id))
+                continue
+
+            # =========================
+            # TÍNH ĐIỂM DECAY
+            # =========================
+            total_score = 0.0
+            for ts in valid_timestamps:
+                minutes_diff = (now_epoch - ts) / 60
+                total_score += decay_score(minutes_diff)
+
+            total_score = round(total_score, 6)
+
+            # Lưu score topic
+            redis.zadd(
+                "topic:score",
+                {str(topic_id): total_score}
+            )
+
+            logger.info(
+                f"[Topic {topic_id}] "
+                f"articles={len(valid_timestamps)} "
+                f"score={total_score}"
+            )
+
+    except Exception as e:
+        logger.exception(e)

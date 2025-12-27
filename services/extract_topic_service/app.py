@@ -7,10 +7,11 @@ import psycopg2
 from psycopg2.extras import DictCursor
 from flashtext import KeywordProcessor
 from sentence_transformers import SentenceTransformer, util
-from shared.kafka_config import get_kafka_consumer
+from shared.kafka_config import get_kafka_consumer,get_kafka_producer
 from shared.postgresql_config import DB_CONFIG
 import ast
 import numpy as np
+import time
 # =========================
 # LOGGING
 # =========================
@@ -22,7 +23,13 @@ logger = logging.getLogger("topic_ranking")
 # =========================
 INPUT_TOPIC = "extractor_news"
 GROUP_ID = "topic_ranking_group"
+OUTPUT_TOPIC = "extractor_topic"
+producer = get_kafka_producer()
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
+BATCH_SIZE = 10
+BATCH_TIMEOUT = 20 
+batch_messages = []
+last_flush_time = time.time()
 
 # =========================
 # COUNTRY STOPWORDS
@@ -189,8 +196,23 @@ logger.info("🚀 Topic Ranking Service started")
 # =========================
 # MAIN LOOP
 # =========================
+
 while True:
     msg = consumer.poll(1.0)
+    current_time = time.time()
+
+    # Kiểm tra timeout batch
+    if batch_messages and (len(batch_messages) >= BATCH_SIZE or current_time - last_flush_time >= BATCH_TIMEOUT):
+        for m in batch_messages:
+            producer.produce(
+                OUTPUT_TOPIC,
+                key=str(m["id"]),
+                value=json.dumps(m).encode("utf-8")
+            )
+        producer.flush()
+        batch_messages.clear()
+        last_flush_time = current_time
+
     if msg is None:
         continue
     if msg.error():
@@ -217,15 +239,25 @@ while True:
         )
 
         scores = util.cos_sim(article_embedding, topic_embeddings)
-        top_score, top_idx = torch.max(scores[0], dim=0)
-
-        if top_score.item() > 0.51:
-            logger.info(
-                f"[NEWS {news_id}] "
-                f"'{title}' → "
-                f"Topic [{topic_ids[top_idx]}] {topic_names[top_idx]} "
-                f"(score={top_score.item():.4f})"
-            )
+        top_k = min(3, len(topic_ids))
+        top_scores, top_indices = torch.topk(scores[0], k=top_k)
+        matched_topic_ids = [
+            topic_ids[top_indices[i].item()] 
+            for i in range(top_k) 
+            if top_scores[i].item() > 0.65
+        ]
+        if matched_topic_ids:
+                    logger.info(f"[NEWS {news_id}] '{title}' → Topics: {matched_topic_ids}")
+                    
+                    msg_out = {
+                        "id": news_id,
+                        "title": title,
+                        "content": content,
+                        "published_at": data.get("published_at"),
+                        "topic_ids": matched_topic_ids,  
+                        "entities": entities 
+                    }
+                    batch_messages.append(msg_out)
 
     except Exception as e:
         logger.exception(e)

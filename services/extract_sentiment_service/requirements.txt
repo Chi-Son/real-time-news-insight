@@ -1,0 +1,7 @@
+torch
+transformers
+tokenizers
+huggingface_hub
+numpy
+confluent-kafka
+flashtext

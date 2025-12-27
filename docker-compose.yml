@@ -76,6 +76,19 @@ services:
       kafka:
         condition: service_healthy
     restart: "always"
+  extract_sentiment_service:
+    build:
+      context: ./services/extract_sentiment_service
+    volumes:
+      - ./services/extract_sentiment_service/app.py:/app/app.py
+      - ./shared:/app/shared
+      - ./models/ModelSentiment:/app/models/ModelSentiment 
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: "always"
 volumes:
   kafka-data:
     name: kafka-data
