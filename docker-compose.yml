@@ -89,6 +89,16 @@ services:
       kafka:
         condition: service_healthy
     restart: "always"
+  websocket_service:
+    build:
+      context: ./services/websocket_service
+    volumes:
+      - ./services/websocket_service/app.py:/app/app.py
+    ports:
+      - "8000:8000"
+    command: >
+      uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    restart: always
 volumes:
   kafka-data:
     name: kafka-data

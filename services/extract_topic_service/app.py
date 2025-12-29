@@ -37,8 +37,40 @@ last_flush_time = time.time()
 COUNTRY_STOPWORDS = [
     "pháp lý", "tư pháp", "luật pháp","pháp luật",
     "đức tính", "đức hạnh",
-    "nga ngố", "nga ngáo"
+    "nga ngố", "nga ngáo",
+    "mỹ phẩm","mỹ thuật","mỹ đình","mỹ thuật", "mỹ nhân", "mỹ miều", "mĩ mãn", "mĩ vị", "mĩ thuật", "mỹ viện", "mỹ mãn"
 ]
+def is_valid_proper_noun(entity_text: str, full_text: str) -> bool:
+    """
+    Chỉ chấp nhận entity nếu:
+    - Token đầu viết hoa
+    - Không phải danh từ chung viết thường
+    - Nếu nhiều từ → mỗi từ phải viết hoa chữ cái đầu
+    """
+
+    words = entity_text.split()
+
+    # 1. Reject nếu toàn bộ là lowercase
+    if entity_text.islower():
+        return False
+
+    # 2. Với multi-word: mỗi từ phải Capitalized
+    for w in words:
+        if not re.match(r"^[A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+$", w):
+            return False
+
+    # 3. Không cho đứng sau các từ chỉ loại chung
+    COMMON_PREFIX = [
+        "ngành", "sản phẩm", "lĩnh vực", "mảng", "loại",
+        "các", "những"
+    ]
+
+    text_lower = full_text.lower()
+    for p in COMMON_PREFIX:
+        if f"{p} {entity_text.lower()}" in text_lower:
+            return False
+
+    return True
 
 # =========================
 # PERSON NAME CHECK
@@ -63,26 +95,35 @@ def filter_country_false_matches(entities, text):
     text_lower = text.lower()
 
     for ent in entities:
-        if ent["label"] != "COUNTRY":
-            filtered.append(ent)
-            continue
+        label = ent["label"]
+        ent_text = ent["text"]
 
-        name = ent["text"].lower()
+        # ---- COUNTRY / ORG / PERSON phải là proper noun ----
+        if label in ("COUNTRY", "ORG", "PERSON"):
+            if not is_valid_proper_noun(ent_text, text):
+                continue
 
-        if any(name in sw and sw in text_lower for sw in COUNTRY_STOPWORDS):
-            continue
+        # ---- COUNTRY-specific false positive ----
+        if label == "COUNTRY":
+            name_lower = ent_text.lower()
 
-        if is_person_name_around(ent["text"], text):
-            continue
+            # loại mỹ phẩm, mỹ thuật, mỹ mãn...
+            if any(sw in text_lower for sw in COUNTRY_STOPWORDS):
+                continue
+
+            # loại nếu nằm trong tên người
+            if is_person_name_around(ent_text, text):
+                continue
 
         filtered.append(ent)
 
     return filtered
 
+
 # =========================
 # KEYWORD PROCESSOR
 # =========================
-keyword_processor = KeywordProcessor(case_sensitive=False)
+keyword_processor = KeywordProcessor(case_sensitive=True)
 viet_chars = set(
     "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễ"
     "ìíịỉĩòóọỏõôồốộổỗơờớợởỡ"
@@ -129,9 +170,15 @@ load_ner_data_from_db()
 # =========================
 def extract_entities_and_clean(text):
     matches = keyword_processor.extract_keywords(text, span_info=True)
-    unique = {m[0]["text"]: m[0] for m in matches}
+
+    unique = {}
+    for m in matches:
+        key = (m[0]["text"], m[0]["label"])
+        unique[key] = m[0]
+
     entities = filter_country_false_matches(list(unique.values()), text)
     return entities, " ".join(text.split())
+
 
 # =========================
 # LOAD TOPIC EMBEDDINGS

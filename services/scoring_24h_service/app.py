@@ -6,13 +6,16 @@ from datetime import datetime, timezone
 
 from shared.kafka_config import get_kafka_consumer
 from shared.redis_connect import redis_connection
-
+import requests
 # =========================
 # LOGGING
 # =========================
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("topic_scoring_24h")
 
+
+
+WEBSOCKET_PUSH_URL = "http://localhost:8000/ws-push/topics"
 # =========================
 # KAFKA CONFIG
 # =========================
@@ -33,11 +36,9 @@ redis = redis_connection()
 # CONFIG
 # =========================
 WINDOW_HOURS = 24
-WINDOW_MINUTES = WINDOW_HOURS * 60          # 1440 phút
-REDIS_TTL_SECONDS = 48 * 3600                # Redis giữ tối đa 2 ngày
-
-# decay sao cho sau 1440 phút ≈ 0.001
-DECAY_LAMBDA = 0.0048                       # per minute
+WINDOW_MINUTES = WINDOW_HOURS * 60        
+REDIS_TTL_SECONDS = 48 * 3600               
+DECAY_LAMBDA = 0.0048                       
 
 # =========================
 # UTILS
@@ -55,7 +56,30 @@ def decay_score(minutes_diff: float) -> float:
     Exponential decay theo phút
     """
     return math.exp(-DECAY_LAMBDA * minutes_diff)
+def push_topic_scores(redis):
+    """
+    Lấy toàn bộ topic score, sort desc, push websocket
+    """
+    raw = redis.zrevrange("topic:score", 0, -1, withscores=True)
 
+    topics = [
+        {
+            "topic_id": topic_id.decode() if isinstance(topic_id, bytes) else topic_id,
+            "score": round(score, 6)
+        }
+        for topic_id, score in raw
+    ]
+
+    payload = {
+        "type": "topic_score_update",
+        "data": topics,
+        "updated_at": int(time.time())
+    }
+
+    try:
+        requests.post(WEBSOCKET_PUSH_URL, json=payload, timeout=0.5)
+    except Exception as e:
+        logger.warning(f"WebSocket push failed: {e}")
 
 # =========================
 # MAIN LOOP
@@ -138,6 +162,6 @@ while True:
                 f"articles={len(valid_timestamps)} "
                 f"score={total_score}"
             )
-
+        push_topic_scores(redis)
     except Exception as e:
         logger.exception(e)
