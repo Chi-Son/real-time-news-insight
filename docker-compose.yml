@@ -91,9 +91,9 @@ services:
     restart: "always"
   websocket_service:
     build:
-      context: ./services/websocket_service
+      context: ./webservices/websocket_service
     volumes:
-      - ./services/websocket_service/app.py:/app/app.py
+      - ./webservices/websocket_service/app.py:/app/app.py
     ports:
       - "8000:8000"
     command: >

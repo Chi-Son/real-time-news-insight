@@ -13,8 +13,6 @@ import requests
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("topic_scoring_24h")
 
-
-
 WEBSOCKET_PUSH_URL = "http://localhost:8000/ws-push/topics"
 # =========================
 # KAFKA CONFIG
@@ -56,6 +54,7 @@ def decay_score(minutes_diff: float) -> float:
     Exponential decay theo phút
     """
     return math.exp(-DECAY_LAMBDA * minutes_diff)
+
 def push_topic_scores(redis):
     """
     Lấy toàn bộ topic score, sort desc, push websocket
