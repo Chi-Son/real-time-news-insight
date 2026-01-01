@@ -2,6 +2,7 @@ import json
 import logging
 import math
 import time
+import requests
 from datetime import datetime, timezone
 
 from shared.kafka_config import get_kafka_consumer

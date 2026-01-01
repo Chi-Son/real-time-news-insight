@@ -5,3 +5,4 @@ huggingface_hub
 numpy
 confluent-kafka
 flashtext
+psycopg2-binary

@@ -21,8 +21,8 @@ def get_db_connection():
 # KAFKA CONFIG
 # =========================
 INPUT_TOPIC = "extractor_topic"
-OUTPUT_TOPIC = "topic_scoring_input"  
-GROUP_ID = "extractor_sentiment"
+OUTPUT_TOPIC = "extractor_sentiment"  
+GROUP_ID = "extractor_sentiment_group"
 
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
 producer = get_kafka_producer()

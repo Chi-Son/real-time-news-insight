@@ -99,6 +99,26 @@ services:
     command: >
       uvicorn app:app --host 0.0.0.0 --port 8000 --reload
     restart: always
+  rest_service:
+    build: ./webservices/rest_service
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./webservices/rest_service/app.py:/app/app.py
+    restart: always
+    depends_on:
+      - redis
+  scoring_24h_service:
+    build:
+      context: ./services/scoring_24h_service
+    volumes:
+      - ./services/scoring_24h_service/app.py:/app/app.py
+      - ./shared:/app/shared
+    depends_on:
+      - kafka
+      - redis
+      - websocket_service
+    restart: always
 volumes:
   kafka-data:
     name: kafka-data
