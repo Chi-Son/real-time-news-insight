@@ -133,6 +133,11 @@ services:
     environment:
       - REDIS_HOST=redis
       - WEBSOCKET_PUSH_URL= http://websocket_service:8000/ws-push/topics
+  frontend:
+    build: ./fe_service
+    ports:
+      - "3000:3000"
 volumes:
   kafka-data:
     name: kafka-data
+
