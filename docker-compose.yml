@@ -63,6 +63,11 @@ services:
       kafka:
         condition: service_healthy
     restart: "always"
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 30s
+        max_attempts: 0
   extract_topic_service:
     build:
       context: ./services/extract_topic_service
@@ -105,7 +110,13 @@ services:
       - "8001:8000"
     volumes:
       - ./webservices/rest_service/app.py:/app/app.py
+      - ./webservices/rest_service/search_endpoint.py:/app/search_endpoint.py
+      - ./webservices/rest_service/topic_endpoint.py:/app/topic_endpoint.py
+      - ./webservices/rest_service/entity_endpoint.py:/app/entity_endpoint.py
+      - ./shared:/app/shared
     restart: always
+    environment:
+      - REDIS_HOST=redis
     depends_on:
       - redis
   scoring_24h_service:
@@ -119,6 +130,9 @@ services:
       - redis
       - websocket_service
     restart: always
+    environment:
+      - REDIS_HOST=redis
+      - WEBSOCKET_PUSH_URL= http://websocket_service:8000/ws-push/topics
 volumes:
   kafka-data:
     name: kafka-data

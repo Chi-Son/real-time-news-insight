@@ -3,6 +3,7 @@ import logging
 import math
 import time
 import requests
+import os
 from datetime import datetime, timezone
 
 from shared.kafka_config import get_kafka_consumer
@@ -14,7 +15,10 @@ import requests
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("topic_scoring_24h")
 
-WEBSOCKET_PUSH_URL = "http://localhost:8000/ws-push/topics"
+WEBSOCKET_PUSH_URL = os.getenv(
+    "WEBSOCKET_PUSH_URL",
+    "http://websocket_service:8000/ws-push/topics"
+)
 # =========================
 # KAFKA CONFIG
 # =========================

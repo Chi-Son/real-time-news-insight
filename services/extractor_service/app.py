@@ -12,7 +12,6 @@ from shared.postgresql_config import DB_CONFIG
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import re
 from datetime import timezone, timedelta
@@ -28,13 +27,23 @@ logger = logging.getLogger("extractor")
 # -------------------------------
 INPUT_TOPIC = "raw_links"
 GROUP_ID = "extractor_group"
-OUTPUT_TOPIC ="extractor_news"
+OUTPUT_TOPIC = "extractor_news"
 
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
 producer = get_kafka_producer()
 logger.info("URL Extractor service started.")
 
 VN_TZ = timezone(timedelta(hours=7))
+
+# -------------------------------
+# Batch config (NEW)
+# -------------------------------
+BATCH_SIZE = 10
+BATCH_TIMEOUT = 5  # seconds
+
+buffer = []
+last_flush_time = time.time()
+pending_messages = []
 
 def get_db_cursor():
     conn = psycopg2.connect(**DB_CONFIG)
@@ -48,33 +57,23 @@ def parse_date(date_str: str):
     if not date_str:
         return None
     try:
-        # 1. Loại bỏ các tiền tố/hậu tố dư thừa
         cleaned = re.sub(r"\(GMT[^\)]*\)", "", date_str)
         cleaned = re.sub(r"Cập nhật:\s*", "", cleaned, flags=re.IGNORECASE)
-        
-        # 2. Dùng Regex để tìm cụm dd/mm/yyyy hh:mm hoặc dd/mm/yyyy
-        # Pattern này lấy được cả "28/9/2025, 09:51" hoặc "28/09/2025"
+
         match = re.search(r"(\d{1,2}/\d{1,2}/\d{4})(?:\s*,\s*|\s+)(\d{1,2}:\d{2})?", cleaned)
-        
+
         if match:
             date_part = match.group(1)
             time_part = match.group(2) if match.group(2) else "00:00"
-            final_str = f"{date_part} {time_part}"
-            
-            # Parse chuỗi đã làm sạch
-            dt = parser.parse(final_str, dayfirst=True)
+            dt = parser.parse(f"{date_part} {time_part}", dayfirst=True)
         else:
-            # Nếu regex không khớp, thử parse trực tiếp sau khi xóa tên thứ
             cleaned = re.sub(r"Thứ\s+\w+,\s*", "", cleaned, flags=re.IGNORECASE)
             dt = parser.parse(cleaned.strip(), dayfirst=True)
 
-        # 3. Xử lý Timezone
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=VN_TZ)
-        dt_utc = dt.astimezone(timezone.utc)
-        
-        return dt_utc.isoformat(timespec="seconds")
 
+        return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
     except Exception as e:
         logger.warning(f"Không parse được date: {date_str}, lỗi: {e}")
         return None
@@ -89,12 +88,14 @@ with open(SOURCES_FILE, "r", encoding="utf-8") as f:
 DOMAIN_TO_SOURCE = {}
 for source_name, urls in SOURCES_MAP.items():
     for url in urls:
-        domain = urlparse(url).netloc.replace("www.", "")
-        DOMAIN_TO_SOURCE[domain] = source_name
+        DOMAIN_TO_SOURCE[urlparse(url).netloc.replace("www.", "")] = source_name
 
 def detect_source(url):
-    domain = urlparse(url).netloc.replace("www.", "")
-    return DOMAIN_TO_SOURCE.get(domain, "Unknown")
+    return DOMAIN_TO_SOURCE.get(urlparse(url).netloc.replace("www.", ""), "Unknown")
+
+
+
+
 
 # -------------------------------
 # Extract article
@@ -278,7 +279,21 @@ def extract_article(url, source_name, driver=None):
     except Exception as e:
         logger.error(f"Lỗi extract {url}: {e}")
         return None
+def normalize_to_vn_timezone(article):
+    """
+    Chuyển article['published_at'] sang timezone VN (+07)
+    """
+    if not article or not article.get("published_at"):
+        return article
 
+    try:
+        dt = parser.isoparse(article["published_at"])
+        dt_vn = dt.astimezone(VN_TZ)
+        article["published_at"] = dt_vn.isoformat(timespec="seconds")
+    except Exception as e:
+        logger.warning(f"Không chuẩn hóa được date bài ID={article.get('id')}, giữ nguyên: {e}")
+
+    return article
 
 # -------------------------------
 # Main loop
@@ -314,6 +329,10 @@ try:
             source = detect_source(url)
             article = extract_article(url, source_name=source, driver=driver)
 
+            # Chuẩn hóa múi giờ về +07
+            article = normalize_to_vn_timezone(article)
+
+            
             # 🛑 CHẶN Ở ĐÂY: Nếu không có ngày hoặc nội dung, không làm gì cả
             if not article or not article.get("published_at"):
                 logger.warning(f"Bỏ qua ID={news_id} vì thiếu ngày xuất bản (published_at=null)")

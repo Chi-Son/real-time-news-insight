@@ -25,7 +25,7 @@ def get_topic_articles(
         return {"topic_id": topic_id, "window": "24h", "total": 0, "articles": []}
 
     ids = redis.zrevrange(redis_key, offset, offset + limit - 1)
-    article_ids = [i.decode() for i in ids]
+    article_ids = [int(i.decode()) for i in ids]
     total = redis.zcard(redis_key)
 
     if not article_ids:
