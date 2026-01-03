@@ -1,4 +1,5 @@
 import React from "react";
+import { theme } from "../styles/theme";
 
 type NewsCardProps = {
   title: string;
@@ -13,36 +14,25 @@ const NewsCard: React.FC<NewsCardProps> = ({
   source,
   url,
 }) => {
-  // Lấy câu đầu tiên (đơn giản theo dấu chấm)
   const firstSentence = content.split(".")[0] + ".";
 
-  const handleClick = () => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
-    <div
-      onClick={handleClick}
+    <article
+      onClick={() => window.open(url, "_blank")}
       style={{
-        border: "1px solid #e5e7eb",
-        borderRadius: 8,
-        padding: 12,
+        padding: "16px 0",
+        borderBottom: `1px solid ${theme.colors.border}`,
         cursor: "pointer",
-        marginBottom: 12,
       }}
     >
-      <h3 style={{ margin: "0 0 8px 0" }}>{title}</h3>
-
-      <p style={{ margin: "0 0 8px 0", color: "#374151" }}>
+      <h2 style={{ margin: "0 0 8px 0" }}>{title}</h2>
+      <p style={{ margin: "0 0 6px 0", opacity: 0.9 }}>
         {firstSentence}
       </p>
-
       {source && (
-        <small style={{ color: "#6b7280" }}>
-          Nguồn: {source}
-        </small>
+        <small style={{ opacity: 0.7 }}>Nguồn: {source}</small>
       )}
-    </div>
+    </article>
   );
 };
 

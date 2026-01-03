@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import NewsCard from "../components/NewsCard";
-import SearchBar from "../components/SearchBar";
+import { theme } from "../styles/theme";
 
 const Home: React.FC = () => {
   const [keyword, setKeyword] = useState("");
 
-  // Mock data để test UI
   const mockNews = [
     {
       title: "Lạm phát tháng 11 tăng mạnh",
@@ -24,17 +23,28 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div style={{ maxWidth: 800, margin: "0 auto", padding: 24 }}>
-      <SearchBar onSearch={setKeyword} />
-
-      {mockNews
-        .filter((n) =>
-          n.title.toLowerCase().includes(keyword.toLowerCase())
-        )
-        .map((news, idx) => (
-          <NewsCard key={idx} {...news} />
-        ))}
-    </div>
+    <main
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 3fr 1fr",
+        background: theme.colors.background,
+        color: theme.colors.text,
+        fontFamily: theme.fonts.body,
+        minHeight: "100vh",
+      }}
+    >
+      <div />
+      <div style={{ padding: "24px" }}>
+        {mockNews
+          .filter((n) =>
+            n.title.toLowerCase().includes(keyword.toLowerCase())
+          )
+          .map((news, idx) => (
+            <NewsCard key={idx} {...news} />
+          ))}
+      </div>
+      <div />
+    </main>
   );
 };
 
