@@ -134,9 +134,13 @@ services:
       - REDIS_HOST=redis
       - WEBSOCKET_PUSH_URL= http://websocket_service:8000/ws-push/topics
   frontend:
+    image: fe-dev
     build: ./fe_service
     ports:
       - "3000:3000"
+    volumes:
+      - ./fe_service:/app
+      - /app/node_modules
 volumes:
   kafka-data:
     name: kafka-data

@@ -14,24 +14,24 @@ const NewsCard: React.FC<NewsCardProps> = ({
   source,
   url,
 }) => {
-  const firstSentence = content.split(".")[0] + ".";
+  const firstSentence =
+    content.split(".")[0] + (content.includes(".") ? "." : "");
 
   return (
     <article
       onClick={() => window.open(url, "_blank")}
       style={{
-        padding: "16px 0",
-        borderBottom: `1px solid ${theme.colors.border}`,
+        padding: "18px 0",
+        borderBottom: "1px solid rgba(0,0,0,0.15)",
         cursor: "pointer",
+        fontFamily: theme.fonts.body,
       }}
     >
-      <h2 style={{ margin: "0 0 8px 0" }}>{title}</h2>
+      <h3 style={{ margin: "0 0 6px 0" }}>{title}</h3>
       <p style={{ margin: "0 0 6px 0", opacity: 0.9 }}>
         {firstSentence}
       </p>
-      {source && (
-        <small style={{ opacity: 0.7 }}>Nguồn: {source}</small>
-      )}
+      {source && <small style={{ opacity: 0.7 }}>Nguồn: {source}</small>}
     </article>
   );
 };
