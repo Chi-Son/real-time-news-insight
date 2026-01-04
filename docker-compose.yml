@@ -122,6 +122,8 @@ services:
     volumes:
       - ./services/scoring_24h_service/app.py:/app/app.py
       - ./shared:/app/shared
+      - /etc/localtime:/etc/localtime:ro  
+      - /etc/timezone:/etc/timezone:ro    
     depends_on:
       - kafka
       - redis
@@ -130,6 +132,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - WEBSOCKET_PUSH_URL= http://websocket_service:8000/ws-push/topics
+      - TZ=Asia/Ho_Chi_Min
   frontend:
     image: fe-dev
     build: ./fe_service

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { theme } from "../styles/theme";
 import Header from "../components/Header";
 import NewsCard from "../components/NewsCard";
+import RankingBox from "../components/RankingBox";
 
 type NewsItem = {
   title: string;
@@ -50,11 +51,23 @@ const Home: React.FC = () => {
           display: "flex",
           justifyContent: "center",
           padding: "32px 16px",
+          gap: "24px", // khoảng cách giữa RankingBox và NewsCard
         }}
       >
-        <div style={{ width: "100%", maxWidth: 760 }}>
+        {/* Cột trái: RankingBox */}
+        <div style={{ flex: "0 0 320px" }}>
+          <RankingBox />
+        </div>
+
+        {/* Cột phải: NewsCard */}
+        <div style={{ flex: 1 }}>
           {filtered.map((news, idx) => (
-            <NewsCard key={idx} {...news} />
+            <div
+              key={idx}
+              style={{ marginLeft: "16px", marginBottom: "16px" }} // lệch sang phải + khoảng cách
+            >
+              <NewsCard {...news} />
+            </div>
           ))}
         </div>
       </main>

@@ -4,7 +4,7 @@ from psycopg2.extras import DictCursor
 from datetime import datetime, timedelta, timezone
 from shared.postgresql_config import DB_CONFIG
 
-router = APIRouter(prefix="/api/source/", tags=["Source"])
+router = APIRouter(prefix="/api/source", tags=["Source"])
 
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)

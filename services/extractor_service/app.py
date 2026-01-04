@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import re
-from datetime import timezone, timedelta
+from datetime import timezone, timedelta, datetime
 
 # -------------------------------
 # Logging setup
@@ -53,30 +53,45 @@ def get_db_cursor():
 # -------------------------------
 # Parse date helper
 # -------------------------------
-def parse_date(date_str: str):
+def parse_date_by_source(date_str: str, source: str):
     if not date_str:
         return None
+
+    cleaned = re.sub(r"\(GMT[^\)]*\)", "", date_str)
+    cleaned = re.sub(r"Cập nhật:\s*", "", cleaned, flags=re.I)
+    cleaned = cleaned.strip()
+
     try:
-        cleaned = re.sub(r"\(GMT[^\)]*\)", "", date_str)
-        cleaned = re.sub(r"Cập nhật:\s*", "", cleaned, flags=re.IGNORECASE)
+        # 1️⃣ ISO có timezone → tin tuyệt đối
+        if re.search(r"[+-]\d{2}:\d{2}$", cleaned):
+            dt = parser.isoparse(cleaned)
+            return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
-        match = re.search(r"(\d{1,2}/\d{1,2}/\d{4})(?:\s*,\s*|\s+)(\d{1,2}:\d{2})?", cleaned)
+        # 2️⃣ ISO không tz
+        if re.match(r"\d{4}-\d{2}-\d{2}", cleaned):
+            dt = parser.parse(cleaned)
+            dt = dt.replace(tzinfo=VN_TZ)
+            return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
-        if match:
-            date_part = match.group(1)
-            time_part = match.group(2) if match.group(2) else "00:00"
-            dt = parser.parse(f"{date_part} {time_part}", dayfirst=True)
-        else:
-            cleaned = re.sub(r"Thứ\s+\w+,\s*", "", cleaned, flags=re.IGNORECASE)
-            dt = parser.parse(cleaned.strip(), dayfirst=True)
+        # 3️⃣ VTV (giờ VN)
+        if source == "VTV":
+            dt = parser.parse(cleaned, dayfirst=True)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=VN_TZ)
+            return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
+        # 4️⃣ Báo VN dd-mm
+        dt = parser.parse(cleaned, dayfirst=True)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=VN_TZ)
-
         return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
+
     except Exception as e:
-        logger.warning(f"Không parse được date: {date_str}, lỗi: {e}")
+        logger.warning(
+            f"[DATE_PARSE_FAIL] source={source} | raw='{date_str}' | err={e}"
+        )
         return None
+
 
 # -------------------------------
 # Detect source from URL
@@ -143,7 +158,7 @@ def extract_article(url, source_name, driver=None):
                 try:
                     date_elem = driver.find_elements(By.CSS_SELECTOR, "span.date, div.date")
                     if date_elem:
-                        published_at = parse_date(date_elem[0].text.strip())
+                        published_at = parse_date_by_source(date_elem[0].text.strip(),source_name)
                 except:
                     pass
 
@@ -157,7 +172,7 @@ def extract_article(url, source_name, driver=None):
                     if time_elem:
                         datetime_attr = time_elem[0].get_attribute("datetime")
                         text_attr = time_elem[0].text.strip()
-                        published_at = parse_date(datetime_attr or text_attr)
+                        published_at = parse_date_by_source(datetime_attr or text_attr,source_name)
                 except:
                     pass
             
@@ -249,7 +264,7 @@ def extract_article(url, source_name, driver=None):
             # 1️⃣ meta property
             meta_date = soup.find("meta", property="article:published_time")
             if meta_date and meta_date.get("content"):
-                published_at = parse_date(meta_date["content"])
+                published_at = parse_date_by_source(meta_date["content"],source_name)
 
             # 2️⃣ span/div date (bao gồm VNExpress)
             if not published_at:
@@ -259,7 +274,10 @@ def extract_article(url, source_name, driver=None):
                     or soup.find("div", class_="date")
                 )
                 if date_div:
-                    published_at = parse_date(date_div.get_text(strip=True))
+                    published_at = parse_date_by_source(
+    date_div.get_text(strip=True),
+    source_name
+)
 
             # 3️⃣ <time> dạng đặc biệt (VTV, Nhân Dân, Dân Trí e-magazine)
             if not published_at:
@@ -270,8 +288,9 @@ def extract_article(url, source_name, driver=None):
                     or soup.find("time")
                 )
                 if time_tag:
-                    published_at = parse_date(
-                        time_tag.get("datetime") or time_tag.text.strip()
+                    published_at = parse_date_by_source(
+                        time_tag.get("datetime") or time_tag.text.strip(),
+                        source_name
                     )
 
             return {"title": title, "content": content, "published_at": published_at}
