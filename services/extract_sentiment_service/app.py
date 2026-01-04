@@ -59,43 +59,65 @@ def save_to_db(batch_messages):
     cur = conn.cursor()
     try:
         sentiment_data = []
-        topic_rels = []
-        entity_rels = []
+        topic_rels = set() 
+        entity_rels = set() 
 
         for item in batch_messages:
             news_id = item['id']
-            # Lấy nhãn cảm xúc từ pipeline: ví dụ 'POSITIVE'
             label = item['sentiment']['label']
-            
-            # Cấu trúc 1:1, dùng chính news_id làm định danh
             sentiment_data.append((news_id, label))
 
             for t_id in item['topic_ids']:
-                topic_rels.append((news_id, t_id))
+                topic_rels.add((news_id, t_id))
             
             for ent in item['entities']:
-                # Chỉ insert nếu đã có entity_id từ bước NER
-                if 'entity_id' in ent:
-                    entity_rels.append((news_id, ent['entity_id']))
+                # Kiểm tra xem entity_id có tồn tại và không None không
+                if ent.get('entity_id') is not None:
+                    try:
+                        ent_id = int(ent['entity_id'])
+                        entity_rels.add((news_id, ent_id))
+                    except (ValueError, TypeError):
+                        logger.warning(f"ID thực thể không hợp lệ: {ent.get('entity_id')} tại bài viết {news_id}")
 
-        # INSERT vào bảng article_sentiment (Không cần sentiment_id)
-        # Sử dụng ON CONFLICT để cập nhật nếu bài báo đó đã được tính điểm trước đó
+        # Chuyển set về list
+        topic_rels = list(topic_rels)
+        entity_rels = list(entity_rels)
+
+        # --- ĐOẠN IN RA ĐỂ DEBUG ---
+        logger.info("="*30)
+        logger.info(f"DEBUG: Dữ liệu chuẩn bị insert vào article_entity ({len(entity_rels)} records):")
+        for rel in entity_rels:
+            logger.info(f" -> Article ID: {rel[0]} | Entity ID: {rel[1]}")
+        logger.info("="*30)
+        # ---------------------------
+
+        logger.info(f"Đang insert: {len(sentiment_data)} sentiment, {len(topic_rels)} topics, {len(entity_rels)} entities")
+
+        # 1. Sentiment
         execute_values(cur, """
             INSERT INTO article_sentiment (id, sentiment) 
-            VALUES %s 
-            ON CONFLICT (id) DO UPDATE SET sentiment = EXCLUDED.sentiment
+            VALUES %s ON CONFLICT (id) DO UPDATE SET sentiment = EXCLUDED.sentiment
         """, sentiment_data)
 
-        # INSERT vào article_topic và article_entity
+        # 2. Topic
         if topic_rels:
-            execute_values(cur, "INSERT INTO article_topic (id, topic_id) VALUES %s ON CONFLICT DO NOTHING", topic_rels)
+            execute_values(cur, "INSERT INTO public.article_topic (id, topic_id) VALUES %s ON CONFLICT DO NOTHING", topic_rels)
+
+        # 3. Entity
         if entity_rels:
-            execute_values(cur, "INSERT INTO article_entity (id, entity_id) VALUES %s ON CONFLICT DO NOTHING", entity_rels)
+            execute_values(
+                cur,
+                "INSERT INTO public.article_entity (id, entity_id) VALUES %s ON CONFLICT DO NOTHING",
+                entity_rels
+            )
 
         conn.commit()
+        logger.info("Batch đã được commit thành công vào DB")
+        
     except Exception as e:
         conn.rollback()
         logger.error(f"DB Error: {e}")
+        logger.error(f"Dữ liệu Entity gây lỗi: {entity_rels}")
     finally:
         cur.close()
         conn.close()

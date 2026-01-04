@@ -12,6 +12,9 @@ from shared.postgresql_config import DB_CONFIG
 import ast
 import numpy as np
 import time
+import copy
+
+
 # =========================
 # LOGGING
 # =========================
@@ -95,27 +98,22 @@ def filter_country_false_matches(entities, text):
     text_lower = text.lower()
 
     for ent in entities:
+        # Giữ nguyên object 'ent' để không mất entity_id
         label = ent["label"]
         ent_text = ent["text"]
 
-        # ---- COUNTRY / ORG / PERSON phải là proper noun ----
         if label in ("COUNTRY", "ORG", "PERSON"):
             if not is_valid_proper_noun(ent_text, text):
                 continue
 
-        # ---- COUNTRY-specific false positive ----
         if label == "COUNTRY":
-            name_lower = ent_text.lower()
-
-            # loại mỹ phẩm, mỹ thuật, mỹ mãn...
             if any(sw in text_lower for sw in COUNTRY_STOPWORDS):
                 continue
-
-            # loại nếu nằm trong tên người
             if is_person_name_around(ent_text, text):
                 continue
 
-        filtered.append(ent)
+        # Append nguyên object ban đầu vào
+        filtered.append(ent) 
 
     return filtered
 
@@ -132,21 +130,31 @@ viet_chars = set(
 )
 keyword_processor.non_word_boundaries = viet_chars
 
+
 # =========================
-# LOAD NER DATA
+# LOAD NER DATA + ENTITY ID
 # =========================
+ENTITY_ID_MAP = {}  # (text, type) -> entity_id
+
 def load_ner_data_from_db():
     conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor(cursor_factory=DictCursor)
 
-    cur.execute("SELECT type, text, aliases FROM entity;")
+    cur.execute("SELECT entity_id, type, text, aliases FROM entity;")
     count = 0
 
     for row in cur.fetchall():
-        keyword_processor.add_keyword(row["text"], {
-            "label": row["type"],
-            "text": row["text"]
-        })
+        key = (row["text"], row["type"])
+        ENTITY_ID_MAP[key] = row["entity_id"]
+
+        keyword_processor.add_keyword(
+            row["text"],
+            {
+                "label": row["type"],
+                "text": row["text"],
+                "entity_id": row["entity_id"]
+            }
+        )
         count += 1
 
         aliases = row["aliases"] or []
@@ -154,30 +162,63 @@ def load_ner_data_from_db():
             aliases = json.loads(aliases)
 
         for a in aliases:
-            keyword_processor.add_keyword(a, {
-                "label": row["type"],
-                "text": row["text"]
-            })
+            keyword_processor.add_keyword(
+                a,
+                {
+                    "label": row["type"],
+                    "text": row["text"],   # canonical text
+                    "entity_id": row["entity_id"]
+                }
+            )
             count += 1
 
     conn.close()
-    logger.info(f"Loaded {count} NER keywords")
+    logger.info(f"Loaded {count} NER keywords with entity_id")
+
 
 load_ner_data_from_db()
 
 # =========================
 # ENTITY + CLEAN TEXT
 # =========================
-def extract_entities_and_clean(text):
+def extract_entities_and_clean(text: str):
+    """
+    - Clone entity dict ngay khi extract (tránh FlashText reuse object)
+    - Ép kiểu entity_id
+    - Deduplicate theo (text, label)
+    """
+
     matches = keyword_processor.extract_keywords(text, span_info=True)
 
     unique = {}
-    for m in matches:
-        key = (m[0]["text"], m[0]["label"])
-        unique[key] = m[0]
 
-    entities = filter_country_false_matches(list(unique.values()), text)
-    return entities, " ".join(text.split())
+    for m in matches:
+        raw_ent = m[0]  # dict gốc từ FlashText (KHÔNG được dùng trực tiếp)
+
+        # --- CLONE SẠCH ---
+        ent = {
+            "label": raw_ent.get("label"),
+            "text": raw_ent.get("text"),
+            "entity_id": (
+                int(raw_ent["entity_id"])
+                if raw_ent.get("entity_id") is not None
+                else None
+            )
+        }
+
+        key = (ent["text"], ent["label"])
+        if key not in unique:
+            unique[key] = ent
+
+    entities = filter_country_false_matches(
+        list(unique.values()),
+        text
+    )
+
+    clean_text = " ".join(text.split())
+    return entities, clean_text
+
+
 
 
 # =========================
@@ -295,7 +336,7 @@ while True:
         ]
         if matched_topic_ids:
                     logger.info(f"[NEWS {news_id}] '{title}' → Topics: {matched_topic_ids}")
-                    
+                    logger.info(f"[NEWS {news_id}] ENTITIES RAW = {entities}")
                     msg_out = {
                         "id": news_id,
                         "title": title,
@@ -305,6 +346,11 @@ while True:
                         "entities": entities 
                     }
                     batch_messages.append(msg_out)
+                    for e in entities:
+                        if e.get("entity_id") is None:
+                            logger.error(
+                                f"[NEWS {news_id}] ENTITY LOST ID BEFORE KAFKA: {e}"
+                            )
 
     except Exception as e:
         logger.exception(e)

@@ -109,10 +109,7 @@ services:
     ports:
       - "8001:8000"
     volumes:
-      - ./webservices/rest_service/app.py:/app/app.py
-      - ./webservices/rest_service/search_endpoint.py:/app/search_endpoint.py
-      - ./webservices/rest_service/topic_endpoint.py:/app/topic_endpoint.py
-      - ./webservices/rest_service/entity_endpoint.py:/app/entity_endpoint.py
+      - ./webservices/rest_service:/app/rest_service
       - ./shared:/app/shared
     restart: always
     environment:
