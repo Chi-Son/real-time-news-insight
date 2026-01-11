@@ -9,6 +9,9 @@ from datetime import datetime, timezone
 from shared.kafka_config import get_kafka_consumer
 from shared.redis_connect import redis_connection
 import requests
+
+import psycopg2
+from shared.postgresql_config import DB_CONFIG
 # =========================
 # LOGGING
 # =========================
@@ -43,6 +46,18 @@ WINDOW_MINUTES = WINDOW_HOURS * 60
 REDIS_TTL_SECONDS = 48 * 3600               
 DECAY_LAMBDA = 0.0048                       
 
+
+def load_topic_map():
+    conn = psycopg2.connect(**DB_CONFIG)
+    cur = conn.cursor()
+    cur.execute("SELECT topic_id, name FROM topic")
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    return {str(topic_id): name for topic_id, name in rows}
+
+TOPIC_NAME_MAP = load_topic_map()
 # =========================
 # UTILS
 # =========================
@@ -66,13 +81,14 @@ def push_topic_scores(redis):
     """
     raw = redis.zrevrange("topic:score", 0, -1, withscores=True)
 
-    topics = [
-        {
-            "topic_id": topic_id.decode() if isinstance(topic_id, bytes) else topic_id,
+    topics = []
+    for topic_id, score in raw:
+        tid = topic_id.decode() if isinstance(topic_id, bytes) else topic_id
+        topics.append({
+            "topic_id": tid,
+            "topic_name": TOPIC_NAME_MAP.get(tid, f"Topic {tid}"),
             "score": round(score, 6)
-        }
-        for topic_id, score in raw
-    ]
+        })
 
     payload = {
         "type": "topic_score_update",

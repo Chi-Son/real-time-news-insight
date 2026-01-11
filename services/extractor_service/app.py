@@ -53,16 +53,28 @@ def get_db_cursor():
 # -------------------------------
 # Parse date helper
 # -------------------------------
+VN_WEEKDAY_PATTERN = re.compile(
+    r"^(Thứ\s+(hai|ba|tư|năm|sáu|bảy)|Chủ\s+nhật)\s*,?\s*",
+    flags=re.I
+)
+
 def parse_date_by_source(date_str: str, source: str):
     if not date_str:
         return None
 
+    # ❌ bỏ (GMT+7)
     cleaned = re.sub(r"\(GMT[^\)]*\)", "", date_str)
+
+    # ❌ bỏ "Cập nhật:"
     cleaned = re.sub(r"Cập nhật:\s*", "", cleaned, flags=re.I)
+
+    # ❌ bỏ weekday tiếng Việt (VNExpress, Tuổi Trẻ, ...)
+    cleaned = VN_WEEKDAY_PATTERN.sub("", cleaned)
+
     cleaned = cleaned.strip()
 
     try:
-        # 1️⃣ ISO có timezone → tin tuyệt đối
+        # 1️⃣ ISO có timezone
         if re.search(r"[+-]\d{2}:\d{2}$", cleaned):
             dt = parser.isoparse(cleaned)
             return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
@@ -73,24 +85,19 @@ def parse_date_by_source(date_str: str, source: str):
             dt = dt.replace(tzinfo=VN_TZ)
             return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
-        # 3️⃣ VTV (giờ VN)
-        if source == "VTV":
-            dt = parser.parse(cleaned, dayfirst=True)
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=VN_TZ)
-            return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
-
-        # 4️⃣ Báo VN dd-mm
+        # 3️⃣ VN format dd/mm/yyyy
         dt = parser.parse(cleaned, dayfirst=True)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=VN_TZ)
+
         return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
     except Exception as e:
         logger.warning(
-            f"[DATE_PARSE_FAIL] source={source} | raw='{date_str}' | err={e}"
+            f"[DATE_PARSE_FAIL] source={source} | raw='{date_str}' | cleaned='{cleaned}' | err={e}"
         )
         return None
+
 
 
 # -------------------------------

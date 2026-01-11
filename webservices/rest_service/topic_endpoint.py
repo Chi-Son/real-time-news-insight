@@ -1,23 +1,70 @@
 from fastapi import APIRouter, HTTPException
 import psycopg2
+import time
 from datetime import datetime, timedelta, timezone
+
 from shared.postgresql_config import DB_CONFIG
+from shared.redis_connect import redis_connection
 
 router = APIRouter(prefix="/api/topics", tags=["Topics"])
 
+redis = redis_connection()
 
+
+# =========================
+# DB
+# =========================
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
 
 
+# =========================
+# LOAD TOPIC NAME MAP (1 LẦN)
+# =========================
+def get_topic_map():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT topic_id, name FROM topic")
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return {str(tid): name for tid, name in rows}
+
+
+TOPIC_NAME_MAP = get_topic_map()
+
+
+# =========================
+# RANKING API (READ REDIS)
+# =========================
+@router.get("/ranking")
+def get_topic_ranking(limit: int = 20):
+    raw = redis.zrevrange("topic:score", 0, limit - 1, withscores=True)
+
+    data = []
+    for topic_id, score in raw:
+        tid = topic_id.decode() if isinstance(topic_id, bytes) else topic_id
+        data.append({
+            "topic_id": tid,
+            "topic_name": TOPIC_NAME_MAP.get(tid, f"Topic {tid}"),
+            "score": round(score, 6)
+        })
+
+    return {
+        "data": data,
+        "updated_at": int(time.time())
+    }
+
+
+# =========================
+# TOPIC DETAIL
+# =========================
 @router.get("/{topic_id}")
 def get_topic_detail(topic_id: int, limit: int = 50):
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # =========================
-    # 1. GET TOPIC INFO
-    # =========================
+    # 1. TOPIC INFO
     cur.execute(
         """
         SELECT topic_id, name, short_description
@@ -39,15 +86,11 @@ def get_topic_detail(topic_id: int, limit: int = 50):
         "short_description": row[2],
     }
 
-    # =========================
     # TIME SPLIT
-    # =========================
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(hours=24)
 
-    # =========================
     # 2. ARTICLES IN LAST 24H
-    # =========================
     cur.execute(
         """
         SELECT
@@ -57,7 +100,6 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             nl.url,
             se.sentiment,
             nc.published_at,
-            nl.category
         FROM article_topic at
         JOIN news_content nc ON at.id = nc.id
         JOIN news_links nl ON at.id = nl.id
@@ -78,14 +120,11 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             "url": r[3],
             "sentiment": r[4],
             "published_at": r[5],
-            "category":r[6]
         }
         for r in cur.fetchall()
     ]
 
-    # =========================
     # 3. ARTICLES HISTORY (>24H)
-    # =========================
     cur.execute(
         """
         SELECT
@@ -95,7 +134,6 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             nl.url,
             se.sentiment,
             nc.published_at,
-            nl.category
         FROM article_topic at
         JOIN news_content nc ON at.id = nc.id
         JOIN news_links nl ON at.id = nl.id
@@ -116,7 +154,6 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             "url": r[3],
             "sentiment": r[4],
             "published_at": r[5],
-            "category":r[6]
         }
         for r in cur.fetchall()
     ]

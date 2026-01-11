@@ -5,6 +5,6 @@ export const theme = {
   },
   fonts: {
     body: "'EB Garamond', serif",
-    brand: "'UnifrakturCook', serif", 
+    brand: "'EB Garamond', serif", 
   },
 };
