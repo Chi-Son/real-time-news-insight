@@ -99,7 +99,7 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             nc.source,
             nl.url,
             se.sentiment,
-            nc.published_at,
+            nc.published_at
         FROM article_topic at
         JOIN news_content nc ON at.id = nc.id
         JOIN news_links nl ON at.id = nl.id
@@ -133,7 +133,7 @@ def get_topic_detail(topic_id: int, limit: int = 50):
             nc.source,
             nl.url,
             se.sentiment,
-            nc.published_at,
+            nc.published_at
         FROM article_topic at
         JOIN news_content nc ON at.id = nc.id
         JOIN news_links nl ON at.id = nl.id

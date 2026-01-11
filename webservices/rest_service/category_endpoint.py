@@ -1,7 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 import psycopg2
 from psycopg2.extras import DictCursor
-from datetime import datetime, timedelta, timezone
 from shared.postgresql_config import DB_CONFIG
 
 router = APIRouter(prefix="/api/category", tags=["Category"])
@@ -10,58 +9,85 @@ def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
 
 @router.get("/{category}")
-def get_category_articles(category: str):
+def get_category_articles(
+    category: str,
+    limit: int = Query(100, ge=1, le=500)
+):
     """
-    Trả về 2 danh sách bài viết:
-    - articles_24h: trong vòng 24h gần đây
-    - articles_history: ngoài 24h
+    Lấy danh sách bài viết theo category/topic
     """
     try:
         conn = get_db_connection()
         cur = conn.cursor(cursor_factory=DictCursor)
 
-        # Thời gian hiện tại
-        now = datetime.now(timezone.utc)
-        last_24h = now - timedelta(hours=24)
+        query = """
+        SELECT
+            nc.id,
+            nc.title,
+            nc.published_at,
+            nc.source,
+            nl.url,
+            se.sentiment,
+            COALESCE(
+                json_agg(
+                    DISTINCT jsonb_build_object(
+                        'topic_id', t.topic_id,
+                        'name', t.name
+                    )
+                ) FILTER (WHERE t.topic_id IS NOT NULL),
+                '[]'
+            ) AS topics,
+            COALESCE(
+                json_agg(
+                    DISTINCT jsonb_build_object(
+                        'entity_id', e.entity_id,
+                        'text', e.text
+                    )
+                ) FILTER (WHERE e.entity_id IS NOT NULL),
+                '[]'
+            ) AS entities
+        FROM news_content nc
+        LEFT JOIN news_links nl
+            ON nc.id = nl.id
+        LEFT JOIN article_sentiment se
+            ON se.id = nl.id
+        LEFT JOIN article_topic at
+            ON at.id = nl.id
+        LEFT JOIN topic t
+            ON t.topic_id = at.topic_id
+        LEFT JOIN article_entity ae
+            ON ae.id = nl.id          
+        LEFT JOIN entity e
+            ON e.entity_id = ae.entity_id
+        WHERE nl.category = %s
+            AND nc.title IS NOT NULL
+            AND nc.title != ''
+            AND nc.content IS NOT NULL
+            AND nc.content != ''
+            AND nc.published_at IS NOT NULL
+        GROUP BY
+            nc.id,
+            nc.title,
+            nc.published_at,
+            nc.source,
+            nl.url,
+            se.sentiment
+        ORDER BY nc.published_at DESC
+        LIMIT %s;
+        """
 
-        # =============================
-        # Lấy bài viết trong 24h
-        # =============================
-        cur.execute("""
-            SELECT nl.id, nc.title, nl.url, nc.published_at
-            FROM news_links nl
-            LEFT JOIN news_content nc 
-            ON nl.id = nc.id
-            WHERE nl.category = %s
-              AND nc.published_at >= %s
-            ORDER BY nc.published_at DESC
-        """, (category, last_24h))
+        cur.execute(query, (category, limit))
+        rows = cur.fetchall()
 
-        articles_24h = [dict(row) for row in cur.fetchall()]
-
-        # =============================
-        # Lấy bài viết ngoài 24h
-        # =============================
-        cur.execute("""
-            SELECT nl.id, nc.title, nl.url, nc.published_at
-            FROM news_links nl
-            LEFT JOIN news_content nc 
-            ON nl.id = nc.id
-            WHERE nl.category = %s
-              AND nc.published_at < %s
-            ORDER BY nc.published_at DESC
-            LIMIT 100
-        """, (category, last_24h))
-
-        articles_history = [dict(row) for row in cur.fetchall()]
+        results = [dict(row) for row in rows]
 
         cur.close()
         conn.close()
 
         return {
             "category": category,
-            "articles_24h": articles_24h,
-            "articles_history": articles_history
+            "count": len(results),
+            "articles": results
         }
 
     except psycopg2.Error as e:

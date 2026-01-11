@@ -1,9 +1,18 @@
-// src/App.tsx
-import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import TopicPage from "./pages/TopicPage";
+import SearchPage from "./pages/SearchPage";
+import CategoryPage from "./pages/CategoryPage";
 
-const App: React.FC = () => {
-  return <Home />;
+const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/topics/:topicId" element={<TopicPage />} />
+      <Route path="/search" element={<SearchPage />} />
+      <Route path="/category/:category" element={<CategoryPage />} />
+    </Routes>
+  );
 };
 
 export default App;
