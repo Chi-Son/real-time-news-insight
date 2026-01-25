@@ -131,7 +131,7 @@ services:
     restart: always
     environment:
       - REDIS_HOST=redis
-      - WEBSOCKET_PUSH_URL= http://websocket_service:8000/ws-push/topics
+      - WEBSOCKET_PUSH_URL=http://websocket_service:8000/ws-push/topics
       - TZ=Asia/Ho_Chi_Min
   frontend:
     image: fe-dev

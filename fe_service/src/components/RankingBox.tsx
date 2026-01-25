@@ -30,7 +30,7 @@ const RankingBox: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://0.0.0.0:8000/ws/topics");
+    const ws = new WebSocket("ws://localhost:8000/ws/topics");
 
     ws.onmessage = (event) => {
       try {
