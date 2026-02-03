@@ -30,21 +30,48 @@ const RankingBox: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8000/ws/topics");
+    let ws: WebSocket | null = null;
+    let reconnectTimeout: NodeJS.Timeout;
 
-    ws.onmessage = (event) => {
+    const connect = () => {
       try {
-        const msg: WebSocketData = JSON.parse(event.data);
-        if (msg.type === "topic_score_update") {
-          setTopics(msg.data.slice(0, 20));
-        }
+        ws = new WebSocket("ws://localhost:8000/ws/topics");
+
+        ws.onopen = () => {
+          console.log("WebSocket connected");
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const msg: WebSocketData = JSON.parse(event.data);
+            if (msg.type === "topic_score_update") {
+              setTopics(msg.data.slice(0, 20));
+            }
+          } catch (err) {
+            console.error("WebSocket parse error", err);
+          }
+        };
+
+        ws.onerror = (err) => {
+          console.error("WebSocket error", err);
+        };
+
+        ws.onclose = () => {
+          console.log("WebSocket closed, reconnecting in 5s...");
+          reconnectTimeout = setTimeout(connect, 5000);
+        };
       } catch (err) {
-        console.error("WebSocket parse error", err);
+        console.error("WebSocket connection failed", err);
+        reconnectTimeout = setTimeout(connect, 5000);
       }
     };
 
-    ws.onerror = (err) => console.error("WebSocket error", err);
-    return () => ws.close();
+    connect();
+
+    return () => {
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);
+      if (ws) ws.close();
+    };
   }, []);
 
   return (

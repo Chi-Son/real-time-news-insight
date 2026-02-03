@@ -101,10 +101,146 @@ def push_topic_scores(redis):
     except Exception as e:
         logger.warning(f"WebSocket push failed: {e}")
 
+def cleanup_old_articles(redis, topic_id: str, now_epoch: int):
+    """
+    Xóa các bài viết cũ hơn 24h khỏi Redis sorted set
+    """
+    topic_key = f"topic:window:{topic_id}"
+    cutoff_epoch = now_epoch - (WINDOW_MINUTES * 60)
+    
+    # Xóa tất cả bài viết có timestamp < cutoff
+    removed = redis.zremrangebyscore(topic_key, '-inf', cutoff_epoch)
+    
+    if removed > 0:
+        logger.info(f"[CLEANUP] Removed {removed} old articles from topic {topic_id}")
+    
+    return removed
+
+def cleanup_all_topics(redis):
+    """
+    Dọn dẹp tất cả topics, xóa bài cũ và cập nhật điểm
+    """
+    now_epoch = int(time.time())
+    cutoff_epoch = now_epoch - (WINDOW_MINUTES * 60)
+    
+    # Lấy tất cả topic keys
+    topic_keys = redis.keys("topic:window:*")
+    
+    for topic_key in topic_keys:
+        topic_key_str = topic_key.decode() if isinstance(topic_key, bytes) else topic_key
+        topic_id = topic_key_str.replace("topic:window:", "")
+        
+        # Xóa bài cũ
+        removed = redis.zremrangebyscore(topic_key_str, '-inf', cutoff_epoch)
+        
+        # Lấy các bài còn lại
+        items = redis.zrange(topic_key_str, 0, -1, withscores=True)
+        
+        if not items:
+            # Topic không còn bài nào, xóa luôn
+            redis.delete(topic_key_str)
+            redis.zrem("topic:score", str(topic_id))
+            logger.info(f"[CLEANUP] Deleted empty topic {topic_id}")
+            continue
+        
+        # Tính lại điểm
+        total_score = 0.0
+        for _, ts in items:
+            minutes_diff = (now_epoch - ts) / 60
+            if minutes_diff <= WINDOW_MINUTES:
+                total_score += decay_score(minutes_diff)
+        
+        total_score = round(total_score, 6)
+        
+        # Cập nhật score
+        redis.zadd("topic:score", {str(topic_id): total_score})
+        
+        if removed > 0:
+            logger.info(
+                f"[CLEANUP] Topic {topic_id}: removed {removed} old articles, "
+                f"remaining {len(items)}, score={total_score}"
+            )
+    
+    # Push cập nhật sau khi cleanup
+    push_topic_scores(redis)
+
+# =========================
+# STARTUP CLEANUP
+# =========================
+def startup_cleanup(redis):
+    """
+    Dọn dẹp toàn bộ dữ liệu cũ khi service khởi động
+    Giải quyết vấn đề: Redis bị tắt → TTL không chạy → data cũ tồn đọng
+    """
+    logger.info("=" * 60)
+    logger.info("🧹 STARTUP CLEANUP: Cleaning old data from Redis...")
+    logger.info("=" * 60)
+    
+    now_epoch = int(time.time())
+    cutoff_epoch = now_epoch - (WINDOW_MINUTES * 60)
+    
+    # Lấy tất cả topic keys
+    topic_keys = redis.keys("topic:window:*")
+    
+    total_removed = 0
+    total_topics = len(topic_keys)
+    empty_topics = 0
+    
+    for topic_key in topic_keys:
+        topic_key_str = topic_key.decode() if isinstance(topic_key, bytes) else topic_key
+        topic_id = topic_key_str.replace("topic:window:", "")
+        
+        # Xóa bài cũ hơn 24h
+        removed = redis.zremrangebyscore(topic_key_str, '-inf', cutoff_epoch)
+        total_removed += removed
+        
+        # Lấy các bài còn lại
+        items = redis.zrange(topic_key_str, 0, -1, withscores=True)
+        
+        if not items:
+            # Topic không còn bài nào, xóa luôn
+            redis.delete(topic_key_str)
+            redis.zrem("topic:score", str(topic_id))
+            empty_topics += 1
+            logger.info(f"  ❌ Deleted empty topic {topic_id}")
+            continue
+        
+        # Tính lại điểm cho topic còn data
+        total_score = 0.0
+        for _, ts in items:
+            minutes_diff = (now_epoch - ts) / 60
+            if minutes_diff <= WINDOW_MINUTES:
+                total_score += decay_score(minutes_diff)
+        
+        total_score = round(total_score, 6)
+        redis.zadd("topic:score", {str(topic_id): total_score})
+        
+        logger.info(
+            f"  ✓ Topic {topic_id}: removed {removed} old articles, "
+            f"kept {len(items)}, score={total_score}"
+        )
+    
+    logger.info("=" * 60)
+    logger.info(f"✅ STARTUP CLEANUP COMPLETE:")
+    logger.info(f"   - Total topics processed: {total_topics}")
+    logger.info(f"   - Empty topics deleted: {empty_topics}")
+    logger.info(f"   - Old articles removed: {total_removed}")
+    logger.info("=" * 60)
+    
+    # Push dữ liệu sạch lên WebSocket
+    push_topic_scores(redis)
+
 # =========================
 # MAIN LOOP
 # =========================
 logger.info("🚀 Topic Scoring 24h Service started")
+
+# Chạy cleanup khi khởi động
+startup_cleanup(redis)
+
+# Biến đếm để chạy cleanup định kỳ
+message_count = 0
+CLEANUP_INTERVAL = 100  # Cleanup sau mỗi 100 messages
 
 while True:
     msg = consumer.poll(1.0)
@@ -116,6 +252,15 @@ while True:
         continue
 
     try:
+        message_count += 1
+        
+        # Chạy cleanup định kỳ
+        if message_count % CLEANUP_INTERVAL == 0:
+            logger.info(f"[PERIODIC CLEANUP] Running cleanup after {message_count} messages")
+            cleanup_all_topics(redis)
+            message_count = 0  # Reset counter
+            continue
+        
         data = json.loads(msg.value().decode("utf-8"))
 
         article_id = data.get("id")
@@ -146,17 +291,14 @@ while True:
             redis.zadd(topic_key, {str(article_id): pub_epoch})
             redis.expire(topic_key, REDIS_TTL_SECONDS)
 
-            # Lấy toàn bộ bài của topic
+            # XÓA CÁC BÀI CŨ TRƯỚC KHI TÍNH ĐIỂM
+            cleanup_old_articles(redis, str(topic_id), now_epoch)
+
+            # Lấy toàn bộ bài của topic (sau khi đã cleanup)
             items = redis.zrange(topic_key, 0, -1, withscores=True)
 
-            valid_timestamps = []
-            for _, ts in items:
-                minutes_diff = (now_epoch - ts) / 60
-                if minutes_diff <= WINDOW_MINUTES:
-                    valid_timestamps.append(ts)
-
             # Nếu topic đã chết hoàn toàn
-            if not valid_timestamps:
+            if not items:
                 redis.delete(topic_key)
                 redis.zrem("topic:score", str(topic_id))
                 continue
@@ -165,9 +307,10 @@ while True:
             # TÍNH ĐIỂM DECAY
             # =========================
             total_score = 0.0
-            for ts in valid_timestamps:
+            for _, ts in items:
                 minutes_diff = (now_epoch - ts) / 60
-                total_score += decay_score(minutes_diff)
+                if minutes_diff <= WINDOW_MINUTES:
+                    total_score += decay_score(minutes_diff)
 
             total_score = round(total_score, 6)
 
@@ -179,7 +322,7 @@ while True:
 
             logger.info(
                 f"[Topic {topic_id}] "
-                f"articles={len(valid_timestamps)} "
+                f"articles={len(items)} "
                 f"score={total_score}"
             )
         push_topic_scores(redis)

@@ -99,6 +99,7 @@ services:
       context: ./webservices/websocket_service
     volumes:
       - ./webservices/websocket_service/app.py:/app/app.py
+      - ./webservices/websocket_service/requirements.txt:/app/requirements.txt
     ports:
       - "8000:8000"
     command: >
