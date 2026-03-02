@@ -129,10 +129,12 @@ services:
       - kafka
       - redis
       - websocket_service
+      - rest_service
     restart: always
     environment:
       - REDIS_HOST=redis
       - WEBSOCKET_PUSH_URL=http://websocket_service:8000/ws-push/topics
+      - WEBSOCKET_CRISIS_URL=http://websocket_service:8000/ws-push/crisis
       - TZ=Asia/Ho_Chi_Min
   frontend:
     image: fe-dev

@@ -46,12 +46,14 @@ class ConnectionManager:
             self.disconnect(conn)
 
 manager = ConnectionManager()
+crisis_manager = ConnectionManager()
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "ok",
-        "active_connections": len(manager.active_connections)
+        "active_connections": len(manager.active_connections),
+        "crisis_connections": len(crisis_manager.active_connections)
     }
 
 @app.websocket("/ws/topics")
@@ -72,4 +74,24 @@ async def websocket_endpoint(websocket: WebSocket):
 async def push_topics(payload: dict = Body(...)):
     logger.info(f"Received push request with {len(payload.get('data', []))} topics")
     await manager.broadcast(payload)
+    return {"status": "ok"}
+
+@app.websocket("/ws/crisis")
+async def crisis_websocket_endpoint(websocket: WebSocket):
+    logger.info("Crisis WebSocket connection attempt")
+    await crisis_manager.connect(websocket)
+    try:
+        while True:
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        logger.info("Crisis WebSocket disconnected")
+        crisis_manager.disconnect(websocket)
+    except Exception as e:
+        logger.error(f"Crisis WebSocket error: {e}")
+        crisis_manager.disconnect(websocket)
+
+@app.post("/ws-push/crisis")
+async def push_crisis_alerts(payload: dict = Body(...)):
+    logger.info(f"Received crisis alert push with {len(payload.get('data', []))} alerts")
+    await crisis_manager.broadcast(payload)
     return {"status": "ok"}

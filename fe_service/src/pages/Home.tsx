@@ -3,6 +3,7 @@ import { theme } from "../styles/theme";
 import Header from "../components/Header";
 import NewsCard from "../components/NewsCard";
 import RankingBox from "../components/RankingBox";
+import CrisisAlertBox from "../components/CrisisAlertBox";
 import Footer from "../components/Footer";
 
 type Topic = {
@@ -281,6 +282,7 @@ const Home: React.FC = () => {
 
           {/* Sidebar - Right */}
           <div style={{ position: "sticky", top: "20px" }}>
+            <CrisisAlertBox />
             <RankingBox />
           </div>
         </div>

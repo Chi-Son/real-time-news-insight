@@ -22,6 +22,11 @@ WEBSOCKET_PUSH_URL = os.getenv(
     "WEBSOCKET_PUSH_URL",
     "http://websocket_service:8000/ws-push/topics"
 )
+
+WEBSOCKET_CRISIS_URL = os.getenv(
+    "WEBSOCKET_CRISIS_URL",
+    "http://websocket_service:8000/ws-push/crisis"
+)
 # =========================
 # KAFKA CONFIG
 # =========================
@@ -100,6 +105,78 @@ def push_topic_scores(redis):
         requests.post(WEBSOCKET_PUSH_URL, json=payload, timeout=0.5)
     except Exception as e:
         logger.warning(f"WebSocket push failed: {e}")
+
+def check_and_push_crisis_alerts():
+    """
+    Kiểm tra các topic có crisis_score cao và push alert qua WebSocket
+    """
+    try:
+        # Lấy top 20 topics có score cao nhất
+        raw = redis.zrevrange("topic:score", 0, 19, withscores=True)
+        
+        crisis_alerts = []
+        
+        for topic_id, score in raw:
+            tid = topic_id.decode() if isinstance(topic_id, bytes) else str(topic_id)
+            
+            # Gọi REST API để lấy crisis_score
+            try:
+                response = requests.get(
+                    f"http://rest_service:8000/api/topics/{tid}",
+                    timeout=2.0
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    sentiment_today = data.get("sentiment_today", {})
+                    crisis_score = sentiment_today.get("crisis_score", 0)
+                    
+                    # Chỉ alert nếu crisis_score >= 1.8 (cảnh báo nghiêm trọng)
+                    if crisis_score >= 1.8:
+                        topic_info = data.get("topic", {})
+                        distribution = sentiment_today.get("distribution", {})
+                        
+                        # Xác định mức độ khủng hoảng
+                        if crisis_score >= 2.5:
+                            level = "severe"
+                            level_text = "Nghiêm trọng"
+                        elif crisis_score >= 1.8:
+                            level = "high"
+                            level_text = "Cảnh báo cao"
+                        else:
+                            level = "warning"
+                            level_text = "Cảnh báo"
+                        
+                        crisis_alerts.append({
+                            "topic_id": tid,
+                            "topic_name": topic_info.get("name", f"Topic {tid}"),
+                            "crisis_score": round(crisis_score, 2),
+                            "level": level,
+                            "level_text": level_text,
+                            "negative_percentage": distribution.get("negative", {}).get("percentage", 0),
+                            "total_articles": sentiment_today.get("total_articles", 0),
+                            "z_score": data.get("trend_analysis", {}).get("z_score", 0)
+                        })
+            except Exception as e:
+                logger.warning(f"Failed to fetch crisis data for topic {tid}: {e}")
+                continue
+        
+        # Nếu có crisis alerts, push qua WebSocket
+        if crisis_alerts:
+            # Sắp xếp theo crisis_score giảm dần
+            crisis_alerts.sort(key=lambda x: x["crisis_score"], reverse=True)
+            
+            payload = {
+                "type": "crisis_alert",
+                "data": crisis_alerts,
+                "updated_at": int(time.time())
+            }
+            
+            requests.post(WEBSOCKET_CRISIS_URL, json=payload, timeout=0.5)
+            logger.info(f"[CRISIS ALERT] Pushed {len(crisis_alerts)} crisis alerts")
+        
+    except Exception as e:
+        logger.warning(f"Crisis alert check failed: {e}")
 
 def cleanup_old_articles(redis, topic_id: str, now_epoch: int):
     """
@@ -241,6 +318,7 @@ startup_cleanup(redis)
 # Biến đếm để chạy cleanup định kỳ
 message_count = 0
 CLEANUP_INTERVAL = 100  # Cleanup sau mỗi 100 messages
+CRISIS_CHECK_INTERVAL = 50  # Check crisis sau mỗi 50 messages
 
 while True:
     msg = consumer.poll(1.0)
@@ -260,6 +338,11 @@ while True:
             cleanup_all_topics(redis)
             message_count = 0  # Reset counter
             continue
+        
+        # Kiểm tra crisis alerts định kỳ
+        if message_count % CRISIS_CHECK_INTERVAL == 0:
+            logger.info(f"[CRISIS CHECK] Checking crisis alerts after {message_count} messages")
+            check_and_push_crisis_alerts()
         
         data = json.loads(msg.value().decode("utf-8"))
 
