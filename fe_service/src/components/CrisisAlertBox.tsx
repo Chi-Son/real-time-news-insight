@@ -16,9 +16,30 @@ type CrisisAlert = {
 const CrisisAlertBox: React.FC = () => {
     const [alerts, setAlerts] = useState<CrisisAlert[]>([]);
     const [isConnected, setIsConnected] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
+        // 1. Fetch existing crisis alerts from API first
+        const fetchExistingAlerts = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/api/crisis/alerts?limit=20");
+                const data = await response.json();
+
+                if (data.status === "ok" && data.data) {
+                    setAlerts(data.data);
+                    console.log(`Loaded ${data.data.length} existing crisis alerts from API`);
+                }
+            } catch (err) {
+                console.error("Failed to fetch existing crisis alerts:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchExistingAlerts();
+
+        // 2. Then connect WebSocket for real-time updates
         const ws = new WebSocket("ws://localhost:8000/ws/crisis");
 
         ws.onopen = () => {
@@ -31,6 +52,7 @@ const CrisisAlertBox: React.FC = () => {
                 const message = JSON.parse(event.data);
                 if (message.type === "crisis_alert") {
                     setAlerts(message.data || []);
+                    console.log(`Received ${message.data?.length || 0} crisis alerts via WebSocket`);
                 }
             } catch (err) {
                 console.error("Failed to parse crisis message", err);
@@ -74,6 +96,27 @@ const CrisisAlertBox: React.FC = () => {
         }
     };
 
+    // Show loading state
+    if (isLoading) {
+        return (
+            <div
+                style={{
+                    background: "white",
+                    borderRadius: "16px",
+                    padding: "24px",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                    border: `3px solid ${theme.colors.text}`,
+                    marginBottom: "24px",
+                    textAlign: "center",
+                    opacity: 0.6,
+                }}
+            >
+                <span style={{ fontSize: "14px" }}>Đang tải cảnh báo...</span>
+            </div>
+        );
+    }
+
+    // Hide if no alerts
     if (alerts.length === 0) {
         return null;
     }

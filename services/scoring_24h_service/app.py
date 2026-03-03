@@ -109,6 +109,7 @@ def push_topic_scores(redis):
 def check_and_push_crisis_alerts():
     """
     Kiểm tra các topic có crisis_score cao và push alert qua WebSocket
+    Chỉ push alert mới (chưa có trong Redis hoặc đã hết hạn)
     """
     try:
         # Lấy top 20 topics có score cao nhất
@@ -118,6 +119,10 @@ def check_and_push_crisis_alerts():
         
         for topic_id, score in raw:
             tid = topic_id.decode() if isinstance(topic_id, bytes) else str(topic_id)
+            
+            # Kiểm tra xem topic này đã có alert trong Redis chưa
+            redis_key = f"crisis:alert:{tid}"
+            existing_alert = redis.get(redis_key)
             
             # Gọi REST API để lấy crisis_score
             try:
@@ -133,6 +138,16 @@ def check_and_push_crisis_alerts():
                     
                     # Chỉ alert nếu crisis_score >= 1.8 (cảnh báo nghiêm trọng)
                     if crisis_score >= 1.8:
+                        # Nếu đã có alert và crisis_score không tăng đáng kể, bỏ qua
+                        if existing_alert:
+                            old_alert = json.loads(existing_alert)
+                            old_crisis_score = old_alert.get('crisis_score', 0)
+                            
+                            # Chỉ push lại nếu crisis_score tăng >= 0.5 điểm
+                            if crisis_score < old_crisis_score + 0.5:
+                                logger.info(f"[CRISIS] Topic {tid} already alerted, score not increased significantly")
+                                continue
+                        
                         topic_info = data.get("topic", {})
                         distribution = sentiment_today.get("distribution", {})
                         

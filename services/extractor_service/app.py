@@ -79,13 +79,21 @@ def parse_date_by_source(date_str: str, source: str):
             dt = parser.isoparse(cleaned)
             return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
-        # 2️⃣ ISO không tz
+        # 2️⃣ ISO không tz (format: YYYY-MM-DD HH:MM hoặc YYYY-MM-DD HH:MM:SS)
         if re.match(r"\d{4}-\d{2}-\d{2}", cleaned):
             dt = parser.parse(cleaned)
             dt = dt.replace(tzinfo=VN_TZ)
             return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
 
-        # 3️⃣ VN format dd/mm/yyyy
+        # 3️⃣ VN format dd/mm/yyyy HH:MM
+        # Ví dụ: "28/02/2026 - 06:10" hoặc "28/02/2026, 06:10"
+        if re.match(r"\d{2}/\d{2}/\d{4}", cleaned):
+            dt = parser.parse(cleaned, dayfirst=True)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=VN_TZ)
+            return dt.astimezone(timezone.utc).isoformat(timespec="seconds")
+
+        # 4️⃣ Fallback: parse tự động
         dt = parser.parse(cleaned, dayfirst=True)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=VN_TZ)
@@ -125,12 +133,37 @@ def detect_source(url):
 def extract_article(url, source_name, driver=None):
     try:
         # 🟩 Nhóm cần Selenium (JS-rendered)
-        if source_name in ["Tuổi trẻ", "VTV", "Thanh niên", "Người lao động"] and driver:
+        if source_name in ["Tuổi trẻ", "VTV", "Thanh niên", "Người lao động", "Dân trí"] and driver:
             driver.get(url)
             driver.implicitly_wait(3)
 
-            # Nội dung
-            content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
+            # Nội dung - Dân Trí có selector riêng
+            content = None
+            if source_name == "Dân trí":
+                # Thử các selector của Dân Trí
+                content_selectors = [
+                    "div.singular-content",
+                    "div.e-magazine__body", 
+                    "div.dnews__body",
+                    "article.singular-content"
+                ]
+                for selector in content_selectors:
+                    try:
+                        elem = driver.find_element(By.CSS_SELECTOR, selector)
+                        # Lấy text từ các thẻ p
+                        paragraphs = elem.find_elements(By.TAG_NAME, "p")
+                        content = " ".join([p.text.strip() for p in paragraphs if len(p.text.strip()) > 30])
+                        if content:
+                            break
+                    except:
+                        continue
+            else:
+                # Các báo khác dùng selector chung
+                try:
+                    content = driver.find_element(By.CSS_SELECTOR, "div.detail-content.afcbc-body").text
+                except:
+                    pass
+            
             if not content or len(content.split()) < 70:
                 logger.info(f"Bỏ bài {url} vì nội dung quá ít")
                 return None
@@ -160,12 +193,14 @@ def extract_article(url, source_name, driver=None):
             except:
                 pass
 
-            # 2️⃣ span/div.date
+            # 2️⃣ span/div.date hoặc time.dt-flex (Dân Trí)
             if not published_at:
                 try:
-                    date_elem = driver.find_elements(By.CSS_SELECTOR, "span.date, div.date")
+                    date_elem = driver.find_elements(By.CSS_SELECTOR, "span.date, div.date, time.dt-flex")
                     if date_elem:
-                        published_at = parse_date_by_source(date_elem[0].text.strip(),source_name)
+                        datetime_attr = date_elem[0].get_attribute("datetime")
+                        text_attr = date_elem[0].text.strip()
+                        published_at = parse_date_by_source(datetime_attr or text_attr, source_name)
                 except:
                     pass
 
@@ -292,11 +327,16 @@ def extract_article(url, source_name, driver=None):
                     soup.select_one("div.article_meta time.time")
                     or soup.find("time", class_="author-time")
                     or soup.find("time", class_="e-magazine_meta-item")
+                    or soup.find("time", class_="dt-flex")  # Dân Trí mới
                     or soup.find("time")
                 )
                 if time_tag:
+                    # Ưu tiên lấy datetime attribute
+                    datetime_attr = time_tag.get("datetime")
+                    text_content = time_tag.text.strip()
+                    
                     published_at = parse_date_by_source(
-                        time_tag.get("datetime") or time_tag.text.strip(),
+                        datetime_attr or text_content,
                         source_name
                     )
 
@@ -346,14 +386,32 @@ try:
             logger.error(f"Consumer error: {message.error()}")
             continue
 
+        # Bắt đầu đếm thời gian xử lý
+        start_time = time.time()
+        TIMEOUT_SECONDS = 240  # 4 phút (để có buffer trước 5 phút)
+
         try:
             msg = json.loads(message.value().decode("utf-8"))
             news_id, url, category = msg.get("id"), msg.get("url"), msg.get("category")
 
-            if not news_id or not url: continue
+            if not news_id or not url: 
+                consumer.commit(message)
+                continue
+
+            # Kiểm tra timeout trước khi xử lý
+            if time.time() - start_time > TIMEOUT_SECONDS:
+                logger.warning(f"⏱️ Timeout trước khi xử lý ID={news_id}, bỏ qua")
+                consumer.commit(message)
+                continue
 
             source = detect_source(url)
             article = extract_article(url, source_name=source, driver=driver)
+
+            # Kiểm tra timeout sau extract
+            if time.time() - start_time > TIMEOUT_SECONDS:
+                logger.warning(f"⏱️ Timeout sau extract ID={news_id}, bỏ qua và commit")
+                consumer.commit(message)
+                continue
 
             # Chuẩn hóa múi giờ về +07
             article = normalize_to_vn_timezone(article)
@@ -390,14 +448,18 @@ try:
                 )
                 producer.flush()
                 
-                logger.info(f"✔ Thành công ID={news_id} | Date={article['published_at']}")
+                elapsed = time.time() - start_time
+                logger.info(f"✔ Thành công ID={news_id} | Date={article['published_at']} | Time={elapsed:.1f}s")
                 consumer.commit(asynchronous=False)
             finally:
                 cur.close()
                 conn.close()
 
         except Exception as e:
-            logger.error(f"Lỗi xử lý message: {e}")
+            elapsed = time.time() - start_time
+            logger.error(f"Lỗi xử lý message (time={elapsed:.1f}s): {e}")
+            # Commit để không bị stuck
+            consumer.commit(message)
 
 finally:
     consumer.close()

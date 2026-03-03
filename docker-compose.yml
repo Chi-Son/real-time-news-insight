@@ -17,11 +17,24 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     volumes:
       - kafka-data:/var/lib/kafka/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   redis:
     image: redis:7
     container_name: redis
     ports:
       - "6379:6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   crawler_service:
     build:
@@ -100,6 +113,7 @@ services:
     volumes:
       - ./webservices/websocket_service/app.py:/app/app.py
       - ./webservices/websocket_service/requirements.txt:/app/requirements.txt
+      - ./shared:/app/shared
     ports:
       - "8000:8000"
     command: >
@@ -146,6 +160,7 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+    restart: always
 volumes:
   kafka-data:
     name: kafka-data
