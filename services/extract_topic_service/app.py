@@ -15,15 +15,10 @@ import time
 import copy
 
 
-# =========================
-# LOGGING
-# =========================
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("topic_ranking")
 
-# =========================
-# KAFKA CONFIG
-# =========================
 INPUT_TOPIC = "extractor_news"
 GROUP_ID = "topic_ranking_group"
 OUTPUT_TOPIC = "extractor_topic"
@@ -34,9 +29,7 @@ BATCH_TIMEOUT = 20
 batch_messages = []
 last_flush_time = time.time()
 
-# =========================
-# COUNTRY STOPWORDS
-# =========================
+
 COUNTRY_STOPWORDS = [
     "pháp lý", "tư pháp", "luật pháp","pháp luật",
     "đức tính", "đức hạnh",
@@ -52,17 +45,12 @@ def is_valid_proper_noun(entity_text: str, full_text: str) -> bool:
     """
 
     words = entity_text.split()
-
-    # 1. Reject nếu toàn bộ là lowercase
     if entity_text.islower():
         return False
-
-    # 2. Với multi-word: mỗi từ phải Capitalized
     for w in words:
         if not re.match(r"^[A-ZĐ][a-zA-ZÀ-Ỵà-ỵ]+$", w):
             return False
 
-    # 3. Không cho đứng sau các từ chỉ loại chung
     COMMON_PREFIX = [
         "ngành", "sản phẩm", "lĩnh vực", "mảng", "loại",
         "các", "những"
@@ -98,7 +86,6 @@ def filter_country_false_matches(entities, text):
     text_lower = text.lower()
 
     for ent in entities:
-        # Giữ nguyên object 'ent' để không mất entity_id
         label = ent["label"]
         ent_text = ent["text"]
 
@@ -112,7 +99,6 @@ def filter_country_false_matches(entities, text):
             if is_person_name_around(ent_text, text):
                 continue
 
-        # Append nguyên object ban đầu vào
         filtered.append(ent) 
 
     return filtered
@@ -134,7 +120,7 @@ keyword_processor.non_word_boundaries = viet_chars
 # =========================
 # LOAD NER DATA + ENTITY ID
 # =========================
-ENTITY_ID_MAP = {}  # (text, type) -> entity_id
+ENTITY_ID_MAP = {}  
 
 def load_ner_data_from_db():
     conn = psycopg2.connect(**DB_CONFIG)
@@ -193,9 +179,7 @@ def extract_entities_and_clean(text: str):
     unique = {}
 
     for m in matches:
-        raw_ent = m[0]  # dict gốc từ FlashText (KHÔNG được dùng trực tiếp)
-
-        # --- CLONE SẠCH ---
+        raw_ent = m[0]  
         ent = {
             "label": raw_ent.get("label"),
             "text": raw_ent.get("text"),
@@ -221,9 +205,7 @@ def extract_entities_and_clean(text: str):
 
 
 
-# =========================
-# LOAD TOPIC EMBEDDINGS
-# =========================
+
 def load_topic_embeddings():
     conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor(cursor_factory=DictCursor)

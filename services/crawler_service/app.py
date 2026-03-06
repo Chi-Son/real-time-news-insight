@@ -45,9 +45,8 @@ def crawl_rss():
         for url in urls:
             logger.info(f"Crawling: {url}")
             feed = feedparser.parse(url)
-            for entry in feed.entries:  # Cào full, không [:3]
-                # Không cần gọi url_to_hash ở đây
-                if is_duplicate(r, REDIS_KEY, entry.link):  # Truyền URL gốc
+            for entry in feed.entries: 
+                if is_duplicate(r, REDIS_KEY, entry.link): 
                     logger.info(f"⛔️ Trùng: {entry.title}")
                     continue
 

@@ -9,17 +9,13 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipe
 import torch
 import os
 import re
-# =========================
-# LOGGING
-# =========================
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("sentiment_extractor")
 
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG)
-# =========================
-# KAFKA CONFIG
-# =========================
+
 INPUT_TOPIC = "extractor_topic"
 OUTPUT_TOPIC = "extractor_sentiment"  
 GROUP_ID = "extractor_sentiment_group"
@@ -27,9 +23,7 @@ GROUP_ID = "extractor_sentiment_group"
 consumer = get_kafka_consumer(topic=INPUT_TOPIC, group_id=GROUP_ID)
 producer = get_kafka_producer()
 
-# =========================
-# LOAD SENTIMENT MODEL
-# =========================
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "ModelSentiment")
@@ -93,17 +87,13 @@ def save_to_db(batch_messages):
 
         logger.info(f"Đang insert: {len(sentiment_data)} sentiment, {len(topic_rels)} topics, {len(entity_rels)} entities")
 
-        # 1. Sentiment
         execute_values(cur, """
             INSERT INTO article_sentiment (id, sentiment) 
             VALUES %s ON CONFLICT (id) DO UPDATE SET sentiment = EXCLUDED.sentiment
         """, sentiment_data)
 
-        # 2. Topic
         if topic_rels:
             execute_values(cur, "INSERT INTO public.article_topic (id, topic_id) VALUES %s ON CONFLICT DO NOTHING", topic_rels)
-
-        # 3. Entity
         if entity_rels:
             execute_values(
                 cur,
@@ -121,9 +111,7 @@ def save_to_db(batch_messages):
     finally:
         cur.close()
         conn.close()
-# =========================
-# MAIN LOOP
-# =========================
+
 while True:
     msg = consumer.poll(1.0)
     current_time = time.time()
@@ -162,7 +150,6 @@ while True:
         text_for_sentiment = f"{title}. {content}"[:1024]
         sentences = re.split(r"(?<=[.!?])\s+", content)
         first_3_sentences = " ".join(sentences[:3])
-        # dự đoán sentiment
         sentiment_result = sentiment_pipeline(text_for_sentiment)[0]  
 
         logger.info(f"--- Processing News ID: {news_id} ---")

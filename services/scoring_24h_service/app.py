@@ -136,16 +136,15 @@ def check_and_push_crisis_alerts():
                     sentiment_today = data.get("sentiment_today", {})
                     crisis_score = sentiment_today.get("crisis_score", 0)
                     
-                    # Chỉ alert nếu crisis_score >= 1.8 (cảnh báo nghiêm trọng)
+                    # Chỉ alert nếu crisis_score >= 1.8 (cảnh báo cao)
                     if crisis_score >= 1.8:
-                        # Nếu đã có alert và crisis_score không tăng đáng kể, bỏ qua
+                        # Nếu đã có alert, kiểm tra xem có cần push lại không
                         if existing_alert:
                             old_alert = json.loads(existing_alert)
                             old_crisis_score = old_alert.get('crisis_score', 0)
                             
-                            # Chỉ push lại nếu crisis_score tăng >= 0.5 điểm
-                            if crisis_score < old_crisis_score + 0.5:
-                                logger.info(f"[CRISIS] Topic {tid} already alerted, score not increased significantly")
+                            # Chỉ push lại nếu crisis_score tăng >= 0.3 điểm
+                            if crisis_score < old_crisis_score + 0.3:
                                 continue
                         
                         topic_info = data.get("topic", {})
